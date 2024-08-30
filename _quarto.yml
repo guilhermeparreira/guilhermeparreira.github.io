@@ -1,0 +1,38 @@
+project:
+  type: website
+
+execute:
+  freeze: auto
+
+website:
+  title: "personal-site"
+  page-navigation: true
+  back-to-top-navigation: true
+  reader-mode: true
+  search: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - posts.qmd # add your listing page file to your navbar, just like you would any other new web page
+    tools:
+      - icon: github
+        href: https://github.com/guilhermeparreira
+      - icon: linkedin
+        href: https://www.linkedin.com/in/guilherme-parreira/
+      - icon: stackoverflow
+        href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
+  site-url: https://guilhermeparreira.github.io/personal-site/
+      
+format:
+  html:
+    theme:
+      dark: slate
+      light: yeti
+    css: styles.css
+    toc: true
+
+# blog
+
+
