@@ -1,0 +1,13 @@
+# options specified here will apply to all posts in this folder
+
+# re-render posts only when a change to the source file is made ----
+freeze: auto
+
+# enable banner style title blocks ----
+title-block-banner: true
+
+# Author goes to all blog posts: 
+author:
+  - name: "Guilherme Parreira"
+    url: https://guilhermeparreira.github.io/
+    orcid: 0000-0001-6040-6465
