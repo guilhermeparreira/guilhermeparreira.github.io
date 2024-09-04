@@ -18,14 +18,7 @@
     "href": "posts.html",
     "title": "My Blog",
     "section": "",
-    "text": "My first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "My first post",
-    "section": "",
-    "text": "Hello guys!\nI will use the blog for two things:\n\nShare content to my work colleagues;\nEasy to find resource of my notes that are lost on my computer\n\nI hope you all like\n\n\n\n Back to top"
+    "text": "Ruff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "posts/ruff/index.html",
@@ -47,6 +40,13 @@
     "title": "Ruff in a Nutshell + Configuring it on VsCode",
     "section": "Bonus (Caveat)",
     "text": "Bonus (Caveat)\nI struggled to start using a tool like this because I used to write code in a single long line. I always received the E501: line-too-long warning from black. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like ruff my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the line-length a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.\nLeaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the git diff changes.\nAnyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:\n[tool.ruff]\nline-length = 130\n\nlint.ignore = [\n    \"E501\", # Ignore long lines\n    \"E302\", # Ignore blank lines issue\n    \"E701\", # Ignore single-line if statements\n]\nextend-include = [\"*.ipynb\"]\n\n[tool.ruff.format]\nquote-style = \"double\"\ndocstring-code-format = true\n\n[tool.ruff.lint.pydocstyle] # It enforces that all functions have docstrings\nconvention = \"google\"\nor skipping this rule by adding # fmt: skip at the end of a line. Or use #fmt: on at the beginning of a block and #fmt: off at the end.\nHappy coding."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "My first post",
+    "section": "",
+    "text": "Hello guys!\nI will use the blog for two things:\n\nShare content to my work colleagues;\nEasy to find resource of my notes that are lost on my computer\n\nI hope you all like\n\n\n\n Back to top"
   },
   {
     "objectID": "index.html",
