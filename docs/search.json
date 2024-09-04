@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This is the contents of the about page for my blog."
+  },
+  {
+    "objectID": "about.html#about-this-blog",
+    "href": "about.html#about-this-blog",
+    "title": "About",
+    "section": "",
+    "text": "This is the contents of the about page for my blog."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "My Blog",
+    "section": "",
+    "text": "My first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "My first post",
+    "section": "",
+    "text": "Hello guys!\nI will use the blog for two things:\n\nShare content to my work colleagues;\nEasy to find resource of my notes that are lost on my computer\n\nI hope you all like\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "posts/ruff/index.html",
+    "href": "posts/ruff/index.html",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "",
+    "text": "Hello guys!\nToday I want to talk about RUFF, my default formatter (and much more) for Python language.\nIn a nutshell, RUFF can be seen as a tool that performs all these tasks:\nRUFF = Flake8 + isort + black + pydocstyle + pyupgrade + autoflake\nFlake8 = Linter, which fix style + syntax errors\nisort = Sort the imports\nblack = formatter ; PEP8 complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis\npydocstyle = docstrings\npyupgrade = upgrade syntax for newer versions of python packages\nautoflake = Remove unused imports and unused variables\nSo, instead of having to set up each one individually, use RUFF and have all these tools into a single one. RUFF was written in rust, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools."
+  },
+  {
+    "objectID": "posts/ruff/index.html#setting-it-up-on-vscode",
+    "href": "posts/ruff/index.html#setting-it-up-on-vscode",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "Setting it up on VsCode",
+    "text": "Setting it up on VsCode\nTo give suggestions on the fly, I use the Ruff VsCode Extension.\nBesides that, I have my settings.json with my personal preferences:\n// Use Ruff as the default formatter for Python files\n\"[python]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\",\n\"editor.codeActionsOnSave\": {\n    \"source.fixAll\": \"explicit\",\n    \"source.organizeImports\": \"explicit\"\n}\n},\n// Formatter for notebook cells\n\"[jupyter]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\"\n},\n// Enable format on save for notebooks\n\"notebook.formatOnSave.enabled\": true,\n// Disable other formatters to avoid conflicts\n\"editor.formatOnSave\": true,\nBut these are only global settings in my personal environment.\nWorking with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a .vscode/settings.json inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to .vscode/settings.json.\nI also make Ruff as a default extension in .vscode/settings.json:\n{\n    \"recommendations\": [\n        \"charliermarsh.ruff\"\n    ]\n}\nLast but not least, you can also install ruff and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the .vscode/settings.json guarantees that the suggestions will be made on the fly. But it depends on VsCode."
+  },
+  {
+    "objectID": "posts/ruff/index.html#bonus-caveat",
+    "href": "posts/ruff/index.html#bonus-caveat",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "Bonus (Caveat)",
+    "text": "Bonus (Caveat)\nI struggled to start using a tool like this because I used to write code in a single long line. I always received the E501: line-too-long warning from black. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like ruff my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the line-length a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.\nLeaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the git diff changes.\nAnyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:\n[tool.ruff]\nline-length = 130\n\nlint.ignore = [\n    \"E501\", # Ignore long lines\n    \"E302\", # Ignore blank lines issue\n    \"E701\", # Ignore single-line if statements\n]\nextend-include = [\"*.ipynb\"]\n\n[tool.ruff.format]\nquote-style = \"double\"\ndocstring-code-format = true\n\n[tool.ruff.lint.pydocstyle] # It enforces that all functions have docstrings\nconvention = \"google\"\nor skipping this rule by adding # fmt: skip at the end of a line. Or use #fmt: on at the beginning of a block and #fmt: off at the end.\nHappy coding."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hello Quarto CI",
+    "section": "",
+    "text": "Setting up CI for quarto website build & publish.\n\n\n\n Back to top"
+  }
+]
