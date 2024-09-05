@@ -3,7 +3,7 @@ title: "My first post"
 description: "It says the purpose of my blog"
 date: 09-01-2024
 categories: [Welcome] # self-defined categories
-# image: preview-image.png
+image: welcome.png
 draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
 ---
 
