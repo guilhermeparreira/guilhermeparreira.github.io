@@ -3,7 +3,7 @@ title: "Ruff in a Nutshell + Configuring it on VsCode"
 description: "It explains Ruff and how to set up in VsCode"
 date: 09-01-2024
 categories: [Ruff, Python, VsCode] # self-defined categories
-# image: preview-image.png
+image: ruff.png
 draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
 ---
 

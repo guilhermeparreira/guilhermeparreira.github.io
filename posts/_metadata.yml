@@ -9,5 +9,15 @@ title-block-banner: true
 # Author goes to all blog posts: 
 author:
   - name: "Guilherme Parreira"
-    url: https://guilhermeparreira.github.io/
+    url: "https://guilhermeparreira.github.io/"
     orcid: 0000-0001-6040-6465
+
+comments:
+  giscus:
+    repo: guilhermeparreira/guilhermeparreira.github.io
+    repo-id: "R_kgDOMqTkUA"
+    mapping: "number"
+    reactions-enabled: true
+    input-position: "top"
+    theme: "dark_high_contrast"
+    loading: "lazy"

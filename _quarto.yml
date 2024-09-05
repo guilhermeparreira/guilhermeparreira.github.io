@@ -6,7 +6,7 @@ execute:
   freeze: auto
 
 website:
-  title: "guilhermeparreira.github.io"
+  title: "Guilherme Parreira"
   page-navigation: true
   back-to-top-navigation: true
   reader-mode: true
@@ -17,6 +17,9 @@ website:
         text: Home
       - about.qmd
       - posts.qmd # add your listing page file to your navbar, just like you would any other new web page
+    right:
+      - icon: rss
+        href: index.xml
     tools:
       - icon: github
         href: https://github.com/guilhermeparreira
@@ -25,6 +28,7 @@ website:
       - icon: stackoverflow
         href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
   site-url: https://guilhermeparreira.github.io/
+  description: A data science blog
       
 format:
   html:

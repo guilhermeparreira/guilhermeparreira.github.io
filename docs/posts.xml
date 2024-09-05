@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Guilherme Parreira</title>
+<link>https://guilhermeparreira.github.io/posts.html</link>
+<atom:link href="https://guilhermeparreira.github.io/posts.xml" rel="self" type="application/rss+xml"/>
+<description>A data science blog</description>
+<generator>quarto-1.5.56</generator>
+<lastBuildDate>Sun, 01 Sep 2024 03:00:00 GMT</lastBuildDate>
+<item>
+  <title>My first post</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Hello guys!</p>
+<p>I will use the blog for two things:</p>
+<ul>
+<li><p>Share content to my work colleagues;</p></li>
+<li><p>Easy to find resource of my notes that are lost on my computer</p></li>
+</ul>
+<p>I hope you all like</p>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Welcome</category>
+  <guid>https://guilhermeparreira.github.io/posts/welcome/</guid>
+  <pubDate>Sun, 01 Sep 2024 03:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Ruff in a Nutshell + Configuring it on VsCode</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/ruff/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Hello guys!</p>
+<p>Today I want to talk about <a href="https://github.com/astral-sh/ruff">RUFF</a>, my default formatter (and much more) for Python language.</p>
+<p>In a nutshell, RUFF can be seen as a tool that performs all these tasks:</p>
+<p>RUFF = <code>Flake8</code> + <code>isort</code> + <code>black</code> + <code>pydocstyle</code> + <code>pyupgrade</code> + <code>autoflake</code></p>
+<p><code>Flake8</code> = <code>Linter</code>, which fix style + syntax errors</p>
+<p><code>isort</code> = <em>Sort</em> the imports</p>
+<p><code>black</code> = <code>formatter</code> ; <code>PEP8</code> complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis</p>
+<p><code>pydocstyle</code> = docstrings</p>
+<p><code>pyupgrade</code> = upgrade syntax for newer versions of <code>python</code> packages</p>
+<p><code>autoflake</code> = Remove unused imports and unused variables</p>
+<p>So, instead of having to set up each one individually, use <code>RUFF</code> and have all these tools into a single one. <code>RUFF</code> was written in <code>rust</code>, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.</p>
+<section id="setting-it-up-on-vscode" class="level2">
+<h2 class="anchored" data-anchor-id="setting-it-up-on-vscode">Setting it up on VsCode</h2>
+<p>To give suggestions on the fly, I use the <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff"><code>Ruff VsCode Extension</code></a>.</p>
+<p>Besides that, I have my <code>settings.json</code> with my personal preferences:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">//</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Use</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Ruff</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">as</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">the</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">default</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">formatter</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">for</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Python</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">files</span></span>
+<span id="cb1-2"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">python</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">":</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-3"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"editor.defaultFormatter"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"charliermarsh.ruff"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-4"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"editor.codeActionsOnSave"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-5">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"source.fixAll"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"explicit"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-6">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"source.organizeImports"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"explicit"</span></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span id="cb1-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-9"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">//</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Formatter</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">for</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">notebook</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">cells</span></span>
+<span id="cb1-10"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">jupyter</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">":</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb1-11"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"editor.defaultFormatter"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"charliermarsh.ruff"</span></span>
+<span id="cb1-12"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-13"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">//</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Enable</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">format</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">on</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">save</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">for</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">notebooks</span></span>
+<span id="cb1-14"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"notebook.formatOnSave.enabled":</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">true,</span></span>
+<span id="cb1-15"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">//</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">Disable</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">other</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">formatters</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">to</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">avoid</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">conflicts</span></span>
+<span id="cb1-16"><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"editor.formatOnSave":</span> <span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">true,</span></span></code></pre></div>
+<p>But these are only global settings in my personal environment.</p>
+<p>Working with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a <code>.vscode/settings.json</code> inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to <code>.vscode/settings.json</code>.</p>
+<p>I also make <code>Ruff</code> as a default extension in <code>.vscode/settings.json</code>:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span id="cb2-2">    <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">"recommendations"</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">:</span> <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb2-3">        <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"charliermarsh.ruff"</span></span>
+<span id="cb2-4">    <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb2-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>Last but not least, you can also install <code>ruff</code> and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the <code>.vscode/settings.json</code> guarantees that the suggestions will be made on the fly. But it depends on <code>VsCode</code>.</p>
+</section>
+<section id="bonus-caveat" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-caveat">Bonus (Caveat)</h2>
+<p>I struggled to start using a tool like this because I used to write code in a single long line. I always received the <code>E501: line-too-long</code> warning from <code>black</code>. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like <code>ruff</code> my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the <code>line-length</code> a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.</p>
+<p>Leaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the <code>git diff</code> changes.</p>
+<p>Anyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[tool.ruff]</span></span>
+<span id="cb3-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">line-length</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">130</span></span>
+<span id="cb3-3"></span>
+<span id="cb3-4"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">lint.ignore</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span></span>
+<span id="cb3-5">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"E501"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Ignore long lines</span></span>
+<span id="cb3-6">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"E302"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Ignore blank lines issue</span></span>
+<span id="cb3-7">    <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"E701"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Ignore single-line if statements</span></span>
+<span id="cb3-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-9"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">extend-include</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"*.ipynb"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span id="cb3-10"></span>
+<span id="cb3-11"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[tool.ruff.format]</span></span>
+<span id="cb3-12"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">quote-style</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"double"</span></span>
+<span id="cb3-13"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">docstring-code-format</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">true</span></span>
+<span id="cb3-14"></span>
+<span id="cb3-15"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[tool.ruff.lint.pydocstyle]</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># It enforces that all functions have docstrings</span></span>
+<span id="cb3-16"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">convention</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"google"</span></span></code></pre></div>
+<p>or skipping this rule by adding <code># fmt: skip</code> at the end of a line. Or use <code>#fmt: on</code> at the beginning of a block and <code>#fmt: off</code> at the end.</p>
+<p>Happy coding.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Ruff</category>
+  <category>Python</category>
+  <category>VsCode</category>
+  <guid>https://guilhermeparreira.github.io/posts/ruff/</guid>
+  <pubDate>Sun, 01 Sep 2024 03:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/ruff/ruff.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+</channel>
+</rss>
