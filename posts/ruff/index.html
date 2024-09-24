@@ -223,34 +223,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>pyupgrade</code> = upgrade syntax for newer versions of <code>python</code> packages</p>
 <p><code>autoflake</code> = Remove unused imports and unused variables</p>
 <p>So, instead of having to set up each one individually, use <code>RUFF</code> and have all these tools into a single one. <code>RUFF</code> was written in <code>rust</code>, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.</p>
+<pre><code>comments:
+  giscus:
+    repo: "guilhermeparreira/guilhermeparreira.github.io"
+    repo-id: "R_kgDOMqTkUA"
+    mapping: "pathname"
+    category: "Announcements"
+    category-id: "DIC_kwDOMqTkUM4CiNf2"
+    mapping: "pathname"
+    reactions-enabled: true
+    input-position: "bottom"
+    lang: "en"
+    theme: "light"
+    loading: "lazy"</code></pre>
 <section id="setting-it-up-on-vscode" class="level2">
 <h2 class="anchored" data-anchor-id="setting-it-up-on-vscode">Setting it up on VsCode</h2>
 <p>To give suggestions on the fly, I use the <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff"><code>Ruff VsCode Extension</code></a>.</p>
 <p>Besides that, I have my <code>settings.json</code> with my personal preferences:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Use</span> <span class="er">Ruff</span> <span class="er">as</span> <span class="er">the</span> <span class="er">default</span> <span class="er">formatter</span> <span class="er">for</span> <span class="er">Python</span> <span class="er">files</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">python</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.codeActionsOnSave"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.fixAll"</span><span class="fu">:</span> <span class="st">"explicit"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.organizeImports"</span><span class="fu">:</span> <span class="st">"explicit"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Formatter</span> <span class="er">for</span> <span class="er">notebook</span> <span class="er">cells</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">jupyter</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Enable</span> <span class="er">format</span> <span class="er">on</span> <span class="er">save</span> <span class="er">for</span> <span class="er">notebooks</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="er">"notebook.formatOnSave.enabled":</span> <span class="er">true,</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Disable</span> <span class="er">other</span> <span class="er">formatters</span> <span class="er">to</span> <span class="er">avoid</span> <span class="er">conflicts</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="er">"editor.formatOnSave":</span> <span class="er">true,</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Use</span> <span class="er">Ruff</span> <span class="er">as</span> <span class="er">the</span> <span class="er">default</span> <span class="er">formatter</span> <span class="er">for</span> <span class="er">Python</span> <span class="er">files</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">python</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.codeActionsOnSave"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.fixAll"</span><span class="fu">:</span> <span class="st">"explicit"</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.organizeImports"</span><span class="fu">:</span> <span class="st">"explicit"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Formatter</span> <span class="er">for</span> <span class="er">notebook</span> <span class="er">cells</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">jupyter</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Enable</span> <span class="er">format</span> <span class="er">on</span> <span class="er">save</span> <span class="er">for</span> <span class="er">notebooks</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="er">"notebook.formatOnSave.enabled":</span> <span class="er">true,</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Disable</span> <span class="er">other</span> <span class="er">formatters</span> <span class="er">to</span> <span class="er">avoid</span> <span class="er">conflicts</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="er">"editor.formatOnSave":</span> <span class="er">true,</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>But these are only global settings in my personal environment.</p>
 <p>Working with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a <code>.vscode/settings.json</code> inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to <code>.vscode/settings.json</code>.</p>
 <p>I also make <code>Ruff</code> as a default extension in <code>.vscode/settings.json</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"recommendations"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"charliermarsh.ruff"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"recommendations"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"charliermarsh.ruff"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Last but not least, you can also install <code>ruff</code> and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the <code>.vscode/settings.json</code> guarantees that the suggestions will be made on the fly. But it depends on <code>VsCode</code>.</p>
 </section>
 <section id="bonus-caveat" class="level2">
@@ -258,22 +271,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I struggled to start using a tool like this because I used to write code in a single long line. I always received the <code>E501: line-too-long</code> warning from <code>black</code>. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like <code>ruff</code> my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the <code>line-length</code> a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.</p>
 <p>Leaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the <code>git diff</code> changes.</p>
 <p>Anyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">]</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">130</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">lint</span><span class="kw">.</span><span class="dt">ignore</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E501"</span><span class="op">,</span> <span class="co"># Ignore long lines</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E302"</span><span class="op">,</span> <span class="co"># Ignore blank lines issue</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E701"</span><span class="op">,</span> <span class="co"># Ignore single-line if statements</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">extend-include</span> <span class="op">=</span> <span class="op">[</span><span class="st">"*.ipynb"</span><span class="op">]</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">.</span><span class="dt">format</span><span class="kw">]</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dt">quote-style</span> <span class="op">=</span> <span class="st">"double"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">docstring-code-format</span> <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">.</span><span class="dt">lint</span><span class="kw">.</span><span class="dt">pydocstyle</span><span class="kw">]</span> <span class="co"># It enforces that all functions have docstrings</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="dt">convention</span> <span class="op">=</span> <span class="st">"google"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">130</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">lint</span><span class="kw">.</span><span class="dt">ignore</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E501"</span><span class="op">,</span> <span class="co"># Ignore long lines</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E302"</span><span class="op">,</span> <span class="co"># Ignore blank lines issue</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E701"</span><span class="op">,</span> <span class="co"># Ignore single-line if statements</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dt">extend-include</span> <span class="op">=</span> <span class="op">[</span><span class="st">"*.ipynb"</span><span class="op">]</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">.</span><span class="dt">format</span><span class="kw">]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="dt">quote-style</span> <span class="op">=</span> <span class="st">"double"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="dt">docstring-code-format</span> <span class="op">=</span> <span class="cn">true</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">tool</span><span class="kw">.</span><span class="dt">ruff</span><span class="kw">.</span><span class="dt">lint</span><span class="kw">.</span><span class="dt">pydocstyle</span><span class="kw">]</span> <span class="co"># It enforces that all functions have docstrings</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="dt">convention</span> <span class="op">=</span> <span class="st">"google"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or skipping this rule by adding <code># fmt: skip</code> at the end of a line. Or use <code>#fmt: on</code> at the beginning of a block and <code>#fmt: off</code> at the end.</p>
 <p>Happy coding.</p>
 
@@ -629,7 +642,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<script src="https://giscus.app/client.js" data-repo="guilhermeparreira/guilhermeparreira.github.io" data-repo-id="R_kgDOMqTkUA" data-category="General" data-category-id="DIC_kwDOMqTkUM4CiNf3" data-mapping="number" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+<script src="https://giscus.app/client.js" data-repo="guilhermeparreira/guilhermeparreira.github.io" data-repo-id="R_kgDOMqTkUA" data-category="General" data-category-id="DIC_kwDOMqTkUM4CiNf3" data-mapping="number" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script>
 </div> <!-- /content -->
 
