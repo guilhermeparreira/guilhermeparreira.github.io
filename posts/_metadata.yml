@@ -14,10 +14,14 @@ author:
 
 comments:
   giscus:
-    repo: guilhermeparreira/guilhermeparreira.github.io
+    repo: "guilhermeparreira/guilhermeparreira.github.io"
     repo-id: "R_kgDOMqTkUA"
-    mapping: "number"
+    mapping: "pathname"
+    category: "Announcements"
+    category-id: "DIC_kwDOMqTkUM4CiNf2"
+    mapping: "pathname"
     reactions-enabled: true
-    input-position: "top"
-    # theme: "dark_high_contrast"
+    input-position: "bottom"
+    lang: "en"
+    theme: "light"
     loading: "lazy"

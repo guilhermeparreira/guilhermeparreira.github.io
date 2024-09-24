@@ -29,22 +29,6 @@ RUFF = `Flake8` + `isort` + `black` + `pydocstyle` + `pyupgrade` + `autoflake`
 
 So, instead of having to set up each one individually, use `RUFF` and have all these tools into a single one. `RUFF` was written in `rust`, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.
 
-```
-comments:
-  giscus:
-    repo: "guilhermeparreira/guilhermeparreira.github.io"
-    repo-id: "R_kgDOMqTkUA"
-    mapping: "pathname"
-    category: "Announcements"
-    category-id: "DIC_kwDOMqTkUM4CiNf2"
-    mapping: "pathname"
-    reactions-enabled: true
-    input-position: "bottom"
-    lang: "en"
-    theme: "light"
-    loading: "lazy"
-```
-
 ## Setting it up on VsCode
 
 To give suggestions on the fly, I use the [`Ruff VsCode Extension`](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
