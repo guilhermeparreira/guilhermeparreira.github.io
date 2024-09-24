@@ -22,6 +22,5 @@ comments:
     mapping: "pathname"
     reactions-enabled: true
     input-position: "bottom"
-    lang: "en"
     theme: "light"
     loading: "lazy"
