@@ -4,7 +4,7 @@ description: "It explains Ruff and how to set up in VsCode"
 date: 09-01-2024
 categories: [Ruff, Python, VsCode] # self-defined categories
 image: ruff.png
-draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+draft: false
 ---
 
 Hello guys!
@@ -28,6 +28,22 @@ RUFF = `Flake8` + `isort` + `black` + `pydocstyle` + `pyupgrade` + `autoflake`
 `autoflake` = Remove unused imports and unused variables
 
 So, instead of having to set up each one individually, use `RUFF` and have all these tools into a single one. `RUFF` was written in `rust`, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.
+
+```
+comments:
+  giscus:
+    repo: "guilhermeparreira/guilhermeparreira.github.io"
+    repo-id: "R_kgDOMqTkUA"
+    mapping: "pathname"
+    category: "Announcements"
+    category-id: "DIC_kwDOMqTkUM4CiNf2"
+    mapping: "pathname"
+    reactions-enabled: true
+    input-position: "bottom"
+    lang: "en"
+    theme: "light"
+    loading: "lazy"
+```
 
 ## Setting it up on VsCode
 

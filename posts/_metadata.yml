@@ -19,5 +19,5 @@ comments:
     mapping: "number"
     reactions-enabled: true
     input-position: "top"
-    theme: "dark_high_contrast"
+    # theme: "dark_high_contrast"
     loading: "lazy"
