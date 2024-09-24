@@ -19,7 +19,6 @@ comments:
     mapping: "pathname"
     category: "Announcements"
     category-id: "DIC_kwDOMqTkUM4CiNf2"
-    mapping: "pathname"
     reactions-enabled: true
     input-position: "bottom"
     theme: "light"
