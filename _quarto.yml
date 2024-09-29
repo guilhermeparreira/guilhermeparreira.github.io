@@ -7,34 +7,35 @@ execute:
 
 website:
   title: "Guilherme Parreira"
+  site-url: https://guilhermeparreira.github.io/
+  description: A data science blog
   page-navigation: true
   back-to-top-navigation: true
-  reader-mode: true
+  reader-mode: false
   search: true
+  favicon: favicon_profile.png #https://realfavicongenerator.net/
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - posts.qmd # add your listing page file to your navbar, just like you would any other new web page
-    right:
-      - icon: rss
-        href: index.xml
+      - href: posts.qmd # add your listing page file to your navbar, just like you would any other new web page
+        text: My Blog
+    # right:
+      # - icon: rss
+        # href: index.xml
     tools:
       - icon: github
         href: https://github.com/guilhermeparreira
       - icon: linkedin
         href: https://www.linkedin.com/in/guilherme-parreira/
-      - icon: stackoverflow
+      - icon: stack-overflow
         href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
-  site-url: https://guilhermeparreira.github.io/
-  description: A data science blog
       
 format:
   html:
     theme:
-      dark: slate
       light: yeti
+      dark: slate
     css: styles.css
     toc: true
 

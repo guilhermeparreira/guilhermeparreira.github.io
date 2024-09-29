@@ -9,10 +9,6 @@ draft: false # setting this to `true` will prevent your post from appearing on y
 
 Hello guys!
 
-I will use the blog for two things:
+I will use the blog for sharing data science content.
 
-+ Share content to my work colleagues;
-
-+ Easy to find resource of my notes that are lost on my computer
-
-I hope you all like
+I hope you all like.
