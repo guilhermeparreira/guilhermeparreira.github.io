@@ -4,7 +4,7 @@
     "href": "posts/welcome/index.html",
     "title": "My first post",
     "section": "",
-    "text": "Hello guys!\nI will use the blog for two things:\n\nShare content to my work colleagues;\nEasy to find resource of my notes that are lost on my computer\n\nI hope you all like\n\n\n\n Back to top"
+    "text": "Hello guys!\nI will use the blog for sharing data science content.\nI hope you all like.\n\n\n\n Back to top"
   },
   {
     "objectID": "posts/ruff/index.html",
@@ -32,21 +32,21 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This is the contents of the about page for my blog."
+    "text": "I am a data scientist who loves working with data since 17. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. In this meantime, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers.\nI have a strong background in R, and since 2021 I am programming in Python almost everyday."
   },
   {
     "objectID": "about.html#about-this-blog",
     "href": "about.html#about-this-blog",
     "title": "About",
     "section": "",
-    "text": "This is the contents of the about page for my blog."
+    "text": "I am a data scientist who loves working with data since 17. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. In this meantime, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers.\nI have a strong background in R, and since 2021 I am programming in Python almost everyday."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hello Quarto CI",
+    "title": "Guilherme Parreira",
     "section": "",
-    "text": "Setting up CI for quarto website build & publish.\n\n\n\n Back to top"
+    "text": "I am a senior data scientist at 4kst, a deep tech startup. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. Between these two degrees, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers.\nI have a strong background in R, and since 2021 I am programming in Python almost everyday. Fell free to contact me.\nIn my leasure time, I like to travel, make a Brazilian barbecure, and do small repairs at my home.\n\n\n Back to top"
   },
   {
     "objectID": "posts.html",
