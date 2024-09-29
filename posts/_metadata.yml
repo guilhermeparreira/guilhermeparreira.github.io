@@ -10,7 +10,7 @@ title-block-banner: true
 author:
   - name: "Guilherme Parreira"
     url: "https://guilhermeparreira.github.io/"
-    orcid: 0000-0001-6040-6465
+    # orcid: 0000-0001-6040-6465
 
 comments:
   giscus:

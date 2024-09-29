@@ -7,6 +7,11 @@ image: ruff.png
 draft: false
 ---
 
+:::{.cell}
+![](ruff.png){fig-align="center"}
+:::
+
+
 Hello guys!
 
 Today I want to talk about [RUFF](https://github.com/astral-sh/ruff), my default formatter (and much more) for Python language.
