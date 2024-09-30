@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Guilherme Parreira">
+<meta name="dcterms.date" content="2026-05-09">
+<meta name="description" content="Why MAPE should not be your first choice">
 
-<title>Guilherme Parreira - My Blog</title>
+<title>Guilherme Parreira - MAPE and its pitfalls</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon_profile.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon_profile.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -63,41 +64,12 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Guilherme Parreira" href="posts.xml"></head>
+<link rel="stylesheet" href="../../styles.css">
+</head>
 
 <body class="nav-fixed">
 
@@ -106,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Guilherme Parreira</span>
     </a>
   </div>
@@ -117,11 +89,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./posts.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../posts.html" rel="" target="">
  <span class="menu-text">My Blog</span></a>
   </li>  
 </ul>
@@ -136,145 +108,211 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">MAPE and its pitfalls</h1>
+                  <div>
+        <div class="description">
+          Why MAPE should not be your first choice
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">MAPE</div>
+                <div class="quarto-category">Data Science</div>
+                <div class="quarto-category">Time Series</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://guilhermeparreira.github.io/">Guilherme Parreira</a> </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 9, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Data Science">Data Science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="MAPE">MAPE <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ruff">Ruff <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Time Series">Time Series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VsCode">VsCode <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Welcome">Welcome <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-mape-is-used" id="toc-why-mape-is-used" class="nav-link active" data-scroll-target="#why-mape-is-used">Why MAPE is used</a></li>
+  <li><a href="#but" id="toc-but" class="nav-link" data-scroll-target="#but">BUT:</a>
+  <ul class="collapse">
+  <li><a href="#mape-is-a-biased-metric" id="toc-mape-is-a-biased-metric" class="nav-link" data-scroll-target="#mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</a></li>
+  <li><a href="#mape-is-not-define-when-y_true-is-zero" id="toc-mape-is-not-define-when-y_true-is-zero" class="nav-link" data-scroll-target="#mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</a></li>
+  <li><a href="#mape-does-not-minimizes-the-error-towards-the-mean-value" id="toc-mape-does-not-minimizes-the-error-towards-the-mean-value" class="nav-link" data-scroll-target="#mape-does-not-minimizes-the-error-towards-the-mean-value">MAPE does not minimizes the error towards the mean value</a></li>
+  </ul></li>
+  <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives">Alternatives</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">My Blog</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="mape.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<p>Hello guys! I want to talk a widely used metric, specially in time series modelling, which it is MAPE.</p>
+<section id="why-mape-is-used" class="level2">
+<h2 class="anchored" data-anchor-id="why-mape-is-used">Why MAPE is used</h2>
+<p>MAPE is a largely used metric because has the following benefits:</p>
+<ul>
+<li>It is a percentage metric; so, it can be used to compare time series with different units.</li>
+<li>It is largely used. People specially from other fields use it without knowing that are using it because it is so straight forward and natural.</li>
+</ul>
+<p>I will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for <code>MAPE</code> can be described as:</p>
+<p><span class="math display">\[\text{MAPE} = \frac{\sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|}{n}\]</span></p>
+<p>which is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:</p>
+</section>
+<section id="but" class="level1">
+<h1>BUT:</h1>
+<section id="mape-is-a-biased-metric" class="level2">
+<h2 class="anchored" data-anchor-id="mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</h2>
+<p>To give a simple example, let’s suppose that our <code>ypred</code> is 100; if the <code>yreal</code> is 150, we have a MAPE equals to 0.33, in constrat to MAPE equals 1 if <code>yreal</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
+<p>The following table ilustrate this:</p>
+<div style="width: 75%; margin: auto;">
+<div id="tbl-biased" class="anchored">
+<table class="table">
+<caption>Table&nbsp;1: Ilustration of a case when MAPE is biased</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">y_true</th>
+<th style="text-align: right;">y_pred</th>
+<th style="text-align: right;">MAE</th>
+<th style="text-align: right;">MAPE</th>
+<th style="text-align: right;">MSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">2500</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">2500</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">2500</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2500</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Check that MAE and MSE behave as expected (they don’t bias for under/over forecasts).</p>
+</section>
+<section id="mape-is-not-define-when-y_true-is-zero" class="level2">
+<h2 class="anchored" data-anchor-id="mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</h2>
+<p>The denominator of mape is <em>y_true</em>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what <code>sklearn.metrics.mean_average_percentage_error</code> do (setting y_true to <span class="math inline">\(2.22x10^-16\)</span>). But it gives other problems: 1. Setting y_true to <span class="math inline">\(2.22x10^-16\)</span> will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to concilliate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</p>
+<p>In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:</p>
+<div style="width: 75%; margin: auto;">
+<div id="tbl-impact" class="anchored">
+<table class="table">
+<caption>Table&nbsp;2: Impact in MAPE when y_true is zero or near zero</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">y_true</th>
+<th style="text-align: right;">y_pred</th>
+<th style="text-align: right;">MAE</th>
+<th style="text-align: right;">MAPE</th>
+<th style="text-align: right;">MSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">#DIV/0!</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">#DIV/0!</td>
+<td style="text-align: right;">2.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">5.55x10^15</td>
+<td style="text-align: right;">0.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">1.67x10^16</td>
+<td style="text-align: right;">2.25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Check that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).</p>
+<p>Others also don’t calculate the forecast for these points, but you will end up with same problem as number 2.</p>
+</section>
+<section id="mape-does-not-minimizes-the-error-towards-the-mean-value" class="level2">
+<h2 class="anchored" data-anchor-id="mape-does-not-minimizes-the-error-towards-the-mean-value">MAPE does not minimizes the error towards the mean value</h2>
+<p>This is not a pitfall, but it is a warning, because usually people want to be right on <em>average</em>, and this is not what MAPE does. In constrast, it will give a prediction towards a biased median, if I can so.</p>
+<p>A very good resource to read about is <a href="https://stats.stackexchange.com/questions/299712/what-are-the-shortcomings-of-the-mean-absolute-percentage-error-mape">shortcomings of MAPE</a>, that will lead to many other resources.</p>
+</section>
+</section>
+<section id="alternatives" class="level1">
+<h1>Alternatives</h1>
+<p>In order to overcome the asymmetry problem of MAPE, sMAPE and other adjusted MAPEs were proposed, but no one of them have good properties: they are still undefined if <code>y_true</code> and <code>y_pred</code> are zero, <a href="https://robjhyndman.com/hyndsight/smape/">check it out</a>.</p>
+<p>A really good alternative for this scenario is to use <strong>rRMSE</strong>, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average value of all values of a series, or the last points equal to the length of the forecast, or any other length.</p>
+<p>With it, you can have a unbiased metric, defined at zero, that it is easy to read and understand, because it is a percentage.</p>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="MAPE,Data Science,Time Series" data-listing-date-sort="1778284800000" data-listing-file-modified-sort="1727665139510" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<a href="./posts/mape/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="./posts/mape/ruff.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-MAPE and its pitfalls
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('MAPE'); return false;">
-MAPE
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Data Science'); return false;">
-Data Science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Time Series'); return false;">
-Time Series
-</div>
-</div>
-<div class="card-text listing-description">
-Why MAPE should not be your first choice
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Guilherme Parreira
-</div>
-<div class="listing-date">
-May 9, 2026
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Welcome" data-listing-date-sort="1725148800000" data-listing-file-modified-sort="1727665139528" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-<a href="./posts/welcome/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="./posts/welcome/welcome.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-My first post
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Welcome'); return false;">
-Welcome
-</div>
-</div>
-<div class="card-text listing-description">
-It says the purpose of my blog
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Guilherme Parreira
-</div>
-<div class="listing-date">
-Sep 1, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="Ruff,Python,VsCode" data-listing-date-sort="1725148800000" data-listing-file-modified-sort="1727665139517" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<a href="./posts/ruff/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="./posts/ruff/ruff.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Ruff in a Nutshell + Configuring it on VsCode
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ruff'); return false;">
-Ruff
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VsCode'); return false;">
-VsCode
-</div>
-</div>
-<div class="card-text listing-description">
-It explains Ruff and how to set up in VsCode
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Guilherme Parreira
-</div>
-<div class="listing-date">
-Sep 1, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -622,6 +660,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
+</script>
+<script src="https://giscus.app/client.js" data-repo="guilhermeparreira/guilhermeparreira.github.io" data-repo-id="R_kgDOMqTkUA" data-category="Announcements" data-category-id="DIC_kwDOMqTkUM4CiNf2" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script>
 </div> <!-- /content -->
 
