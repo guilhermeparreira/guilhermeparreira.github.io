@@ -53,6 +53,41 @@
     "href": "posts.html",
     "title": "My Blog",
     "section": "",
-    "text": "Ruff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "MAPE and its pitfalls\n\n\n\nMAPE\n\n\nData Science\n\n\nTime Series\n\n\n\nWhy MAPE should not be your first choice\n\n\n\nGuilherme Parreira\n\n\nMay 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+  },
+  {
+    "objectID": "posts/mape/index.html",
+    "href": "posts/mape/index.html",
+    "title": "MAPE and its pitfalls",
+    "section": "",
+    "text": "Hello guys! I want to talk a widely used metric, specially in time series modelling, which it is MAPE."
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-is-a-biased-metric",
+    "href": "posts/mape/index.html#mape-is-a-biased-metric",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE is a biased metric:",
+    "text": "MAPE is a biased metric:\nTo give a simple example, let’s suppose that our ypred is 100; if the yreal is 150, we have a MAPE equals to 0.33, in constrat to MAPE equals 1 if yreal is 50. So, MAPE will always push toward to biased underforecasting.\nThe following table ilustrate this:\n\n\n\n\nTable 1: Ilustration of a case when MAPE is biased\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n100\n150\n50\n0.50\n2500\n\n\n100\n50\n50\n0.50\n2500\n\n\n150\n100\n50\n0.33\n2500\n\n\n50\n100\n50\n1.00\n2500\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (they don’t bias for under/over forecasts)."
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
+    "href": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE is not define when y_true is zero",
+    "text": "MAPE is not define when y_true is zero\nThe denominator of mape is y_true. So, MAPE might return NaN on your programming software or Inf. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what sklearn.metrics.mean_average_percentage_error do (setting y_true to \\(2.22x10^-16\\)). But it gives other problems: 1. Setting y_true to \\(2.22x10^-16\\) will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to concilliate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.\nIn practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:\n\n\n\n\nTable 2: Impact in MAPE when y_true is zero or near zero\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n0\n0.5\n0.5\n#DIV/0!\n0.25\n\n\n0\n1.5\n1.5\n#DIV/0!\n2.25\n\n\n9E-17\n0.5\n0.5\n5.55x10^15\n0.25\n\n\n9E-17\n1.5\n1.5\n1.67x10^16\n2.25\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).\nOthers also don’t calculate the forecast for these points, but you will end up with same problem as number 2."
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
+    "href": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE does not minimizes the error towards the mean value",
+    "text": "MAPE does not minimizes the error towards the mean value\nThis is not a pitfall, but it is a warning, because usually people want to be right on average, and this is not what MAPE does. In constrast, it will give a prediction towards a biased median, if I can so.\nA very good resource to read about is shortcomings of MAPE, that will lead to many other resources."
+  },
+  {
+    "objectID": "posts/mape/index.html#why-mape-is-used",
+    "href": "posts/mape/index.html#why-mape-is-used",
+    "title": "MAPE and its pitfalls",
+    "section": "Why MAPE is used",
+    "text": "Why MAPE is used\nMAPE is a largely used metric because has the following benefits:\n\nIt is a percentage metric; so, it can be used to compare time series with different units.\nIt is largely used. People specially from other fields use it without knowing that are using it because it is so straight forward and natural.\n\nI will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for MAPE can be described as:\n\\[\\text{MAPE} = \\frac{\\sum_{i=1}^{n} \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right|}{n}\\]\nwhich is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:"
   }
 ]

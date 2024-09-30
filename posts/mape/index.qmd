@@ -1,0 +1,97 @@
+---
+title: "MAPE and its pitfalls"
+description: "Why MAPE should not be your first choice"
+date: 29-09-2024
+categories: [MAPE, Data Science, Time Series] # self-defined categories
+image: ruff.png
+draft: false
+tbl-cap-location: top
+---
+
+:::{.cell}
+![](mape.png){fig-align="center"}
+:::
+
+
+Hello guys!
+I want to talk a widely used metric, specially in time series modelling, which it is MAPE.
+
+## Why MAPE is used
+
+MAPE is a largely used metric because has the following benefits:
+
++ It is a percentage metric; so, it can be used to compare time series with different units. 
++ It is largely used. People specially from other fields use it without knowing that are using it because it is so straight forward and natural.
+
+I will give an example for the last bit: Let's suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for `MAPE` can be described as:
+
+$$\text{MAPE} = \frac{\sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|}{n}$$
+
+which is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:
+
+# BUT: 
+
+## *MAPE* is a biased metric: 
+  
+To give a simple example, let's suppose that our `ypred` is 100; if the `yreal` is 150, we have a MAPE equals to 0.33, in constrat to MAPE equals 1 if `yreal` is 50. So, MAPE will always push toward to biased underforecasting.
+
+The following table ilustrate this:
+
+<div style="width: 75%; margin: auto;">
+
+| y_true | y_pred | MAE | MAPE | MSE  |
+|-------:|-------:|----:|-----:|-----:|
+| 100    | 150    | 50  | 0.50 | 2500 |
+| 100    | 50     | 50  | 0.50 | 2500 |
+| 150    | 100    | 50  | 0.33 | 2500 |
+| 50     | 100    | 50  | 1.00 | 2500 |
+
+: Ilustration of a case when MAPE is biased {#tbl-biased}
+
+</div>
+
+Check that MAE and MSE behave as expected (they don't bias for under/over forecasts).
+
+## *MAPE* is not define when `y_true` is zero
+
+The denominator of mape is *y_true*. So, MAPE might return `NaN` on your programming software or `Inf`. In order to "fix" it, what many people do is to set y_true to a small value near to zero, which is what `sklearn.metrics.mean_average_percentage_error` do (setting y_true to $2.22x10^-16$). But it gives other problems: 
+    1. Setting y_true to $2.22x10^-16$ will lead to a even higher MAPE number;
+    2. You will never know a "true" value of the error for this series;
+    3. Your prediction will be compromised even if your predictions are really good (let's say 0.00001); 
+    4. If you need to concilliate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.
+
+In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:
+
+<div style="width: 75%; margin: auto;">
+
+| y_true | y_pred | MAE | MAPE       | MSE  |
+|-------:|-------:|----:|-----------:|-----:|
+| 0      | 0.5    | 0.5 | #DIV/0!    | 0.25 |
+| 0      | 1.5    | 1.5 | #DIV/0!    | 2.25 |
+| 9E-17  | 0.5    | 0.5 | 5.55x10^15 | 0.25 |
+| 9E-17  | 1.5    | 1.5 | 1.67x10^16 | 2.25 |
+
+: Impact in MAPE when y_true is zero or near zero {#tbl-impact}
+
+</div>
+
+Check that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).
+
+Others also don't calculate the forecast for these points, but you will end up with same problem as number 2.
+
+
+## MAPE does not minimizes the error towards the mean value
+
+This is not a pitfall, but it is a warning, because usually people want to be right on *average*, and this is not what MAPE does. In constrast, it will give a prediction towards a biased median, if I can so. 
+
+
+A very good resource to read about is [shortcomings of MAPE](https://stats.stackexchange.com/questions/299712/what-are-the-shortcomings-of-the-mean-absolute-percentage-error-mape), that will lead to many other resources.
+
+# Alternatives
+
+In order to overcome the asymmetry problem of MAPE, sMAPE and other adjusted MAPEs were proposed, but no one of them have good properties: they are still undefined if `y_true` and `y_pred` are zero, [check it out](https://robjhyndman.com/hyndsight/smape/). 
+
+A really good alternative for this scenario is to use **rRMSE**, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average value of all values of a series, or the last points equal to the length of the forecast, or any other length.
+
+With it, you can have a unbiased metric, defined at zero, that it is easy to read and understand, because it is a percentage.
+
