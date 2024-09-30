@@ -3,7 +3,7 @@ title: "MAPE and its pitfalls"
 description: "Why MAPE should not be your first choice"
 date: 29-09-2024
 categories: [MAPE, Data Science, Time Series] # self-defined categories
-image: ruff.png
+image: mape.png
 draft: false
 tbl-cap-location: top
 ---
