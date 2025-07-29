@@ -34,7 +34,7 @@
 <div class="cell">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://guilhermeparreira.github.io/posts/keyboard/ajazz.webp" class="img-fluid figure-img"></p>
+<p><img src="https://guilhermeparreira.github.io/posts/keyboard/ajazz.jpg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -52,7 +52,7 @@
 </ul>
 <p>They I discovered the Moonlander manufacture from <a href="https://www.youtube.com/watch?v=78aw1muYWQM&amp;ab_channel=FabioAkita">Fabio Akita</a>, but it would go far beyond my budget. But I realized that this was the kind of technology that I needed. So I did a deep research on internet and I found out that <a href="https://www.youtube.com/watch?v=hh0g3yHTxIQ&amp;ab_channel=eFeXxTech%2CKeyboardseDesabafos">eFeXx channel</a> would build a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. I became amused by that and I had to wait for 1 month and a half for the building video to be released. With this keyboard I would have:</p>
 <ul>
-<li>I real ergonomic keyboard, that’s way:
+<li>A real ergonomic keyboard, that’s way:
 <ul>
 <li>The keys are columns oriented: They respect the different length of the fingers</li>
 <li>The thumb finger receives more keys to use. Being the strongest finger is a waste to use only for space.</li>
@@ -60,11 +60,12 @@
 <li>The splits can be placed far apart from which other</li>
 </ul></li>
 </ul>
-<p>It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and <a href="https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered">so on</a>. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one.</p>
-<p>That’s when my friend enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on <a href="https://www.printables.com/model/468215-sofle-v2-case-and-stand">this one</a>, but with a better support for the PCB.</p>
+<p>It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and <a href="https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered">much more from the creator</a>. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one.</p>
+<p>That’s when my <a href="@https://br.linkedin.com/in/b-seiji-fujihara-b80790a3">friend</a> enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on <a href="https://www.printables.com/model/468215-sofle-v2-case-and-stand">this one</a>, but with a better support for the PCB.</p>
 <p>Then, the next step was to buy all the parts, one by one, and assemble them together one by one:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hh0g3yHTxIQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
-</iframe>
+<div style="text-align: center;">
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/hh0g3yHTxIQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""> </iframe></p>
+</div>
 <p>This whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had redo the welderings. It was bad, but not that bad considering that I had no previous experience on weldering. I am a DIY guy, and what I got from this process:</p>
 <ul>
 <li>I made a new friendship!</li>
@@ -83,7 +84,7 @@
   <category>Keyboard</category>
   <guid>https://guilhermeparreira.github.io/posts/keyboard/index.html</guid>
   <pubDate>Wed, 07 Apr 2027 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/keyboard/keyboard.png" medium="image" type="image/png"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/keyboard/keyboard.jpeg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>MAPE and its pitfalls</title>
