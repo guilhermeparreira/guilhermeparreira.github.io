@@ -10,7 +10,81 @@
 <atom:link href="https://guilhermeparreira.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description>A data science blog</description>
 <generator>quarto-1.3.340</generator>
-<lastBuildDate>Sat, 09 May 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 07 Apr 2027 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Sofle v2 keyboard is cheaper than a wrist exam</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/keyboard/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/keyboard/keyboard.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<p>I am one of those programmers who type at list 8 hours per day and still prefere shopping on PC rather than on mobile rsrs. Yes, I need the big screens.</p>
+<p>Even tough I did not count my words per minute (wpm) I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.</p>
+<p>But as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonites. I started to the phisioteraphy for my wirst, which gave me some relief, but at the end of day, I had the same sour due to labour.</p>
+<p>So, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an <a href="https://pt.aliexpress.com/item/1005006865102078.html">Ajazz Alice AKS068 Pro</a> from a Brazilian Fellow online:</p>
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/keyboard/ajazz.webp" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<ul>
+<li>The price was great.</li>
+<li>The adaption would be small because it was a 70% keyboard.</li>
+<li>I loved the colors.</li>
+<li>There was a Knob button that I would use as a volume controller.</li>
+<li>It was “ergonomic”</li>
+</ul>
+<p><strong>HOWEVER, he did not want to send the keyboard over mail.</strong> So, I checked the price of this new keyboard and I found pricy, that’s way:</p>
+<ul>
+<li>The keyboard was not ergonomic at all -&gt; It only had curved keys in a fixed position;</li>
+<li>As time passed by, the pain increased, and I felt that I need something more complete;</li>
+</ul>
+<p>They I discovered the Moonlander manufacture from <a href="https://www.youtube.com/watch?v=78aw1muYWQM&amp;ab_channel=FabioAkita">Fabio Akita</a>, but it would go far beyond my budget. But I realized that this was the kind of technology that I needed. So I did a deep research on internet and I found out that <a href="https://www.youtube.com/watch?v=hh0g3yHTxIQ&amp;ab_channel=eFeXxTech%2CKeyboardseDesabafos">eFeXx channel</a> would build a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. I became amused by that and I had to wait for 1 month and a half for the building video to be released. With this keyboard I would have:</p>
+<ul>
+<li>I real ergonomic keyboard, that’s way:
+<ul>
+<li>The keys are columns oriented: They respect the different length of the fingers</li>
+<li>The thumb finger receives more keys to use. Being the strongest finger is a waste to use only for space.</li>
+<li>I could place the keyboard at any angle that I wanted best suited the rest position</li>
+<li>The splits can be placed far apart from which other</li>
+</ul></li>
+</ul>
+<p>It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and <a href="https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered">so on</a>. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one.</p>
+<p>That’s when my friend enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on <a href="https://www.printables.com/model/468215-sofle-v2-case-and-stand">this one</a>, but with a better support for the PCB.</p>
+<p>Then, the next step was to buy all the parts, one by one, and assemble them together one by one:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hh0g3yHTxIQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+<p>This whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had redo the welderings. It was bad, but not that bad considering that I had no previous experience on weldering. I am a DIY guy, and what I got from this process:</p>
+<ul>
+<li>I made a new friendship!</li>
+<li>Learned how to (and not to) welder.</li>
+<li>I would recommend anyone doing it, with all the risks environment;</li>
+<li>Like when we are new to programming, when I finished, I figured out that I could save a lot money and time if I had bought a <a href="https://pt.aliexpress.com/item/1005008498202663.html">pack that it was ready to build a sofle v2: sofle RGB mx kit2</a> by 50 US$. But as part of my learning, I could not know that this option was valid before understanding the end of each part.</li>
+<li>Challenge myself to something new.</li>
+<li>Lots of stories and a blog post;</li>
+</ul>
+<p>This whole process made me remember that, to be a master on some thing, we gotta put your hands durty!</p>
+<p>Now, better coding, with better keyboards!!</p>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Keyboard</category>
+  <guid>https://guilhermeparreira.github.io/posts/keyboard/index.html</guid>
+  <pubDate>Wed, 07 Apr 2027 00:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/keyboard/keyboard.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>MAPE and its pitfalls</title>
   <dc:creator>Guilherme Parreira</dc:creator>
