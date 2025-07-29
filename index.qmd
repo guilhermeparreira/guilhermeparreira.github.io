@@ -31,3 +31,13 @@ I am a senior data scientist at [4kst](https://4kst.com/), a deep tech startup. 
 I have a strong background in R, and since 2021 I am programming in Python almost everyday. Fell free to contact me.
 
 In my leasure time, I like to travel, make a Brazilian barbecure, and do small repairs at my home.
+
+### Curiosities
+
++ I coursed therapeutic theatre for one year to leverage my comunication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available [here](https://youtu.be/MYinrpQa7ko?si=ti7HViWmg_d9qt_f) and [here](https://youtu.be/RUjK0te4nFg?si=_wfwnSBRrZRhKN4f).
+
++ I built by myself the Sofle v2 split keyboard that I use to work. There is a [post](./posts/keyboard/index.html) on my blog only for it.
+
++ As being a guy who likes to "DIY" approach I have a [playlist on Youtube](https://www.youtube.com/playlist?list=PLMxKiNq3oU3cxND8sI1DKO7t1S1sDG4eL) with tips and tricks on how to fix stuff at home.
+
++ I am 5 times state champion soccer table in a row.

@@ -3,7 +3,7 @@ title: "Sofle v2 keyboard is cheaper than a wrist exam"
 description: "Why and when you should pursue one"
 date: 28-07-2025
 categories: [Keyboard] # self-defined categories
-image: keyboard.png
+image: keyboard.jpeg
 draft: false
 tbl-cap-location: top
 ---
@@ -21,7 +21,7 @@ But as time goes by, I started to feel that my hands started to get rust, like s
 So, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an [Ajazz Alice AKS068 Pro](https://pt.aliexpress.com/item/1005006865102078.html) from a Brazilian Fellow online:
 
 :::{.cell}
-![](ajazz.webp){fig-align="center"}
+![](ajazz.jpg){fig-align="center"}
 :::
 
 + The price was great.
@@ -37,24 +37,26 @@ So, I started to look for a new keyboard. I was willing to buy a simple used mec
 
 They I discovered the Moonlander manufacture from [Fabio Akita](https://www.youtube.com/watch?v=78aw1muYWQM&ab_channel=FabioAkita), but it would go far beyond my budget. But I realized that this was the kind of technology that I needed. So I did a deep research on internet and I found out that [eFeXx channel](https://www.youtube.com/watch?v=hh0g3yHTxIQ&ab_channel=eFeXxTech%2CKeyboardseDesabafos) would build a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. I became amused by that and I had to wait for 1 month and a half for the building video to be released. With this keyboard I would have:
 
-+ I real ergonomic keyboard, that's way:
++ A real ergonomic keyboard, that's way:
     + The keys are columns oriented: They respect the different length of the fingers
     + The thumb finger receives more keys to use. Being the strongest finger is a waste to use only for space.
     + I could place the keyboard at any angle that I wanted best suited the rest position
     + The splits can be placed far apart from which other
 
-It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and [so on](https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered). But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one. 
+It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and [much more from the creator](https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered). But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one. 
 
-That's when my friend enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on [this one](https://www.printables.com/model/468215-sofle-v2-case-and-stand), but with a better support for the PCB.
+That's when my [friend](@https://br.linkedin.com/in/b-seiji-fujihara-b80790a3) enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on [this one](https://www.printables.com/model/468215-sofle-v2-case-and-stand), but with a better support for the PCB.
 
 Then, the next step was to buy all the parts, one by one, and assemble them together one by one:
 
-<iframe width="560" height="315" 
-  src="https://www.youtube.com/embed/hh0g3yHTxIQ" 
-  title="YouTube video player" frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
+<div style="text-align: center;">
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/hh0g3yHTxIQ" 
+    title="YouTube video player" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
 
 This whole process took me 1 full Saturday and other 3 months of "CI/CD" that I had redo the welderings. It was bad, but not that bad considering that I had no previous experience on weldering. I am a DIY guy, and what I got from this process:
 
