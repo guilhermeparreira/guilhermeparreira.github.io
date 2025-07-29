@@ -1,0 +1,70 @@
+---
+title: "Sofle v2 keyboard is cheaper than a wrist exam"
+description: "Why and when you should pursue one"
+date: 28-07-2025
+categories: [Keyboard] # self-defined categories
+image: keyboard.png
+draft: false
+tbl-cap-location: top
+---
+
+:::{.cell}
+![](keyboard.jpeg){fig-align="center"}
+:::
+
+I am one of those programmers who type at list 8 hours per day and still prefere shopping on PC rather than on mobile rsrs. Yes, I need the big screens.
+
+Even tough I did not count my words per minute (wpm) I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.
+
+But as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonites. I started to the phisioteraphy for my wirst, which gave me some relief, but at the end of day, I had the same sour due to labour. 
+
+So, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an [Ajazz Alice AKS068 Pro](https://pt.aliexpress.com/item/1005006865102078.html) from a Brazilian Fellow online:
+
+:::{.cell}
+![](ajazz.webp){fig-align="center"}
+:::
+
++ The price was great.
++ The adaption would be small because it was a 70% keyboard.
++ I loved the colors.
++ There was a Knob button that I would use as a volume controller.
++ It was "ergonomic"
+
+**HOWEVER, he did not want to send the keyboard over mail.** So, I checked the price of this new keyboard and I found pricy, that's way:
+
++ The keyboard was not ergonomic at all -> It only had curved keys in a fixed position;
++ As time passed by, the pain increased, and I felt that I need something more complete;
+
+They I discovered the Moonlander manufacture from [Fabio Akita](https://www.youtube.com/watch?v=78aw1muYWQM&ab_channel=FabioAkita), but it would go far beyond my budget. But I realized that this was the kind of technology that I needed. So I did a deep research on internet and I found out that [eFeXx channel](https://www.youtube.com/watch?v=hh0g3yHTxIQ&ab_channel=eFeXxTech%2CKeyboardseDesabafos) would build a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. I became amused by that and I had to wait for 1 month and a half for the building video to be released. With this keyboard I would have:
+
++ I real ergonomic keyboard, that's way:
+    + The keys are columns oriented: They respect the different length of the fingers
+    + The thumb finger receives more keys to use. Being the strongest finger is a waste to use only for space.
+    + I could place the keyboard at any angle that I wanted best suited the rest position
+    + The splits can be placed far apart from which other
+
+It also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds and bluetooth and [so on](https://github.com/josefadamcik/SofleKeyboard/tree/master/Sofle_v2_soldered). But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one. 
+
+That's when my friend enter into the history. I got so excited about building my own keyboard that I convinced my friend to make one for him. Luckily, he is studying software engineering and had classes about everything that it is needed to design a keyboard like this one. So, he developed an angled case base on [this one](https://www.printables.com/model/468215-sofle-v2-case-and-stand), but with a better support for the PCB.
+
+Then, the next step was to buy all the parts, one by one, and assemble them together one by one:
+
+<iframe width="560" height="315" 
+  src="https://www.youtube.com/embed/hh0g3yHTxIQ" 
+  title="YouTube video player" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen>
+</iframe>
+
+This whole process took me 1 full Saturday and other 3 months of "CI/CD" that I had redo the welderings. It was bad, but not that bad considering that I had no previous experience on weldering. I am a DIY guy, and what I got from this process:
+
++ I made a new friendship!
++ Learned how to (and not to) welder.
++ I would recommend anyone doing it, with all the risks environment;
++ Like when we are new to programming, when I finished, I figured out that I could save a lot money and time if I had bought a [pack that it was ready to build a sofle v2: sofle RGB mx kit2](https://pt.aliexpress.com/item/1005008498202663.html) by 50 US$. But as part of my learning, I could not know that this option was valid before understanding the end of each part.
++ Challenge myself to something new.
++ Lots of stories and a blog post;
+
+This whole process made me remember that, to be a master on some thing, we gotta put your hands durty!
+
+Now, better coding, with better keyboards!!
