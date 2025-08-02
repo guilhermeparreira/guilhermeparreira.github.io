@@ -33,9 +33,9 @@ which is so intuitive. However, behind this popularity, MAPE has several pitfall
 
 ## *MAPE* is a biased metric: 
   
-To give a simple example, let's suppose that our `ypred` is 100; if the `yreal` is 150, we have a MAPE equals to 0.33, in constrat to MAPE equals 1 if `yreal` is 50. So, MAPE will always push toward to biased underforecasting.
+To give a simple example, let's suppose that our `ypred` is 100; if the `yreal` is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if `yreal` is 50. So, MAPE will always push toward to biased underforecasting.
 
-The following table ilustrate this:
+The following table illustrate this:
 
 <div style="width: 75%; margin: auto;">
 
@@ -46,7 +46,7 @@ The following table ilustrate this:
 | 150    | 100    | 50  | 0.33 | 2500 |
 | 50     | 100    | 50  | 1.00 | 2500 |
 
-: Ilustration of a case when MAPE is biased {#tbl-biased}
+: Illustration of a case when MAPE is biased {#tbl-biased}
 
 </div>
 
@@ -58,7 +58,7 @@ The denominator of mape is *y_true*. So, MAPE might return `NaN` on your program
     1. Setting y_true to $2.22x10^-16$ will lead to a even higher MAPE number;
     2. You will never know a "true" value of the error for this series;
     3. Your prediction will be compromised even if your predictions are really good (let's say 0.00001); 
-    4. If you need to concilliate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.
+    4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.
 
 In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:
 
@@ -82,7 +82,7 @@ Others also don't calculate the forecast for these points, but you will end up w
 
 ## MAPE does not minimizes the error towards the mean value
 
-This is not a pitfall, but it is a warning, because usually people want to be right on *average*, and this is not what MAPE does. In constrast, it will give a prediction towards a biased median, if I can so. 
+This is not a pitfall, but it is a warning, because usually people want to be right on *average*, and this is not what MAPE does. In contrast, it will give a prediction towards a biased median, if I can so. 
 
 
 A very good resource to read about is [shortcomings of MAPE](https://stats.stackexchange.com/questions/299712/what-are-the-shortcomings-of-the-mean-absolute-percentage-error-mape), that will lead to many other resources.

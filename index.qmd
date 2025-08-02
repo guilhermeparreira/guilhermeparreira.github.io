@@ -26,18 +26,24 @@ about:
       href: cv-en.pdf
 ---
 
-I am a senior data scientist at [4kst](https://4kst.com/), a deep tech startup. I finished my bachelor's degree in statistics in 2015, and my master's in statistics in 2021. Between these two degrees, I ran my own statistical consultancy company [GP Soluções em Estatística](https://gpestatistica.netlify.app/) impacting over 200 researchers.
+I am a senior data scientist at [4kst](https://4kst.com/), a deep tech startup. I finished my bachelor's degree in statistics in 2015, and my master's in statistics in 2021. Between these two degrees, I ran my own statistical consultancy company [GP Soluções em Estatística](https://gpestatistica.netlify.app/) impacting over 200 researchers. My main published papers are from [bachelor's degree]()
 
-I have a strong background in R, and since 2021 I am programming in Python almost everyday. Fell free to contact me.
+I have a strong background in R, and since 2021 I program in Python almost everyday.
 
-In my leasure time, I like to travel, make a Brazilian barbecure, and do small repairs at my home.
+### Content Published
+
++ You can find my TCC [here](TCC_Guilherme_Isadora_link_azul.pdf) and the respective [article](https://soche.cl/chjs/volumes/10/ChJS-10-02-03.pdf);
+
++ From my [master thesis](Master_Thesis.pdf), I published two papers: [1](https://ajs.or.at/index.php/ajs/article/view/1574) and [2](https://www.tandfonline.com/doi/abs/10.1080/00949655.2023.2184474).
 
 ### Curiosities
 
-+ I coursed therapeutic theatre for one year to leverage my comunication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available [here](https://youtu.be/MYinrpQa7ko?si=ti7HViWmg_d9qt_f) and [here](https://youtu.be/RUjK0te4nFg?si=_wfwnSBRrZRhKN4f).
++ I coursed therapeutic theatre for one year to leverage my communication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available [here](https://youtu.be/MYinrpQa7ko?si=ti7HViWmg_d9qt_f) and [here](https://youtu.be/RUjK0te4nFg?si=_wfwnSBRrZRhKN4f).
 
 + I built by myself the Sofle v2 split keyboard that I use to work. There is a [post](./posts/keyboard/index.html) on my blog only for it.
 
 + As being a guy who likes to "DIY" approach I have a [playlist on Youtube](https://www.youtube.com/playlist?list=PLMxKiNq3oU3cxND8sI1DKO7t1S1sDG4eL) with tips and tricks on how to fix stuff at home.
 
 + I am 5 times state champion soccer table in a row.
+
++ Always improving my barbecuing skills at home.
