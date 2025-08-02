@@ -194,12 +194,12 @@ ul.task-list li input[type="checkbox"] {
 <h1>BUT:</h1>
 <section id="mape-is-a-biased-metric" class="level2">
 <h2 class="anchored" data-anchor-id="mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</h2>
-<p>To give a simple example, let’s suppose that our <code>ypred</code> is 100; if the <code>yreal</code> is 150, we have a MAPE equals to 0.33, in constrat to MAPE equals 1 if <code>yreal</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
-<p>The following table ilustrate this:</p>
+<p>To give a simple example, let’s suppose that our <code>ypred</code> is 100; if the <code>yreal</code> is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if <code>yreal</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
+<p>The following table illustrate this:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-biased" class="anchored">
 <table class="table">
-<caption>Table&nbsp;1: Ilustration of a case when MAPE is biased</caption>
+<caption>Table&nbsp;1: Illustration of a case when MAPE is biased</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">y_true</th>
@@ -246,7 +246,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="mape-is-not-define-when-y_true-is-zero" class="level2">
 <h2 class="anchored" data-anchor-id="mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</h2>
-<p>The denominator of mape is <em>y_true</em>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what <code>sklearn.metrics.mean_average_percentage_error</code> do (setting y_true to <span class="math inline">\(2.22x10^-16\)</span>). But it gives other problems: 1. Setting y_true to <span class="math inline">\(2.22x10^-16\)</span> will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to concilliate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</p>
+<p>The denominator of mape is <em>y_true</em>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what <code>sklearn.metrics.mean_average_percentage_error</code> do (setting y_true to <span class="math inline">\(2.22x10^-16\)</span>). But it gives other problems: 1. Setting y_true to <span class="math inline">\(2.22x10^-16\)</span> will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</p>
 <p>In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-impact" class="anchored">
@@ -299,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="mape-does-not-minimizes-the-error-towards-the-mean-value" class="level2">
 <h2 class="anchored" data-anchor-id="mape-does-not-minimizes-the-error-towards-the-mean-value">MAPE does not minimizes the error towards the mean value</h2>
-<p>This is not a pitfall, but it is a warning, because usually people want to be right on <em>average</em>, and this is not what MAPE does. In constrast, it will give a prediction towards a biased median, if I can so.</p>
+<p>This is not a pitfall, but it is a warning, because usually people want to be right on <em>average</em>, and this is not what MAPE does. In contrast, it will give a prediction towards a biased median, if I can so.</p>
 <p>A very good resource to read about is <a href="https://stats.stackexchange.com/questions/299712/what-are-the-shortcomings-of-the-mean-absolute-percentage-error-mape">shortcomings of MAPE</a>, that will lead to many other resources.</p>
 </section>
 </section>
