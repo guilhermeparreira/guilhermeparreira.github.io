@@ -1,5 +1,6 @@
 ---
 title: Guilherme Parreira
+subtitle: Time series specialist
 image: profile.jpg
 resources:
   - .nojekyll
