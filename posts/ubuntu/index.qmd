@@ -1,10 +1,10 @@
 ---
 title: "The day that I decided to stop using Windows"
 description: "The benefits of running on a Linux Environment"
-date: 28-07-2025
-categories: [Ubuntu, Linux] # self-defined categories
+date: 05-08-2025
+categories: [Ubuntu, Linux, DataScientist, advantages] # self-defined categories
 image: jammy.jpg
-draft: true
+draft: false
 tbl-cap-location: top
 ---
 
