@@ -253,6 +253,103 @@
   <media:content url="https://guilhermeparreira.github.io/posts/mape/mape.png" medium="image" type="image/png" height="144" width="144"/>
 </item>
 <item>
+  <title>The day that I decided to stop using Windows</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/ubuntu/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/ubuntu/jammy.jpg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>During my undergraduate studies, my professor <a href="http://leg.ufpr.br/~paulojus">Paulo Justiniano</a> always incentivized the students for using any Linux distribution on their machines. The reasons were vast, but I will give the details later on.</p>
+<p>I never tried it before because:</p>
+<ol type="1">
+<li>I was comfortable using Windows because I used this operational system on my internship and at home</li>
+<li>I did not have a personal laptop at the beginning of university.</li>
+</ol>
+<p>On my last year of college, I bought one with Windows pre installed, and I was using as it is (knowing that migrating to Ubuntu would be better). But the day came!</p>
+</section>
+<section id="the-day" class="level2">
+<h2 class="anchored" data-anchor-id="the-day">The Day</h2>
+<p>I remember like it was today. It was during the time that everyone was migrating from Windows 8.1 or 10. I was working on a report, had worked the full day on it, and then I decided to migrate to Windows 10. The migration finished successfully, I opened the file, started typing a few more words, and then, out of nothing <strong>my report became corrupted</strong>:</p>
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/ubuntu/file-corrupted.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<p>I could not save or send my report to anywhere, and I received the famous blue screen:</p>
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/ubuntu/fix-windows-corruption.jpg" width="560" height="400" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<p>I had to turn off and on my PC using the power button, but I could not see the original content of the file anymore. It was gone. At the same time, I downloaded the Mint iso file, burn into a Pen Drive, installed it and started using.</p>
+<p>It was not only flowers at the beginning, as usual. My friend Augusto Colombo helped my in the lab to install and do the basics. Some weeks later, and I did not like the Mint, so I swap to Ubuntu.</p>
+</section>
+<section id="the-redemption" class="level2">
+<h2 class="anchored" data-anchor-id="the-redemption">The redemption</h2>
+<div style="text-align: center;">
+<p><img src="https://guilhermeparreira.github.io/posts/ubuntu/https:/media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmQzc21sa3Z3bmRiZmlkbjl2dXc0aW1zdWlvNTVvamxwaGRvNms0diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0Hlw1wlzvxTvxiZG/giphy.gif" alt="Cat typing crazy" width="480" height="434"></p>
+</div>
+<p>With Ubuntu everything fell into place. All the troubles that I had when tried a fresh install on Mint it was solved on Ubuntu, and I could fix by my self.</p>
+<p>It really represents the meaning of Ubuntu, from African: “I am what I am because of who we all are”. Ever since then I use ubuntu on my personal laptop and in my current job. It is so amazing.</p>
+<p>It gives <strong>many advantages</strong> for me compared to the time I had Windows:</p>
+<ol type="1">
+<li>I know how to do a fresh install when needed.</li>
+<li>It is free to use. Don’t need to pay any license.</li>
+<li>It hardly enters a virus.</li>
+<li>The performance does not go down over time.</li>
+<li>There is a full community open to help.</li>
+<li>Due to the fact that most of installation is made via CLI, it opens your mind to shell, to automate your repetitive tasks.</li>
+<li>The hard drive is portable. I can remove from my PC and plug it into another. It will not crash.</li>
+</ol>
+<p>When we talk specifically about <strong>Data Science tasks</strong>, I can list:</p>
+<ol type="1">
+<li>Python is pre-installed on Ubuntu.</li>
+<li>Docker only runs on Ubuntu machines.</li>
+<li>Almost every server in the world uses a distro based on Linux. Choosing a server on EC2, it is like to choose which Linux you want to use. Using Ubuntu daily means that when I need to access servers, I am more familiar with the operational system.</li>
+<li>Installation of tools for data science such as R, Python, dependencies are usually easily handed on Ubuntu.</li>
+<li>A common task on a DS work is to tell the path you files are. If you are on Windows, you need to copy the path, paste on a Editor and make the back slash into forward the slash, or double it. With Ubuntu, you do not. You use as it is.</li>
+</ol>
+<p>The only thing that sometimes I miss on Ubuntu is the Office package. But using Libre Office is lighter, free and it is a good alternative full of customizations.</p>
+</section>
+<section id="considerations" class="level2">
+<h2 class="anchored" data-anchor-id="considerations">Considerations</h2>
+<p>I am aware that the latest Windows release have become better, such that, WSL (Windows Subsystem for Linux) became available and Windows 10 is stable now. From another point of view, Ubuntu has now Steam for gaming, but it is still not ideal when you want a full gaming experience. In the end of the day, it is always a matter of which operational system suits you best: just like for designers that love Apple.</p>
+<p>With all that given, it would be nice if we could choose the operational system that fits better our role, instead of going to the usual operational system.</p>
+<p>Maybe we can reach a day that:</p>
+<div style="text-align: center;">
+<p><img src="https://guilhermeparreira.github.io/posts/ubuntu/https:/media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmRnazd3dDU4aWJ0dm40ZnFtY2gyd240ZnV1NnA0Y3RjZWxsdmluMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/iIAqUrSHqM1cvCJorI/giphy.gif" width="480" height="346"></p>
+</div>
+<p>Leave in the comments any thoughts about it!</p>
+<p>Happy coding!</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Ubuntu</category>
+  <category>Linux</category>
+  <category>DataScientist</category>
+  <category>advantages</category>
+  <guid>https://guilhermeparreira.github.io/posts/ubuntu/index.html</guid>
+  <pubDate>Thu, 08 May 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/ubuntu/jammy.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
   <title>My first post</title>
   <dc:creator>Guilherme Parreira</dc:creator>
   <link>https://guilhermeparreira.github.io/posts/welcome/index.html</link>
@@ -617,6 +714,7 @@ font-style: inherit;">"google"</span></span></code></pre></div>
   <category>Ruff</category>
   <category>Python</category>
   <category>VsCode</category>
+  <category>linter</category>
   <guid>https://guilhermeparreira.github.io/posts/ruff/index.html</guid>
   <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/ruff/ruff.png" medium="image" type="image/png" height="81" width="144"/>
