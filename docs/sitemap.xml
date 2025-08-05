@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://guilhermeparreira.github.io/index.html</loc>
-    <lastmod>2025-08-02T02:22:59.122Z</lastmod>
+    <lastmod>2025-08-02T02:23:49.524Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/about.html</loc>
@@ -26,6 +26,10 @@
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/keyboard/index.html</loc>
-    <lastmod>2025-08-02T01:46:31.990Z</lastmod>
+    <lastmod>2025-08-05T01:26:49.388Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
+    <lastmod>2025-08-05T01:30:53.595Z</lastmod>
   </url>
 </urlset>
