@@ -368,27 +368,6 @@
   <media:content url="https://guilhermeparreira.github.io/posts/ubuntu/jammy.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
-  <title>My first post</title>
-  <dc:creator>Guilherme Parreira</dc:creator>
-  <link>https://guilhermeparreira.github.io/posts/welcome/index.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>Hello guys!</p>
-<p>I will use the blog for sharing data science content.</p>
-<p>I hope you all like.</p>
-
-
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>Welcome</category>
-  <guid>https://guilhermeparreira.github.io/posts/welcome/index.html</guid>
-  <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/welcome/welcome.png" medium="image" type="image/png" height="81" width="144"/>
-</item>
-<item>
   <title>Ruff in a Nutshell + Configuring it on VsCode</title>
   <dc:creator>Guilherme Parreira</dc:creator>
   <link>https://guilhermeparreira.github.io/posts/ruff/index.html</link>
@@ -736,6 +715,27 @@ font-style: inherit;">"google"</span></span></code></pre></div>
   <guid>https://guilhermeparreira.github.io/posts/ruff/index.html</guid>
   <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/ruff/ruff.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+<item>
+  <title>My first post</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/welcome/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Hello guys!</p>
+<p>I will use the blog for sharing data science content.</p>
+<p>I hope you all like.</p>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Welcome</category>
+  <guid>https://guilhermeparreira.github.io/posts/welcome/index.html</guid>
+  <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/welcome/welcome.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 </channel>
 </rss>
