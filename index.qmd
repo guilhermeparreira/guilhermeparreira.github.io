@@ -11,7 +11,7 @@ about:
   links:
     - icon: linkedin
       text: linkedin
-      href: https://www.linkedin.com/in/guilherme-parreira/
+      href: https://www.linkedin.com/in/guilherme-parreira/?locale=en_US
     - icon: stack-overflow
       text: so-pt
       href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
