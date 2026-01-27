@@ -2,23 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://guilhermeparreira.github.io/index.html</loc>
-    <lastmod>2025-08-02T02:23:49.524Z</lastmod>
+    <lastmod>2026-01-27T00:37:35.019Z</lastmod>
   </url>
   <url>
-    <loc>https://guilhermeparreira.github.io/about.html</loc>
-    <lastmod>2024-09-29T01:21:01.006Z</lastmod>
+    <loc>https://guilhermeparreira.github.io/posts/welcome/index.html</loc>
+    <lastmod>2025-07-22T01:34:03.501Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
+    <lastmod>2025-08-05T23:36:20.198Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/ruff/index.html</loc>
     <lastmod>2025-08-05T23:36:34.922Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/welcome/index.html</loc>
-    <lastmod>2024-09-29T02:38:49.273Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts.html</loc>
-    <lastmod>2025-07-22T01:34:03.476Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/mape/index.html</loc>
@@ -29,7 +25,7 @@
     <lastmod>2025-08-05T23:51:36.529Z</lastmod>
   </url>
   <url>
-    <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
-    <lastmod>2025-08-05T23:36:20.198Z</lastmod>
+    <loc>https://guilhermeparreira.github.io/posts.html</loc>
+    <lastmod>2025-07-22T01:34:03.476Z</lastmod>
   </url>
 </urlset>

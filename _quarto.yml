@@ -27,10 +27,10 @@ website:
       - icon: github
         href: https://github.com/guilhermeparreira
       - icon: linkedin
-        href: https://www.linkedin.com/in/guilherme-parreira/
+        href: https://www.linkedin.com/in/guilherme-parreira/?locale=en_US
       - icon: stack-overflow
         href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
-      
+
 format:
   html:
     theme:

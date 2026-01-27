@@ -7,102 +7,11 @@
     "text": "I am a senior data scientist at 4kst, a deep tech startup. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. Between these two degrees, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers. My main published papers are from bachelor’s degree\nI have a strong background in R, and since 2021 I program in Python almost everyday.\n\nContent Published\n\nYou can find my TCC here and the respective article;\nFrom my master thesis, I published two papers: 1 and 2.\n\n\n\nCuriosities\n\nI coursed therapeutic theatre for one year to leverage my communication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available here and here.\nI built by myself the Sofle v2 split keyboard that I use to work. There is a post on my blog only for it.\nAs being a guy who likes to “DIY” approach I have a playlist on Youtube with tips and tricks on how to fix stuff at home.\nI am 5 times state champion soccer table in a row.\nAlways improving my barbecuing skills at home.\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I am a data scientist who loves working with data since 17. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. In this meantime, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers.\nI have a strong background in R, and since 2021 I am programming in Python almost everyday."
-  },
-  {
-    "objectID": "about.html#about-this-blog",
-    "href": "about.html#about-this-blog",
-    "title": "About",
-    "section": "",
-    "text": "I am a data scientist who loves working with data since 17. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. In this meantime, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers.\nI have a strong background in R, and since 2021 I am programming in Python almost everyday."
-  },
-  {
-    "objectID": "posts/ruff/index.html",
-    "href": "posts/ruff/index.html",
-    "title": "Ruff in a Nutshell + Configuring it on VsCode",
-    "section": "",
-    "text": "Hello guys!\nToday I want to talk about RUFF, my default formatter (and much more) for Python language.\nIn a nutshell, RUFF can be seen as a tool that performs all these tasks:\nRUFF = Flake8 + isort + black + pydocstyle + pyupgrade + autoflake\nFlake8 = Linter, which fix style + syntax errors\nisort = Sort the imports\nblack = formatter ; PEP8 complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis\npydocstyle = docstrings\npyupgrade = upgrade syntax for newer versions of python packages\nautoflake = Remove unused imports and unused variables\nSo, instead of having to set up each one individually, use RUFF and have all these tools into a single one. RUFF was written in rust, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools."
-  },
-  {
-    "objectID": "posts/ruff/index.html#setting-it-up-on-vscode",
-    "href": "posts/ruff/index.html#setting-it-up-on-vscode",
-    "title": "Ruff in a Nutshell + Configuring it on VsCode",
-    "section": "Setting it up on VsCode",
-    "text": "Setting it up on VsCode\nTo give suggestions on the fly, I use the Ruff VsCode Extension.\nBesides that, I have my settings.json with my personal preferences:\n// Use Ruff as the default formatter for Python files\n\"[python]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\",\n\"editor.codeActionsOnSave\": {\n    \"source.fixAll\": \"explicit\",\n    \"source.organizeImports\": \"explicit\"\n}\n},\n// Formatter for notebook cells\n\"[jupyter]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\"\n},\n// Enable format on save for notebooks\n\"notebook.formatOnSave.enabled\": true,\n// Disable other formatters to avoid conflicts\n\"editor.formatOnSave\": true,\nBut these are only global settings in my personal environment.\nWorking with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a .vscode/settings.json inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to .vscode/settings.json.\nI also make Ruff as a default extension in .vscode/settings.json:\n{\n    \"recommendations\": [\n        \"charliermarsh.ruff\"\n    ]\n}\nLast but not least, you can also install ruff and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the .vscode/settings.json guarantees that the suggestions will be made on the fly. But it depends on VsCode."
-  },
-  {
-    "objectID": "posts/ruff/index.html#bonus-caveat",
-    "href": "posts/ruff/index.html#bonus-caveat",
-    "title": "Ruff in a Nutshell + Configuring it on VsCode",
-    "section": "Bonus (Caveat)",
-    "text": "Bonus (Caveat)\nI struggled to start using a tool like this because I used to write code in a single long line. I always received the E501: line-too-long warning from black. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like ruff my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the line-length a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.\nLeaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the git diff changes.\nAnyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:\n[tool.ruff]\nline-length = 130\n\nlint.ignore = [\n    \"E501\", # Ignore long lines\n    \"E302\", # Ignore blank lines issue\n    \"E701\", # Ignore single-line if statements\n]\nextend-include = [\"*.ipynb\"]\n\n[tool.ruff.format]\nquote-style = \"double\"\ndocstring-code-format = true\n\n[tool.ruff.lint.pydocstyle] # It enforces that all functions have docstrings\nconvention = \"google\"\nor skipping this rule by adding # fmt: skip at the end of a line. Or use #fmt: on at the beginning of a block and #fmt: off at the end.\nHappy coding."
-  },
-  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "My first post",
     "section": "",
     "text": "Hello guys!\nI will use the blog for sharing data science content.\nI hope you all like.\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "My Blog",
-    "section": "",
-    "text": "MAPE and its pitfalls\n\n\n\nMAPE\n\nData Science\n\nTime Series\n\n\n\nWhy MAPE should not be your choice\n\n\n\nGuilherme Parreira\n\n\nMay 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nSofle v2 keyboard is cheaper than a wrist exam\n\n\n\nKeyboard\n\n\n\nThe full saga\n\n\n\nGuilherme Parreira\n\n\nJul 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe day that I decided to stop using Windows\n\n\n\nUbuntu\n\nLinux\n\nDataScientist\n\nadvantages\n\n\n\nThe benefits of running on a Linux Environment\n\n\n\nGuilherme Parreira\n\n\nMay 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\nPython\n\nVsCode\n\nlinter\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\nNo matching items\n Back to top"
-  },
-  {
-    "objectID": "posts/mape/index.html",
-    "href": "posts/mape/index.html",
-    "title": "MAPE and its pitfalls",
-    "section": "",
-    "text": "Hello guys! I want to talk a widely used metric, specially in time series modelling, which it is MAPE."
-  },
-  {
-    "objectID": "posts/mape/index.html#mape-is-a-biased-metric",
-    "href": "posts/mape/index.html#mape-is-a-biased-metric",
-    "title": "MAPE and its pitfalls",
-    "section": "MAPE is a biased metric:",
-    "text": "MAPE is a biased metric:\nTo give a simple example, let’s suppose that our ypred is 100; if the yreal is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if yreal is 50. So, MAPE will always push toward to biased underforecasting.\nThe following table illustrate this:\n\n\n\n\nTable 1: Illustration of a case when MAPE is biased\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n100\n150\n50\n0.50\n2500\n\n\n100\n50\n50\n0.50\n2500\n\n\n150\n100\n50\n0.33\n2500\n\n\n50\n100\n50\n1.00\n2500\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (they don’t bias for under/over forecasts)."
-  },
-  {
-    "objectID": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
-    "href": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
-    "title": "MAPE and its pitfalls",
-    "section": "MAPE is not define when y_true is zero",
-    "text": "MAPE is not define when y_true is zero\nThe denominator of mape is y_true. So, MAPE might return NaN on your programming software or Inf. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what sklearn.metrics.mean_average_percentage_error do (setting y_true to \\(2.22x10^-16\\)). But it gives other problems: 1. Setting y_true to \\(2.22x10^-16\\) will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.\nIn practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:\n\n\n\n\nTable 2: Impact in MAPE when y_true is zero or near zero\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n0\n0.5\n0.5\n#DIV/0!\n0.25\n\n\n0\n1.5\n1.5\n#DIV/0!\n2.25\n\n\n9E-17\n0.5\n0.5\n5.55x10^15\n0.25\n\n\n9E-17\n1.5\n1.5\n1.67x10^16\n2.25\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).\nOthers also don’t calculate the forecast for these points, but you will end up with same problem as number 2."
-  },
-  {
-    "objectID": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
-    "href": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
-    "title": "MAPE and its pitfalls",
-    "section": "MAPE does not minimizes the error towards the mean value",
-    "text": "MAPE does not minimizes the error towards the mean value\nThis is not a pitfall, but it is a warning, because usually people want to be right on average, and this is not what MAPE does. In contrast, it will give a prediction towards a biased median, if I can so.\nA very good resource to read about is shortcomings of MAPE, that will lead to many other resources."
-  },
-  {
-    "objectID": "posts/mape/index.html#why-mape-is-used",
-    "href": "posts/mape/index.html#why-mape-is-used",
-    "title": "MAPE and its pitfalls",
-    "section": "Why MAPE is used",
-    "text": "Why MAPE is used\nMAPE is a largely used metric because has the following benefits:\n\nIt is a percentage metric; so, it can be used to compare time series with different units.\nIt is largely used. People specially from other fields use it without knowing that are using it because it is so straight forward and natural.\n\nI will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for MAPE can be described as:\n\\[\\text{MAPE} = \\frac{\\sum_{i=1}^{n} \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right|}{n}\\]\nwhich is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:"
-  },
-  {
-    "objectID": "posts/keyboard/index.html",
-    "href": "posts/keyboard/index.html",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "",
-    "text": "I am one of those programmers who type at list 8 hours per day and still prefer shopping on a PC rather than on a phone rsrs. Yes, I need the big screens.\nEven tough I did not count my words per minute (wpm), I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.\nBut as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones 🤖. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonitis 🤕. I started to the physiotherapy for my wrist, which gave me some relief, but at the end of day, I felt sour on my right hand due to labour.\nSo, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an Ajazz Alice AKS068 Pro from a Brazilian Fellow online:\n\n\n\n\n\n\n\n\nThe price was great.\nThe change would be small because it is a 70% keyboard.\nI loved the colors.\nThere was a Knob button that I would use as a volume controller.\nIt was “ergonomic”.\n\n\n\n\nHOWEVER, he did not want to send the keyboard over mail.\n\n\n\nThen, I found pricy this keyboard new, here is way:\n\nThe keyboard was not ergonomic at all -&gt; It only had curved keys in a fixed position;\nAs time passed by, the pain increased, and I felt that I need something more complete;\n\nA week or later I discovered the Moonlander keyboard from Fabio Akita, for US$ 400, no way. But I realized that this was the kind of technology that I needed. So I did a vast research and I found out that eFeXx built a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. With this keyboard I would have a real ergonomic keyboard, that’s way:\n\nThe keys are columns oriented: They respect the different length of the fingers.\nThe thumb finger receives 3 keys to use on each split. Being it the strongest finger is a waste to use only for space in a regular keyboard.\nI could place the keyboard at any angle that I wanted: as long as I respect the ergonomics.\nThe splits can be placed far apart from which other.\n\nIt also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds, bluetooth and much more from the creator. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one.\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual.\nThen, the next step was to buy all the parts from AliExpress, one by one, and assemble them together:\n\n \n\nThis whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had to fix some welds. Considering that I had no previous experience on weld, it was a learning process, and I liked.\nThis is what I got from this process:\n\nI made a new friendship! Not only one, two: Paludo showed me his lilly keyboard and all the advantages of having a split keyboard.\nLearned how to (and not to) weld.\nI recommend it, specially if you are familiar with weld;\nLike when we are new to programming, when I finished, I figured out that there was a better way to make it. I could have saved a lot money and time if I had bought a ready to build sofle RGB mx kit2 by 50 US$. But as part of my learning, I could not know that it would work before doing it.\nLots of stories for a sunday in family.\nA Blog post 😂;\n\nThis whole process made me remember that, to be a master, you gotta get your hands dirty!\nNow, better coding, with better keyboards!!\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "index.html#curiosities",
-    "href": "index.html#curiosities",
-    "title": "Guilherme Parreira",
-    "section": "Curiosities",
-    "text": "Curiosities\n\nI coursed therapeutic theatre for one year to leverage my comunication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available at here and here.\nI built by myself the Sofle v2 split keyboard that I use to work. There is a post on my blog only for it.\nAs being a guy who likes to “DIY” approach I have a playlist on Youtube with tips and tricks on how to fix stuff at home.\nI am 5 times state champion soccer table in a row."
   },
   {
     "objectID": "posts/ubuntu/index.html#introduction",
@@ -133,25 +42,67 @@
     "text": "Considerations\nI am aware that the latest Windows release have become better, such that, WSL (Windows Subsystem for Linux) became available and Windows 10 is stable now. From another point of view, Ubuntu has now Steam for gaming, but it is still not ideal when you want a full gaming experience. In the end of the day, it is always a matter of which operational system suits you best: just like for designers that love Apple.\nWith all that given, it would be nice if we could choose the operational system that fits better our role, instead of going to the usual operational system.\nMaybe we can reach a day that:\n\n\n\nLeave in the comments any thoughts about it!\nHappy coding!"
   },
   {
+    "objectID": "posts/ruff/index.html",
+    "href": "posts/ruff/index.html",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "",
+    "text": "Hello guys!\nToday I want to talk about RUFF, my default formatter (and much more) for Python language.\nIn a nutshell, RUFF can be seen as a tool that performs all these tasks:\nRUFF = Flake8 + isort + black + pydocstyle + pyupgrade + autoflake\nFlake8 = Linter, which fix style + syntax errors\nisort = Sort the imports\nblack = formatter ; PEP8 complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis\npydocstyle = docstrings\npyupgrade = upgrade syntax for newer versions of python packages\nautoflake = Remove unused imports and unused variables\nSo, instead of having to set up each one individually, use RUFF and have all these tools into a single one. RUFF was written in rust, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools."
+  },
+  {
+    "objectID": "posts/ruff/index.html#setting-it-up-on-vscode",
+    "href": "posts/ruff/index.html#setting-it-up-on-vscode",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "Setting it up on VsCode",
+    "text": "Setting it up on VsCode\nTo give suggestions on the fly, I use the Ruff VsCode Extension.\nBesides that, I have my settings.json with my personal preferences:\n// Use Ruff as the default formatter for Python files\n\"[python]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\",\n\"editor.codeActionsOnSave\": {\n    \"source.fixAll\": \"explicit\",\n    \"source.organizeImports\": \"explicit\"\n}\n},\n// Formatter for notebook cells\n\"[jupyter]\": {\n\"editor.defaultFormatter\": \"charliermarsh.ruff\"\n},\n// Enable format on save for notebooks\n\"notebook.formatOnSave.enabled\": true,\n// Disable other formatters to avoid conflicts\n\"editor.formatOnSave\": true,\nBut these are only global settings in my personal environment.\nWorking with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a .vscode/settings.json inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to .vscode/settings.json.\nI also make Ruff as a default extension in .vscode/settings.json:\n{\n    \"recommendations\": [\n        \"charliermarsh.ruff\"\n    ]\n}\nLast but not least, you can also install ruff and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the .vscode/settings.json guarantees that the suggestions will be made on the fly. But it depends on VsCode."
+  },
+  {
+    "objectID": "posts/ruff/index.html#bonus-caveat",
+    "href": "posts/ruff/index.html#bonus-caveat",
+    "title": "Ruff in a Nutshell + Configuring it on VsCode",
+    "section": "Bonus (Caveat)",
+    "text": "Bonus (Caveat)\nI struggled to start using a tool like this because I used to write code in a single long line. I always received the E501: line-too-long warning from black. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like ruff my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the line-length a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.\nLeaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the git diff changes.\nAnyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:\n[tool.ruff]\nline-length = 130\n\nlint.ignore = [\n    \"E501\", # Ignore long lines\n    \"E302\", # Ignore blank lines issue\n    \"E701\", # Ignore single-line if statements\n]\nextend-include = [\"*.ipynb\"]\n\n[tool.ruff.format]\nquote-style = \"double\"\ndocstring-code-format = true\n\n[tool.ruff.lint.pydocstyle] # It enforces that all functions have docstrings\nconvention = \"google\"\nor skipping this rule by adding # fmt: skip at the end of a line. Or use #fmt: on at the beginning of a block and #fmt: off at the end.\nHappy coding."
+  },
+  {
+    "objectID": "posts/mape/index.html",
+    "href": "posts/mape/index.html",
+    "title": "MAPE and its pitfalls",
+    "section": "",
+    "text": "Hello guys! I want to talk a widely used metric, specially in time series modelling, which it is MAPE."
+  },
+  {
+    "objectID": "posts/mape/index.html#why-mape-is-used",
+    "href": "posts/mape/index.html#why-mape-is-used",
+    "title": "MAPE and its pitfalls",
+    "section": "Why MAPE is used",
+    "text": "Why MAPE is used\nMAPE is a largely used metric because has the following benefits:\n\nIt is a percentage metric; so, it can be used to compare time series with different units.\nIt is largely used. People specially from other fields use it without knowing that are using it because it is so straight forward and natural.\n\nI will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for MAPE can be described as:\n\\[\\text{MAPE} = \\frac{\\sum_{i=1}^{n} \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right|}{n}\\]\nwhich is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:"
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-is-a-biased-metric",
+    "href": "posts/mape/index.html#mape-is-a-biased-metric",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE is a biased metric:",
+    "text": "MAPE is a biased metric:\nTo give a simple example, let’s suppose that our ypred is 100; if the yreal is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if yreal is 50. So, MAPE will always push toward to biased underforecasting.\nThe following table illustrate this:\n\n\n\n\nTable 1: Illustration of a case when MAPE is biased\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n100\n150\n50\n0.50\n2500\n\n\n100\n50\n50\n0.50\n2500\n\n\n150\n100\n50\n0.33\n2500\n\n\n50\n100\n50\n1.00\n2500\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (they don’t bias for under/over forecasts)."
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
+    "href": "posts/mape/index.html#mape-is-not-define-when-y_true-is-zero",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE is not define when y_true is zero",
+    "text": "MAPE is not define when y_true is zero\nThe denominator of mape is y_true. So, MAPE might return NaN on your programming software or Inf. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what sklearn.metrics.mean_average_percentage_error do (setting y_true to \\(2.22x10^-16\\)). But it gives other problems: 1. Setting y_true to \\(2.22x10^-16\\) will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.\nIn practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:\n\n\n\n\nTable 2: Impact in MAPE when y_true is zero or near zero\n\n\n\n\n\ny_true\ny_pred\nMAE\nMAPE\nMSE\n\n\n\n\n0\n0.5\n0.5\n#DIV/0!\n0.25\n\n\n0\n1.5\n1.5\n#DIV/0!\n2.25\n\n\n9E-17\n0.5\n0.5\n5.55x10^15\n0.25\n\n\n9E-17\n1.5\n1.5\n1.67x10^16\n2.25\n\n\n\n\n\n\n\nCheck that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).\nOthers also don’t calculate the forecast for these points, but you will end up with same problem as number 2."
+  },
+  {
+    "objectID": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
+    "href": "posts/mape/index.html#mape-does-not-minimizes-the-error-towards-the-mean-value",
+    "title": "MAPE and its pitfalls",
+    "section": "MAPE does not minimizes the error towards the mean value",
+    "text": "MAPE does not minimizes the error towards the mean value\nThis is not a pitfall, but it is a warning, because usually people want to be right on average, and this is not what MAPE does. In contrast, it will give a prediction towards a biased median, if I can so.\nA very good resource to read about is shortcomings of MAPE, that will lead to many other resources."
+  },
+  {
     "objectID": "posts/keyboard/index.html#introduction",
     "href": "posts/keyboard/index.html#introduction",
     "title": "Sofle v2 keyboard is cheaper than a wrist exam",
     "section": "Introduction",
     "text": "Introduction\nI am one of those programmers who type at list 8 hours per day and still prefer shopping on a PC rather than on a phone rsrs. Yes, I need the big screens.\nEven tough I did not count my words per minute (wpm), I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.\n\nWhen the pain started\nBut as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones 🤖. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonitis 🤕. I started to the physiotherapy for my wrist, which gave me some relief, but at the end of day, I felt sour on my right hand due to labour.\n\n\nLooking for a new keyboard\nSo, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an Ajazz Alice AKS068 Pro from a Brazilian Fellow online:\n\n\n\n\n\n\n\n\nThe price was great.\nThe change would be small because it is a 70% keyboard.\nI loved the colors.\nThere was a Knob button that I would use as a volume controller.\nIt was “ergonomic”.\n\n\n\n\nHOWEVER, he did not want to send the keyboard over mail.\n\n\n\nThen, I found pricy this keyboard new, here is way:\n\nThe keyboard was not ergonomic at all -&gt; It only had curved keys in a fixed position;\nAs time passed by, the pain increased, and I felt that I need something more complete;"
-  },
-  {
-    "objectID": "posts/keyboard/index.html#almost-there",
-    "href": "posts/keyboard/index.html#almost-there",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "Almost there",
-    "text": "Almost there\nA week or later I discovered the Moonlander keyboard from Fabio Akita, for US$ 400, no way. But I realized that this was the kind of technology that I needed. So I did a vast research and I found out that eFeXx built a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. With this keyboard I would have a real ergonomic keyboard, that’s way:\n\nThe keys are columns oriented: They respect the different length of the fingers.\nThe thumb finger receives 3 keys to use on each split. Being it the strongest finger is a waste to use only for space in a regular keyboard.\nI could place the keyboard at any angle that I wanted: as long as I respect the ergonomics.\nThe splits can be placed far apart from which other.\n\nIt also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds, bluetooth and much more from the creator. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one.\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual."
-  },
-  {
-    "objectID": "posts/keyboard/index.html#building-my-own-keyboard",
-    "href": "posts/keyboard/index.html#building-my-own-keyboard",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "Building my own keyboard",
-    "text": "Building my own keyboard\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual.\nThen, the next step was to buy all the parts from AliExpress, one by one, and assemble them together:\n\n \n\nThis whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had to fix some welds. Considering that I had no previous experience on weld, it was a learning process, and I liked."
   },
   {
     "objectID": "posts/keyboard/index.html#mechanical-ergonomic-keyboards",
@@ -161,10 +112,24 @@
     "text": "Mechanical ergonomic keyboards\nA week or later I discovered the Moonlander keyboard from Fabio Akita, for US$ 400, no way. But I realized that this was the kind of technology that I needed. So I did a vast research and I found out that eFeXx built a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. With this keyboard I would have a real ergonomic keyboard, that’s way:\n\nThe keys are columns oriented: They respect the different length of the fingers.\nThe thumb finger receives 3 keys to use on each split. Being it the strongest finger is a waste to use only for space in a regular keyboard.\nI could place the keyboard at any angle that I wanted: as long as I respect the ergonomics.\nThe splits can be placed far apart from which other.\n\nIt also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds, bluetooth and much more from the creator. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one."
   },
   {
+    "objectID": "posts/keyboard/index.html#building-my-own-keyboard",
+    "href": "posts/keyboard/index.html#building-my-own-keyboard",
+    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
+    "section": "Building my own keyboard",
+    "text": "Building my own keyboard\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual.\nThen, the next step was to buy all the parts from AliExpress, one by one, and assemble them together:\n\n \n\nThis whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had to fix some welds. Considering that I had no previous experience on weld, it was a learning process, and I liked."
+  },
+  {
     "objectID": "posts/keyboard/index.html#in-summary",
     "href": "posts/keyboard/index.html#in-summary",
     "title": "Sofle v2 keyboard is cheaper than a wrist exam",
     "section": "In summary",
     "text": "In summary\nThis is what I got from this process:\n\nI made a new friendship! Not only one, two: Paludo showed me his lilly keyboard and all the advantages of having a split keyboard.\nLearned how to (and not to) weld.\nI recommend it, specially if you are familiar with weld;\nLike when we are new to programming, when I finished, I figured out that there was a better way to make it. I could have saved a lot money and time if I had bought a ready to build sofle RGB mx kit2 by 50 US$. But as part of my learning, I could not know that it would work before doing it.\nLots of stories for a Sunday in family.\nA Blog post 😂;\n\nThis whole process made me remember that, to be a master, you gotta get your hands dirty!\nNow, better coding, with better keyboards!!"
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "My Blog",
+    "section": "",
+    "text": "MAPE and its pitfalls\n\n\n\nMAPE\n\nData Science\n\nTime Series\n\n\n\nWhy MAPE should not be your choice\n\n\n\nGuilherme Parreira\n\n\nMay 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nSofle v2 keyboard is cheaper than a wrist exam\n\n\n\nKeyboard\n\n\n\nThe full saga\n\n\n\nGuilherme Parreira\n\n\nJul 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe day that I decided to stop using Windows\n\n\n\nUbuntu\n\nLinux\n\nDataScientist\n\nadvantages\n\n\n\nThe benefits of running on a Linux Environment\n\n\n\nGuilherme Parreira\n\n\nMay 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\nPython\n\nVsCode\n\nlinter\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\nNo matching items\n Back to top"
   }
 ]
