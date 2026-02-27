@@ -1,0 +1,23 @@
+---
+title: "Polars vs Pandas"
+description: "Why MAPE should not be your choice"
+date: 29-09-2024
+categories: [MAPE, Data Science, Time Series] # self-defined categories
+image: mape.png
+draft: true
+tbl-cap-location: top
+---
+
+:::{.cell}
+![](mape.png){fig-align="center"}
+:::
+
+In Apache Spark we have two features that are crucial for query optimization:
+
+- *Projection Pushdown:* It allows the query to select only the desiderd columns;
+- *Predicate Pushdown:* It allows the query to make filter operation before any other;
+
+Novelty and Outlier Detection:
+
+- *Outlier Detection:* Observation that are far from other in the training set
+- *Novelty Detection:* It detects whether a new observation is an outlier
