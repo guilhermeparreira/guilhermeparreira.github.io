@@ -7,32 +7,39 @@
     "text": "I am a senior data scientist at 4kst, a deep tech startup. I finished my bachelor’s degree in statistics in 2015, and my master’s in statistics in 2021. Between these two degrees, I ran my own statistical consultancy company GP Soluções em Estatística impacting over 200 researchers. My main published papers are from bachelor’s degree\nI have a strong background in R, and since 2021 I program in Python almost everyday.\n\nContent Published\n\nYou can find my TCC here and the respective article;\nFrom my master thesis, I published two papers: 1 and 2.\n\n\n\nCuriosities\n\nI coursed therapeutic theatre for one year to leverage my communication skills. It gave me more confidence, improvisation and speech techniques. My two live performances are available here and here.\nI built by myself the Sofle v2 split keyboard that I use to work. There is a post on my blog only for it.\nAs being a guy who likes to “DIY” approach I have a playlist on Youtube with tips and tricks on how to fix stuff at home.\nI am 5 times state champion soccer table in a row.\nAlways improving my barbecuing skills at home.\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "posts/keyboard/index.html#introduction",
-    "href": "posts/keyboard/index.html#introduction",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
+    "objectID": "posts/ubuntu/index.html#introduction",
+    "href": "posts/ubuntu/index.html#introduction",
+    "title": "The day that I decided to stop using Windows",
     "section": "Introduction",
-    "text": "Introduction\nI am one of those programmers who type at list 8 hours per day and still prefer shopping on a PC rather than on a phone rsrs. Yes, I need the big screens.\nEven tough I did not count my words per minute (wpm), I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.\n\nWhen the pain started\nBut as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones 🤖. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonitis 🤕. I started to the physiotherapy for my wrist, which gave me some relief, but at the end of day, I felt sour on my right hand due to labour.\n\n\nLooking for a new keyboard\nSo, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an Ajazz Alice AKS068 Pro from a Brazilian Fellow online:\n\n\n\n\n\n\n\n\nThe price was great.\nThe change would be small because it is a 70% keyboard.\nI loved the colors.\nThere was a Knob button that I would use as a volume controller.\nIt was “ergonomic”.\n\n\n\n\nHOWEVER, he did not want to send the keyboard over mail.\n\n\n\nThen, I found pricy this keyboard new, here is way:\n\nThe keyboard was not ergonomic at all -&gt; It only had curved keys in a fixed position;\nAs time passed by, the pain increased, and I felt that I need something more complete;"
+    "text": "Introduction\nDuring my undergraduate studies, my professor Paulo Justiniano always incentivized the students for using any Linux distribution on their machines. The reasons were vast, but I will give the details later on.\nI never tried it before because:\n\nI was comfortable using Windows because I used this operational system on my internship and at home\nI did not have a personal laptop at the beginning of university.\n\nOn my last year of college, I bought one with Windows pre installed, and I was using as it is (knowing that migrating to Ubuntu would be better). But the day came!"
   },
   {
-    "objectID": "posts/keyboard/index.html#mechanical-ergonomic-keyboards",
-    "href": "posts/keyboard/index.html#mechanical-ergonomic-keyboards",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "Mechanical ergonomic keyboards",
-    "text": "Mechanical ergonomic keyboards\nA week or later I discovered the Moonlander keyboard from Fabio Akita, for US$ 400, no way. But I realized that this was the kind of technology that I needed. So I did a vast research and I found out that eFeXx built a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. With this keyboard I would have a real ergonomic keyboard, that’s way:\n\nThe keys are columns oriented: They respect the different length of the fingers.\nThe thumb finger receives 3 keys to use on each split. Being it the strongest finger is a waste to use only for space in a regular keyboard.\nI could place the keyboard at any angle that I wanted: as long as I respect the ergonomics.\nThe splits can be placed far apart from which other.\n\nIt also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds, bluetooth and much more from the creator. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one."
+    "objectID": "posts/ubuntu/index.html#the-day",
+    "href": "posts/ubuntu/index.html#the-day",
+    "title": "The day that I decided to stop using Windows",
+    "section": "The Day",
+    "text": "The Day\nI remember like it was today. It was during the time that everyone was migrating from Windows 8.1 or 10. I was working on a report, had worked the full day on it, and then I decided to migrate to Windows 10. The migration finished successfully, I opened the file, started typing a few more words, and then, out of nothing my report became corrupted:\n\n\n\n\n\n\n\nI could not save or send my report to anywhere, and I received the famous blue screen:\n\n\n\n\n\n\n\nI had to turn off and on my PC using the power button, but I could not see the original content of the file anymore. It was gone. At the same time, I downloaded the Mint iso file, burn into a Pen Drive, installed it and started using.\nIt was not only flowers at the beginning, as usual. My friend Augusto Colombo helped my in the lab to install and do the basics. Some weeks later, and I did not like the Mint, so I swap to Ubuntu."
   },
   {
-    "objectID": "posts/keyboard/index.html#building-my-own-keyboard",
-    "href": "posts/keyboard/index.html#building-my-own-keyboard",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "Building my own keyboard",
-    "text": "Building my own keyboard\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual.\nThen, the next step was to buy all the parts from AliExpress, one by one, and assemble them together:\n\n \n\nThis whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had to fix some welds. Considering that I had no previous experience on weld, it was a learning process, and I liked."
+    "objectID": "posts/ubuntu/index.html#the-redemption",
+    "href": "posts/ubuntu/index.html#the-redemption",
+    "title": "The day that I decided to stop using Windows",
+    "section": "The redemption",
+    "text": "The redemption\n\n\n\nWith Ubuntu everything fell into place. All the troubles that I had when tried a fresh install on Mint it was solved on Ubuntu, and I could fix by my self.\nIt really represents the meaning of Ubuntu, from African: “I am what I am because of who we all are”. Ever since then I use ubuntu on my personal laptop and in my current job. It is so amazing.\nIt gives many advantages for me compared to the time I had Windows:\n\nI know how to do a fresh install when needed.\nIt is free to use. Don’t need to pay any license.\nIt hardly enters a virus.\nThe performance does not go down over time.\nThere is a full community open to help.\nDue to the fact that most of installation is made via CLI, it opens your mind to shell, to automate your repetitive tasks.\nThe hard drive is portable. I can remove from my PC and plug it into another. It will not crash.\n\nWhen we talk specifically about Data Science tasks, I can list:\n\nPython is pre-installed on Ubuntu.\nDocker only runs on Ubuntu machines.\nAlmost every server in the world uses a distro based on Linux. Choosing a server on EC2, it is like to choose which Linux you want to use. Using Ubuntu daily means that when I need to access servers, I am more familiar with the operational system.\nInstallation of tools for data science such as R, Python, dependencies are usually easily handed on Ubuntu.\nA common task on a DS work is to tell the path you files are. If you are on Windows, you need to copy the path, paste on a Editor and make the back slash into forward the slash, or double it. With Ubuntu, you do not. You use as it is.\n\nThe only thing that sometimes I miss on Ubuntu is the Office package. But using Libre Office is lighter, free and it is a good alternative full of customizations."
   },
   {
-    "objectID": "posts/keyboard/index.html#in-summary",
-    "href": "posts/keyboard/index.html#in-summary",
-    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
-    "section": "In summary",
-    "text": "In summary\nThis is what I got from this process:\n\nI made a new friendship! Not only one, two: Paludo showed me his lilly keyboard and all the advantages of having a split keyboard.\nLearned how to (and not to) weld.\nI recommend it, specially if you are familiar with weld;\nLike when we are new to programming, when I finished, I figured out that there was a better way to make it. I could have saved a lot money and time if I had bought a ready to build sofle RGB mx kit2 by 50 US$. But as part of my learning, I could not know that it would work before doing it.\nLots of stories for a Sunday in family.\nA Blog post 😂;\n\nThis whole process made me remember that, to be a master, you gotta get your hands dirty!\nNow, better coding, with better keyboards!!"
+    "objectID": "posts/ubuntu/index.html#considerations",
+    "href": "posts/ubuntu/index.html#considerations",
+    "title": "The day that I decided to stop using Windows",
+    "section": "Considerations",
+    "text": "Considerations\nI am aware that the latest Windows release have become better, such that, WSL (Windows Subsystem for Linux) became available and Windows 10 is stable now. From another point of view, Ubuntu has now Steam for gaming, but it is still not ideal when you want a full gaming experience. In the end of the day, it is always a matter of which operational system suits you best: just like for designers that love Apple.\nWith all that given, it would be nice if we could choose the operational system that fits better our role, instead of going to the usual operational system.\nMaybe we can reach a day that:\n\n\n\nLeave in the comments any thoughts about it!\nHappy coding!"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "My first post",
+    "section": "",
+    "text": "Hello guys!\nI will use the blog for sharing data science content.\nI hope you all like.\n\n\n\n Back to top"
   },
   {
     "objectID": "posts/ruff/index.html",
@@ -54,13 +61,6 @@
     "title": "Ruff in a Nutshell + Configuring it on VsCode",
     "section": "Bonus (Caveat)",
     "text": "Bonus (Caveat)\nI struggled to start using a tool like this because I used to write code in a single long line. I always received the E501: line-too-long warning from black. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like ruff my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the line-length a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.\nLeaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the git diff changes.\nAnyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:\n[tool.ruff]\nline-length = 130\n\nlint.ignore = [\n    \"E501\", # Ignore long lines\n    \"E302\", # Ignore blank lines issue\n    \"E701\", # Ignore single-line if statements\n]\nextend-include = [\"*.ipynb\"]\n\n[tool.ruff.format]\nquote-style = \"double\"\ndocstring-code-format = true\n\n[tool.ruff.lint.pydocstyle] # It enforces that all functions have docstrings\nconvention = \"google\"\nor skipping this rule by adding # fmt: skip at the end of a line. Or use #fmt: on at the beginning of a block and #fmt: off at the end.\nHappy coding."
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "My first post",
-    "section": "",
-    "text": "Hello guys!\nI will use the blog for sharing data science content.\nI hope you all like.\n\n\n\n Back to top"
   },
   {
     "objectID": "posts/mape/index.html",
@@ -98,38 +98,38 @@
     "text": "MAPE does not minimizes the error towards the mean value\nThis is not a pitfall, but it is a warning, because usually people want to be right on average, and this is not what MAPE does. In contrast, it will give a prediction towards a biased median, if I can so.\nA very good resource to read about is shortcomings of MAPE, that will lead to many other resources."
   },
   {
-    "objectID": "posts/ubuntu/index.html#introduction",
-    "href": "posts/ubuntu/index.html#introduction",
-    "title": "The day that I decided to stop using Windows",
+    "objectID": "posts/keyboard/index.html#introduction",
+    "href": "posts/keyboard/index.html#introduction",
+    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
     "section": "Introduction",
-    "text": "Introduction\nDuring my undergraduate studies, my professor Paulo Justiniano always incentivized the students for using any Linux distribution on their machines. The reasons were vast, but I will give the details later on.\nI never tried it before because:\n\nI was comfortable using Windows because I used this operational system on my internship and at home\nI did not have a personal laptop at the beginning of university.\n\nOn my last year of college, I bought one with Windows pre installed, and I was using as it is (knowing that migrating to Ubuntu would be better). But the day came!"
+    "text": "Introduction\nI am one of those programmers who type at list 8 hours per day and still prefer shopping on a PC rather than on a phone rsrs. Yes, I need the big screens.\nEven tough I did not count my words per minute (wpm), I considered myself a good typist with my 100% keyboard: I was able to memorize the shortcuts that I needed and did not have to look on the keyboard to type.\n\nWhen the pain started\nBut as time goes by, I started to feel that my hands started to get rust, like some oil was missing between my hand bones 🤖. Three years later, I paid US$ 100 in an ultrasound that showed me that I had tendonitis 🤕. I started to the physiotherapy for my wrist, which gave me some relief, but at the end of day, I felt sour on my right hand due to labour.\n\n\nLooking for a new keyboard\nSo, I started to look for a new keyboard. I was willing to buy a simple used mechanical keyboard; it would be a lot better than my membrane keyboard. But the pain would still remain. Then, I decided to buy an Ajazz Alice AKS068 Pro from a Brazilian Fellow online:\n\n\n\n\n\n\n\n\nThe price was great.\nThe change would be small because it is a 70% keyboard.\nI loved the colors.\nThere was a Knob button that I would use as a volume controller.\nIt was “ergonomic”.\n\n\n\n\nHOWEVER, he did not want to send the keyboard over mail.\n\n\n\nThen, I found pricy this keyboard new, here is way:\n\nThe keyboard was not ergonomic at all -&gt; It only had curved keys in a fixed position;\nAs time passed by, the pain increased, and I felt that I need something more complete;"
   },
   {
-    "objectID": "posts/ubuntu/index.html#the-day",
-    "href": "posts/ubuntu/index.html#the-day",
-    "title": "The day that I decided to stop using Windows",
-    "section": "The Day",
-    "text": "The Day\nI remember like it was today. It was during the time that everyone was migrating from Windows 8.1 or 10. I was working on a report, had worked the full day on it, and then I decided to migrate to Windows 10. The migration finished successfully, I opened the file, started typing a few more words, and then, out of nothing my report became corrupted:\n\n\n\n\n\n\n\nI could not save or send my report to anywhere, and I received the famous blue screen:\n\n\n\n\n\n\n\nI had to turn off and on my PC using the power button, but I could not see the original content of the file anymore. It was gone. At the same time, I downloaded the Mint iso file, burn into a Pen Drive, installed it and started using.\nIt was not only flowers at the beginning, as usual. My friend Augusto Colombo helped my in the lab to install and do the basics. Some weeks later, and I did not like the Mint, so I swap to Ubuntu."
+    "objectID": "posts/keyboard/index.html#mechanical-ergonomic-keyboards",
+    "href": "posts/keyboard/index.html#mechanical-ergonomic-keyboards",
+    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
+    "section": "Mechanical ergonomic keyboards",
+    "text": "Mechanical ergonomic keyboards\nA week or later I discovered the Moonlander keyboard from Fabio Akita, for US$ 400, no way. But I realized that this was the kind of technology that I needed. So I did a vast research and I found out that eFeXx built a Sofle v2 keyboard by himself step by step. There was even a ready to go shop list. With this keyboard I would have a real ergonomic keyboard, that’s way:\n\nThe keys are columns oriented: They respect the different length of the fingers.\nThe thumb finger receives 3 keys to use on each split. Being it the strongest finger is a waste to use only for space in a regular keyboard.\nI could place the keyboard at any angle that I wanted: as long as I respect the ergonomics.\nThe splits can be placed far apart from which other.\n\nIt also has two knobs (one for volume and another for page up/down), two screens, and can be powered with leds, bluetooth and much more from the creator. But it was not still perfect, here is way: the case for the keyboard on the video did not work and had to used a flat one."
   },
   {
-    "objectID": "posts/ubuntu/index.html#the-redemption",
-    "href": "posts/ubuntu/index.html#the-redemption",
-    "title": "The day that I decided to stop using Windows",
-    "section": "The redemption",
-    "text": "The redemption\n\n\n\nWith Ubuntu everything fell into place. All the troubles that I had when tried a fresh install on Mint it was solved on Ubuntu, and I could fix by my self.\nIt really represents the meaning of Ubuntu, from African: “I am what I am because of who we all are”. Ever since then I use ubuntu on my personal laptop and in my current job. It is so amazing.\nIt gives many advantages for me compared to the time I had Windows:\n\nI know how to do a fresh install when needed.\nIt is free to use. Don’t need to pay any license.\nIt hardly enters a virus.\nThe performance does not go down over time.\nThere is a full community open to help.\nDue to the fact that most of installation is made via CLI, it opens your mind to shell, to automate your repetitive tasks.\nThe hard drive is portable. I can remove from my PC and plug it into another. It will not crash.\n\nWhen we talk specifically about Data Science tasks, I can list:\n\nPython is pre-installed on Ubuntu.\nDocker only runs on Ubuntu machines.\nAlmost every server in the world uses a distro based on Linux. Choosing a server on EC2, it is like to choose which Linux you want to use. Using Ubuntu daily means that when I need to access servers, I am more familiar with the operational system.\nInstallation of tools for data science such as R, Python, dependencies are usually easily handed on Ubuntu.\nA common task on a DS work is to tell the path you files are. If you are on Windows, you need to copy the path, paste on a Editor and make the back slash into forward the slash, or double it. With Ubuntu, you do not. You use as it is.\n\nThe only thing that sometimes I miss on Ubuntu is the Office package. But using Libre Office is lighter, free and it is a good alternative full of customizations."
+    "objectID": "posts/keyboard/index.html#building-my-own-keyboard",
+    "href": "posts/keyboard/index.html#building-my-own-keyboard",
+    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
+    "section": "Building my own keyboard",
+    "text": "Building my own keyboard\nThat’s when my friend Seiji enters into the history. I got so excited about building my own keyboard, that I not only convinced him to make one for himself, but he also developed an angled support case based on this one, with a better support for the PCB. This was the Gran Finale of ergonomics manual.\nThen, the next step was to buy all the parts from AliExpress, one by one, and assemble them together:\n\n \n\nThis whole process took me 1 full Saturday and other 3 months of “CI/CD” that I had to fix some welds. Considering that I had no previous experience on weld, it was a learning process, and I liked."
   },
   {
-    "objectID": "posts/ubuntu/index.html#considerations",
-    "href": "posts/ubuntu/index.html#considerations",
-    "title": "The day that I decided to stop using Windows",
-    "section": "Considerations",
-    "text": "Considerations\nI am aware that the latest Windows release have become better, such that, WSL (Windows Subsystem for Linux) became available and Windows 10 is stable now. From another point of view, Ubuntu has now Steam for gaming, but it is still not ideal when you want a full gaming experience. In the end of the day, it is always a matter of which operational system suits you best: just like for designers that love Apple.\nWith all that given, it would be nice if we could choose the operational system that fits better our role, instead of going to the usual operational system.\nMaybe we can reach a day that:\n\n\n\nLeave in the comments any thoughts about it!\nHappy coding!"
+    "objectID": "posts/keyboard/index.html#in-summary",
+    "href": "posts/keyboard/index.html#in-summary",
+    "title": "Sofle v2 keyboard is cheaper than a wrist exam",
+    "section": "In summary",
+    "text": "In summary\nThis is what I got from this process:\n\nI made a new friendship! Not only one, two: Paludo showed me his lilly keyboard and all the advantages of having a split keyboard.\nLearned how to (and not to) weld.\nI recommend it, specially if you are familiar with weld;\nLike when we are new to programming, when I finished, I figured out that there was a better way to make it. I could have saved a lot money and time if I had bought a ready to build sofle RGB mx kit2 by 50 US$. But as part of my learning, I could not know that it would work before doing it.\nLots of stories for a Sunday in family.\nA Blog post 😂;\n\nThis whole process made me remember that, to be a master, you gotta get your hands dirty!\nNow, better coding, with better keyboards!!"
   },
   {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "My Blog",
     "section": "",
-    "text": "MAPE and its pitfalls\n\n\n\nMAPE\n\n\nData Science\n\n\nTime Series\n\n\n\nWhy MAPE should not be your choice\n\n\n\nGuilherme Parreira\n\n\nMay 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSofle v2 keyboard is cheaper than a wrist exam\n\n\n\nKeyboard\n\n\n\nThe full saga\n\n\n\nGuilherme Parreira\n\n\nJul 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe day that I decided to stop using Windows\n\n\n\nUbuntu\n\n\nLinux\n\n\nDataScientist\n\n\nadvantages\n\n\n\nThe benefits of running on a Linux Environment\n\n\n\nGuilherme Parreira\n\n\nMay 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\nlinter\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "MAPE and its pitfalls\n\n\n\nMAPE\n\n\nData Science\n\n\nTime Series\n\n\n\nWhy MAPE should not be your choice\n\n\n\nGuilherme Parreira\n\n\nMay 9, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSofle v2 keyboard is cheaper than a wrist exam\n\n\n\nKeyboard\n\n\n\nThe full saga\n\n\n\nGuilherme Parreira\n\n\nJul 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe day that I decided to stop using Windows\n\n\n\nUbuntu\n\n\nLinux\n\n\nDataScientist\n\n\nadvantages\n\n\n\nThe benefits of running on a Linux Environment\n\n\n\nGuilherme Parreira\n\n\nMay 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy first post\n\n\n\nWelcome\n\n\n\nIt says the purpose of my blog\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRuff in a Nutshell + Configuring it on VsCode\n\n\n\nRuff\n\n\nPython\n\n\nVsCode\n\n\nlinter\n\n\n\nIt explains Ruff and how to set up in VsCode\n\n\n\nGuilherme Parreira\n\n\nSep 1, 2024\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   }
 ]
