@@ -2,6 +2,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/docker/index.html",
       "/posts/mape/index.html",
       "/posts/keyboard/index.html",
       "/posts/ubuntu/index.html",

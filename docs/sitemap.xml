@@ -10,11 +10,11 @@
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
-    <lastmod>2025-08-05T23:36:20.198Z</lastmod>
+    <lastmod>2026-08-22T02:19:25.957Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/ruff/index.html</loc>
-    <lastmod>2025-08-05T23:36:34.922Z</lastmod>
+    <lastmod>2026-08-22T02:19:37.220Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/mape/index.html</loc>
@@ -27,5 +27,9 @@
   <url>
     <loc>https://guilhermeparreira.github.io/posts.html</loc>
     <lastmod>2025-07-22T01:34:03.476Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/docker/index.html</loc>
+    <lastmod>2026-08-22T02:17:03.322Z</lastmod>
   </url>
 </urlset>

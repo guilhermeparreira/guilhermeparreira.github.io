@@ -2,7 +2,7 @@
 title: "Ruff in a Nutshell + Configuring it on VsCode"
 description: "It explains Ruff and how to set up in VsCode"
 date: 09-01-2024
-categories: [Ruff, Python, VsCode, linter] # self-defined categories
+categories: [Ruff, Python, VsCode, Linter] # self-defined categories
 image: ruff.png
 draft: false
 ---
@@ -77,7 +77,7 @@ Last but not least, you can also install `ruff` and your environment and impleme
 
 ## Bonus (Caveat)
 
-I struggled to start using a tool like this because I used to write code in a single long line. I always received the `E501: line-too-long` warning from `black`. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like `ruff` my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the `line-length` a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all. 
+I struggled to start using a tool like this because I used to write code in a single long line. I always received the `E501: line-too-long` warning from `black`. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like `ruff` my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the `line-length` a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.
 
 Leaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the `git diff` changes.
 

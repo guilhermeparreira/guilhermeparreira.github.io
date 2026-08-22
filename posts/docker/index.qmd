@@ -1,0 +1,162 @@
+---
+title: "How I made LGBM to work inside Docker and decrease image size by 70% "
+description: "A long story"
+date: 08-21-2026
+categories: [Conda, Docker, Ubuntu] # self-defined categories
+image: what-is-docker.png
+draft: false
+tbl-cap-location: top
+---
+
+::: cell
+![](what-is-docker.png){fig-align="center"}
+:::
+
+## First things first
+
+In my daily routine as a data scientist at `[4kst startup](https://4kst.ai/)`, I create the following demand for myself: "**I need to make the LGBM model to run using GPU inside the container because it is broken in production**. So far, so good. However, instead of "only fixing it", I decided to approach it holistically. This was my current Dockerfile:
+
+```dockerfile
+FROM nvidia/cuda:12.6.3-runtime-ubuntu24.04
+# INSTALL CONDA
+
+RUN apt-get update && apt-get install -y wget
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh
+RUN bash Miniconda3-py39_24.11.1-0-Linux-x86_64.sh -b -p /opt/conda
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# CREATE PIPELINE CONDA ENV
+
+WORKDIR /usr/src/pipeline
+COPY ./gpu-time-series-env.yaml .
+RUN conda env create -f gpu-time-series-env.yaml
+ENV CONDA_OVERRIDE_CUDA=12.2
+
+SHELL ["conda", "run", "-n", "gpu_time_series", "/bin/bash", "-c"]
+
+RUN conda install -c conda-forge tensorflow-gpu=2.17.0 lightgbm=4.6.0
+RUN conda install conda-forge::flash-attn-layer-norm==2.6.3
+RUN pip install xgboost==3.0.5
+
+# COPY CODE AND RUN
+
+COPY . .
+CMD [ \
+    "bash", "-c", \
+    "source /opt/conda/etc/profile.d/conda.sh && \
+    conda activate gpu_time_series && \
+    conda config --set channel_priority strict && \
+    python3 main.docker.py" \
+]
+```
+
+## Some Concepts
+
+**Containers** are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux ([that's also way I use Ubuntu](/posts/docker/index.qmd)), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.
+
+In Datascience, we need a lighter, fast and isolated piece of software, that's way containers are handy. We do not need to have another entire system to our disposal.
+
+When we run `FROM: ubuntu:24.04` in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as `bash`, `apt` and `/usr`, `/etc` folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).
+
+Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.
+
+## Analyzing the current Dockerfile
+
+When we look into the Dockerfile, we see different issues:
+
++ Several packages are not being installed inside the conda:
+  + One of them is the `lightgbm`;
+  + All other packages are also GPU related;
++ We have two different versions of cuda:
+  + Cuda `FROM` the image, which is `12.6.3`;
+  + Cuda version that will be used by `conda` (`CONDA_OVERRIDE_CUDA=12.2`);
++ `conda config --set channel_priority strict` in the `CMD` specifies that `conda` will use only one channel to install packages:
+  + Once it is inside the container, we do not need to install anything else, only use it. Therefore, unnecessary;
+
+## How everything got solved:
+
+### LightGBM
+
+1. First of all, I put it back all packages inside the `conda`, because I wanted to use `conda` the single source of truth, and it would guarantee that its solver would not break in the `Dockerfile`.
+2. Then, I realized that `lightgbm` installs two libraries:
+   1. `liblightgbm` which is the C++ code;
+   2. `lightgbm` which is the Python API.
+
+**Since one of them was installed by `conda-forge` channel, and another by `defaults`., it created a version mismatch between then, which did not make possible to use the GPU inside the container**. Therefore, I reinstalled them using only `conda-forge`, which is the recommended channel nowadays.
+
+> ⚠️ GOOD PRACTICE ALERT: Use only a single channel when creating a conda env.
+
+In addition to that, `conda-forge` itself has three different ways to install its package: `cuda`, `gpu` or `cpu`. It also needs to be specified in the yaml. In this case, I did `liblightgbm=4.6.0=cuda*` and `lightgbm=4.6.0=cuda*`. `cuda` because is more modern than `gpu`. It guarantees that `conda-forge` would pick a `cuda` version of this library. I could be even more restrict to enforce `cuda` to be a specific version, but I set it loose.
+
+### flash-attn
+
+It was also a bit pain, because it needs to be installed after `pytorch` (that's way it was out of the `conda env`) once I installed from pip, which has an `import pytorch` after installation.
+
+> The good news is that after installing from conda-forge, this pre-installation process does not exists, and made possible to include it inside the conda env, with no ordering needed.
+
+### Cuda versions
+
+What I realized is that inside the (`gpu-time-series-env.yaml`), I already had `cuda` (`cuda-version=12.9`). Therefore, it allowed me to get rid of image that install cuda and the `CONDA_OVERRIDE_CUDA env var`. Letting `conda` be the only one responsible by solving `cuda`.
+
+It could be a good solution, but it would not last long because my `cuda` environment was created using `conda env export --no-builds`, which only **describes** the environment, i.e. it lists the packages that I want. But it does not specify the builds, because these builds are from the respective machine where I am using, and may not be compatible inside the machine I need to install it (I had problem with it before installing using only `conda env export`).
+
+To solve this, I used `conda-lock`, which is a package that locks the exact dependency resolution needed to reproduce an environment. It solves `conda` versioning of the packages and save it with all information needed to a fresh install.
+
+## Channels strict and conda lock
+
+Once all packages are from `conda-forge`:
+
+1. I no longer need `conda config --set channel_priority strict`
+2. I no longer need `miniconda` (which has `default` and `conda-forge` channels available):
+   1. I switched to `miniforge` which is the `miniconda` of only `conda-forge` channel, being lighterweight.
+
+## Optimized Dockerfile
+
+After applying all theses changes, I was able to come up with the following solution:
+
+```dockerfile
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y wget && \
+    wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O /tmp/miniforge.sh && \
+    bash /tmp/miniforge.sh -b -p /opt/conda && rm /tmp/miniforge.sh
+
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# CREATE PIPELINE CONDA ENV
+WORKDIR /usr/src/pipeline
+
+COPY conda-lock.yml .
+RUN pip install --no-cache-dir conda-lock && \
+    conda-lock install --micromamba --name gpu_time_series conda-lock.yml && \
+    pip uninstall -y conda-lock && \
+    conda clean -afy && \
+    rm -rf /opt/conda/pkgs/cache/* ~/.cache/pip ~/.cache/conda-lock ~/.mamba ~/.local/share/mamba
+
+# Activate environment for RUN commands
+SHELL ["conda", "run", "-n", "gpu_time_series", "/bin/bash", "-c"]
+
+COPY . .
+
+CMD [ \
+    "bash", "-c", \
+    "source /opt/conda/etc/profile.d/conda.sh && \
+    conda activate gpu_time_series && \
+    python3 main.docker.py" \
+    ]
+```
+
+Which is 20% faster to build and a 70% lighter image than the previous Dockerfile because:
+
++ Ubuntu and miniforge are lighter;
++ I have used `micromamba` as well cleared all cache from package installation;
++ Started using `.dockerignore`.
+
+<div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l0MYt5jPR6QX5pnqM" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+
+
+## Next Steps
+
+I want to separate the `gpu-time-series-env.yaml` file into developmet and production, so I can save even more space on disk!
+
+Happy coding!
