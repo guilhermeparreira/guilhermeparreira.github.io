@@ -36,9 +36,10 @@ format:
     theme:
       light: yeti
       dark: slate
+    # highlight-style:
+    #   light: pygments
+    #   dark: zenburnatom-one-dark
     css: styles.css
     toc: true
 
 # blog
-
-

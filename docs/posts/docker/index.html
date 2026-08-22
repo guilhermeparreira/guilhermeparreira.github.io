@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-21">
 <meta name="description" content="A long story">
 
-<title>How I made LGBM to work inside Docker and decrease image size by 70% – Guilherme Parreira</title>
+<title>How I made LGBM to work in GPU inside Docker and decrease image size by 70% – Guilherme Parreira</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -317,16 +317,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">How I made LGBM to work inside Docker and decrease image size by 70%</h1>
+      <h1 class="title">How I made LGBM to work in GPU inside Docker and decrease image size by 70%</h1>
                   <div>
         <div class="description">
           A long story
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">conda</div>
-                <div class="quarto-category">docker</div>
-                <div class="quarto-category">ubuntu</div>
+                <div class="quarto-category">Conda</div>
+                <div class="quarto-category">Docker</div>
+                <div class="quarto-category">Ubuntu</div>
+                <div class="quarto-category">GPU</div>
               </div>
                   </div>
   </div>
@@ -428,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="some-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="some-concepts">Some Concepts</h2>
 <p><strong>Containers</strong> are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux (<a href="../../posts/docker/index.html">that’s also way I use Ubuntu</a>), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.</p>
-<p>In Datascience, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
+<p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
 <p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
 <p>Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.</p>
 </section>
@@ -491,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>I no longer need <code>conda config --set channel_priority strict</code></li>
 <li>I no longer need <code>miniconda</code> (which has <code>default</code> and <code>conda-forge</code> channels available):
 <ol type="1">
-<li>I switched to <code>miniforge</code> which is the <code>miniconda</code> of only <code>conda-forge</code> channel, being lighterweight.</li>
+<li>I switched to <code>miniforge</code> which is the <code>miniconda</code> of only <code>conda-forge</code> channel, being lightweight.</li>
 </ol></li>
 </ol>
 </section>
@@ -540,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
-<p>I want to separate the <code>gpu-time-series-env.yaml</code> file into developmet and production, so I can save even more space on disk!</p>
+<p>I want to separate the <code>gpu-time-series-env.yaml</code> file into development and production, so I can save even more space on disk!</p>
 <p>Happy coding!</p>
 
 

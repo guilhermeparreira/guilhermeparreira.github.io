@@ -1,8 +1,8 @@
 ---
-title: "How I made LGBM to work inside Docker and decrease image size by 70% "
+title: "How I made LGBM to work in GPU inside Docker and decrease image size by 70% "
 description: "A long story"
 date: 08-21-2026
-categories: [Conda, Docker, Ubuntu] # self-defined categories
+categories: [Conda, Docker, Ubuntu, GPU] # self-defined categories
 image: what-is-docker.png
 draft: false
 tbl-cap-location: top
@@ -54,7 +54,7 @@ CMD [ \
 
 **Containers** are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux ([that's also way I use Ubuntu](/posts/docker/index.qmd)), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.
 
-In Datascience, we need a lighter, fast and isolated piece of software, that's way containers are handy. We do not need to have another entire system to our disposal.
+In Data Science, we need a lighter, fast and isolated piece of software, that's way containers are handy. We do not need to have another entire system to our disposal.
 
 When we run `FROM: ubuntu:24.04` in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as `bash`, `apt` and `/usr`, `/etc` folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).
 
@@ -108,7 +108,7 @@ Once all packages are from `conda-forge`:
 
 1. I no longer need `conda config --set channel_priority strict`
 2. I no longer need `miniconda` (which has `default` and `conda-forge` channels available):
-   1. I switched to `miniforge` which is the `miniconda` of only `conda-forge` channel, being lighterweight.
+   1. I switched to `miniforge` which is the `miniconda` of only `conda-forge` channel, being lightweight.
 
 ## Optimized Dockerfile
 
@@ -157,6 +157,6 @@ Which is 20% faster to build and a 70% lighter image than the previous Dockerfil
 
 ## Next Steps
 
-I want to separate the `gpu-time-series-env.yaml` file into developmet and production, so I can save even more space on disk!
+I want to separate the `gpu-time-series-env.yaml` file into development and production, so I can save even more space on disk!
 
 Happy coding!
