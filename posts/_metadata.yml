@@ -22,6 +22,6 @@ comments:
     reactions-enabled: true
     input-position: "bottom"
     theme:
-      light: light
-      dark: dark
+      light: "light"
+      dark: "dark"
     loading: "lazy"
