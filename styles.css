@@ -118,3 +118,18 @@ code:not(pre code) {
     padding: 0.15em 0.35em;
     border-radius: 4px;
 }
+
+/* Modo padrão (claro visível) → mostra lua (convite para ir ao escuro) */
+.quarto-color-scheme-toggle .bi::before {
+    background-image: none !important;
+    font-family: "bootstrap-icons" !important;
+    content: "\f495" !important;
+    /* bi-sun */
+    font-size: 1.1rem;
+}
+
+/* Modo alternado ativo (dark) → mostra sol (convite para ir ao claro) */
+.quarto-color-scheme-toggle.alternate .bi::before {
+    content: "\f5a1" !important;
+    /* bi-moon-stars-fill */
+}
