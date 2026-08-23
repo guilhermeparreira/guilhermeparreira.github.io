@@ -1,1 +1,120 @@
-/* css styles */
+/* ===== INPUT DE CÓDIGO (blocos ```{python}) ===== */
+
+div.sourceCode {
+    border-radius: 4px;
+    margin-bottom: 0;
+    background-color: #f6f8fa;
+}
+
+.quarto-dark div.sourceCode {
+    background-color: #1e1e1e !important;
+}
+
+.quarto-dark div.sourceCode pre,
+.quarto-dark div.sourceCode code {
+    color: #d4d4d4 !important;
+}
+
+.quarto-dark .sourceCode .kw {
+    color: #569cd6 !important;
+}
+
+.quarto-dark .sourceCode .st {
+    color: #ce9178 !important;
+}
+
+.quarto-dark .sourceCode .co {
+    color: #6a9955 !important;
+}
+
+.quarto-dark .sourceCode .dv,
+.quarto-dark .sourceCode .fl {
+    color: #b5cea8 !important;
+}
+
+.quarto-dark .sourceCode .fu {
+    color: #dcdcaa !important;
+}
+
+.quarto-dark .sourceCode .op {
+    color: #d4d4d4 !important;
+}
+
+.quarto-dark .sourceCode .bu {
+    color: #4ec9b0 !important;
+}
+
+.quarto-dark .sourceCode .va {
+    color: #9cdcfe !important;
+}
+
+.quarto-dark .sourceCode .cf {
+    color: #c586c0 !important;
+}
+
+.quarto-dark .sourceCode .im {
+    color: #c586c0 !important;
+}
+
+/* ===== OUTPUT DE CÓDIGO (resultado das células) ===== */
+
+.cell-output {
+    background-color: #f6f8fa;
+    border-left: 3px solid #6c757d;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+.cell-output-stdout pre,
+.cell-output pre {
+    margin: 0;
+}
+
+.quarto-dark .cell-output {
+    background-color: #1e1e1e !important;
+    border-left: 3px solid #8b8b8b;
+    color: #d4d4d4 !important;
+}
+
+.quarto-dark .cell-output pre,
+.quarto-dark .cell-output code {
+    color: #d4d4d4 !important;
+    background-color: transparent !important;
+}
+
+/* ===== ERROS ===== */
+
+.cell-output-error {
+    background-color: #fff0f0;
+    border-left: 3px solid #dc3545;
+}
+
+.quarto-dark .cell-output-error {
+    background-color: #2d1414 !important;
+    border-left: 3px solid #f85149;
+}
+
+.quarto-dark .cell-output-error pre,
+.quarto-dark .cell-output-error code {
+    color: #ff8080 !important;
+    background-color: transparent !important;
+}
+
+/* ===== CÓDIGO INLINE (crase simples) ===== */
+
+code:not(pre code) {
+    background-color: #f6f8fa;
+    color: #d63384;
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+}
+
+.quarto-dark code:not(pre code) {
+    background-color: #2d2d2d !important;
+    color: #e0a8ff !important;
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+}

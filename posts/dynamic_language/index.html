@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Guilherme Parreira">
-<meta name="dcterms.date" content="2024-09-01">
-<meta name="description" content="It explains Ruff and how to set up in VsCode">
+<meta name="dcterms.date" content="2026-08-22">
+<meta name="description" content="Understanding dynamic typing in Python through bytecode and runtime type checks">
 
-<title>Ruff in a Nutshell + Configuring it on VsCode – Guilherme Parreira</title>
+<title>Is Python a Statically or Dynamically Typed Language? – Guilherme Parreira</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,6 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -317,17 +318,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Ruff in a Nutshell + Configuring it on VsCode</h1>
+      <h1 class="title">Is Python a Statically or Dynamically Typed Language?</h1>
                   <div>
         <div class="description">
-          It explains Ruff and how to set up in VsCode
+          Understanding dynamic typing in Python through bytecode and runtime type checks
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Ruff</div>
                 <div class="quarto-category">Python</div>
-                <div class="quarto-category">VsCode</div>
-                <div class="quarto-category">Linter</div>
+                <div class="quarto-category">Interviews</div>
               </div>
                   </div>
   </div>
@@ -345,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 1, 2024</p>
+        <p class="date">August 22, 2026</p>
       </div>
     </div>
     
@@ -361,8 +360,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setting-it-up-on-vscode" id="toc-setting-it-up-on-vscode" class="nav-link active" data-scroll-target="#setting-it-up-on-vscode">Setting it up on VsCode</a></li>
-  <li><a href="#bonus-caveat" id="toc-bonus-caveat" class="nav-link" data-scroll-target="#bonus-caveat">Bonus (Caveat)</a></li>
+  <li><a href="#flexibility-in-python" id="toc-flexibility-in-python" class="nav-link active" data-scroll-target="#flexibility-in-python">Flexibility in Python</a></li>
+  <li><a href="#what-if-you-want-to-put-more-restrictions-in-python" id="toc-what-if-you-want-to-put-more-restrictions-in-python" class="nav-link" data-scroll-target="#what-if-you-want-to-put-more-restrictions-in-python">What if you want to put more restrictions in Python ?</a></li>
   </ul>
 </nav>
     </div>
@@ -374,77 +373,165 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<p>Today, I am going to talk about the characteristics of <code>Python</code>.</p>
+<p>These are very common topics addressed in <code>Python</code> interviews. It allows the interviewer to know if the candidate knows the foundation of the language.</p>
+<p>Have you ever received a <code>TypeError</code> while running your <code>Python</code> program?</p>
+<p>It occurs because <code>Python</code> is a dynamic type language. It means the language verifies variable types during execution (<code>runtime</code>) - not during compilation, even though Python does compile your code into bytecode before running it. The type check only happens the instant an operation is actually executed, not when the code is first parsed and compiled.</p>
+<p>Let’s go with an example:</p>
+<div id="03c3eea6" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> python_dynamic_language_example(execute_invalid_operation):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The function was compiled to bytecode already"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> execute_invalid_operation:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> <span class="st">"5"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"No invalid operation was found"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function can run successfully even though there is an invalid operation inside the <code>if</code> clause:</p>
+<div id="dc36bf68" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python_dynamic_language_example(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The function was compiled to bytecode already</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>'No invalid operation was found'</code></pre>
+</div>
+</div>
+<p>Moreover, since this is a <a href="https://quarto.org/docs/computations/python.html">Quarto document</a>, the mere fact that the whole <code>.qmd</code> file compiled successfully already shows the function was compiled to bytecode without error.</p>
+<p>However, when we try to access the code portion that does the calculation, we receive the <code>TypeError</code>:</p>
+<div id="5006e406" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>python_dynamic_language_example(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The function was compiled to bytecode already</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> python_dynamic_language_example(<span style="font-weight:bold;color:rgb(0,135,0)">True</span>)
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[1]</span><span class="ansi-green-fg">, line 7</span>, in <span class="ansi-cyan-fg">python_dynamic_language_example</span><span class="ansi-blue-fg">(execute_invalid_operation)</span>
+<span class="ansi-green-fg">      3</span> 
+<span class="ansi-green-fg">      4</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> execute_invalid_operation:
+<span class="ansi-green-fg">      5</span>         a = <span class="ansi-green-fg">5</span>
+<span class="ansi-green-fg">      6</span>         b = <span class="ansi-yellow-fg">"5"</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">7</span>         <span style="font-weight:bold;color:rgb(0,135,0)">return</span> a + b
+<span class="ansi-green-fg">      8</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">"No invalid operation was found"</span>
+
+<span class="ansi-red-fg">TypeError</span>: unsupported operand type(s) for +: 'int' and 'str'</pre>
+</div>
+</div>
+</div>
+<p>which means that <code>Python</code> did not perform the operation because it was operated between two invalid <code>types</code>, even though it was compiled, as can be seen by <code>dis</code>:</p>
+<div id="f7e79062" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dis</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dis.dis(python_dynamic_language_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  1           0 RESUME                   0
+
+  2           2 LOAD_GLOBAL              1 (NULL + print)
+             12 LOAD_CONST               1 ('The function was compiled to bytecode already')
+             14 CALL                     1
+             22 POP_TOP
+
+  4          24 LOAD_FAST                0 (execute_invalid_operation)
+             26 POP_JUMP_IF_FALSE        9 (to 46)
+
+  5          28 LOAD_CONST               2 (5)
+             30 STORE_FAST               1 (a)
+
+  6          32 LOAD_CONST               3 ('5')
+             34 STORE_FAST               2 (b)
+
+  7          36 LOAD_FAST                1 (a)
+             38 LOAD_FAST                2 (b)
+             40 BINARY_OP                0 (+)
+             44 RETURN_VALUE
+
+  8     &gt;&gt;   46 RETURN_CONST             4 ('No invalid operation was found')</code></pre>
+</div>
+</div>
+<p>The fact that <code>Python</code> compiled this code, it means that it is <strong>dynamically type</strong>, instead of <strong>statically typed</strong>:</p>
+<blockquote class="blockquote">
+<p>Languages that verify the type of the variable before <code>runtime</code>, such as <code>Java</code>and <code>C++</code>, are known as <code>static type language</code>. The advantage of it is that in production you have more guarantees that your code will not break due to an accidental variable type change or operation. So, you know in advance that a mistake can occur.</p>
+</blockquote>
+<p>The fact that <code>Python</code> did not allow that operation occur in <code>runtime</code> means that it is <strong>strongly typed</strong>, instead of <strong>weakly typed</strong>:</p>
+<blockquote class="blockquote">
+<p>Weak typed languages, such as <code>JavaScript</code> and <code>PHP</code> would allow this operation to occur. It would result in <code>"55"</code> (string) in <code>JavaScript</code> and <code>10</code> (integer) in PHP.</p>
+</blockquote>
+<p>Having these concepts in mind can help you to think on which language to use, or anticipate errors.</p>
+<section id="flexibility-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="flexibility-in-python">Flexibility in Python</h2>
+<p>Even though this is an odd behavior in Python, it allows you the change the variable type while programming:</p>
+<div id="ff565bcc" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(a))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(a))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">"5"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(a))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'int'&gt;
+106143353540008
+&lt;class 'str'&gt;
+106143353601032</code></pre>
+</div>
+</div>
+<p>It occurs because the <code>value</code> has a type (dynamic type language), not the <code>variable</code>. It also allows you to write less boilerplate code, and make your code into production faster.</p>
+</section>
+<section id="what-if-you-want-to-put-more-restrictions-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="what-if-you-want-to-put-more-restrictions-in-python">What if you want to put more restrictions in Python ?</h2>
+<p>In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:</p>
+<div id="4eed3372" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> python_dynamic_language_example_typed(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    execute_invalid_operation: <span class="bu">bool</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="bu">str</span> <span class="op">|</span> <span class="pp">TypeError</span>:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The function was compiled to bytecode already"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> execute_invalid_operation:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        a: <span class="bu">int</span> <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        b: <span class="bu">str</span> <span class="op">=</span> <span class="st">"5"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"No invalid"</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>dis.dis(python_dynamic_language_example_typed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  1           0 RESUME                   0
+
+  4           2 LOAD_GLOBAL              1 (NULL + print)
+             12 LOAD_CONST               1 ('The function was compiled to bytecode already')
+             14 CALL                     1
+             22 POP_TOP
+
+  6          24 LOAD_FAST                0 (execute_invalid_operation)
+             26 POP_JUMP_IF_FALSE        9 (to 46)
+
+  7          28 LOAD_CONST               2 (5)
+             30 STORE_FAST               1 (a)
+
+  8          32 LOAD_CONST               3 ('5')
+             34 STORE_FAST               2 (b)
+
+  9          36 LOAD_FAST                1 (a)
+             38 LOAD_FAST                2 (b)
+             40 BINARY_OP                0 (+)
+             44 RETURN_VALUE
+
+ 10     &gt;&gt;   46 RETURN_CONST             4 ('No invalid')</code></pre>
+</div>
+</div>
+<p><strong>However</strong>, if you are coding in an editor and uses a tool that does live checking, such as <code>Pylance</code> in <code>Vs Code</code> in <code>standard mode</code>, it would warn you about the operation:</p>
 <div class="cell">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ruff.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="static_python.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </div>
-<p>Hello guys!</p>
-<p>Today I want to talk about <a href="https://github.com/astral-sh/ruff">RUFF</a>, my default formatter (and much more) for Python language.</p>
-<p>In a nutshell, RUFF can be seen as a tool that performs all these tasks:</p>
-<p>RUFF = <code>Flake8</code> + <code>isort</code> + <code>black</code> + <code>pydocstyle</code> + <code>pyupgrade</code> + <code>autoflake</code></p>
-<p><code>Flake8</code> = <code>Linter</code>, which fix style + syntax errors</p>
-<p><code>isort</code> = <em>Sort</em> the imports</p>
-<p><code>black</code> = <code>formatter</code> ; <code>PEP8</code> complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis</p>
-<p><code>pydocstyle</code> = docstrings</p>
-<p><code>pyupgrade</code> = upgrade syntax for newer versions of <code>python</code> packages</p>
-<p><code>autoflake</code> = Remove unused imports and unused variables</p>
-<p>So, instead of having to set up each one individually, use <code>RUFF</code> and have all these tools into a single one. <code>RUFF</code> was written in <code>rust</code>, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.</p>
-<section id="setting-it-up-on-vscode" class="level2">
-<h2 class="anchored" data-anchor-id="setting-it-up-on-vscode">Setting it up on VsCode</h2>
-<p>To give suggestions on the fly, I use the <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff"><code>Ruff VsCode Extension</code></a>.</p>
-<p>Besides that, I have my <code>settings.json</code> with my personal preferences:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Use</span> <span class="er">Ruff</span> <span class="er">as</span> <span class="er">the</span> <span class="er">default</span> <span class="er">formatter</span> <span class="er">for</span> <span class="er">Python</span> <span class="er">files</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">python</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.codeActionsOnSave"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.fixAll"</span><span class="fu">:</span> <span class="st">"explicit"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"source.organizeImports"</span><span class="fu">:</span> <span class="st">"explicit"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Formatter</span> <span class="er">for</span> <span class="er">notebook</span> <span class="er">cells</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="er">"</span><span class="ot">[</span><span class="er">jupyter</span><span class="ot">]</span><span class="er">":</span> <span class="fu">{</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dt">"editor.defaultFormatter"</span><span class="fu">:</span> <span class="st">"charliermarsh.ruff"</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Enable</span> <span class="er">format</span> <span class="er">on</span> <span class="er">save</span> <span class="er">for</span> <span class="er">notebooks</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="er">"notebook.formatOnSave.enabled":</span> <span class="er">true,</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Disable</span> <span class="er">other</span> <span class="er">formatters</span> <span class="er">to</span> <span class="er">avoid</span> <span class="er">conflicts</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="er">"editor.formatOnSave":</span> <span class="er">true,</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>But these are only global settings in my personal environment.</p>
-<p>Working with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a <code>.vscode/settings.json</code> inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to <code>.vscode/settings.json</code>.</p>
-<p>I also make <code>Ruff</code> as a default extension in <code>.vscode/settings.json</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"recommendations"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"charliermarsh.ruff"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Last but not least, you can also install <code>ruff</code> and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the <code>.vscode/settings.json</code> guarantees that the suggestions will be made on the fly. But it depends on <code>VsCode</code>.</p>
-</section>
-<section id="bonus-caveat" class="level2">
-<h2 class="anchored" data-anchor-id="bonus-caveat">Bonus (Caveat)</h2>
-<p>I struggled to start using a tool like this because I used to write code in a single long line. I always received the <code>E501: line-too-long</code> warning from <code>black</code>. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like <code>ruff</code> my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the <code>line-length</code> a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.</p>
-<p>Leaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the <code>git diff</code> changes.</p>
-<p>Anyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.ruff]</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">130</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">lint.ignore</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E501"</span><span class="op">,</span> <span class="co"># Ignore long lines</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E302"</span><span class="op">,</span> <span class="co"># Ignore blank lines issue</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"E701"</span><span class="op">,</span> <span class="co"># Ignore single-line if statements</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">extend-include</span> <span class="op">=</span> <span class="op">[</span><span class="st">"*.ipynb"</span><span class="op">]</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.ruff.format]</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dt">quote-style</span> <span class="op">=</span> <span class="st">"double"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">docstring-code-format</span> <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.ruff.lint.pydocstyle]</span> <span class="co"># It enforces that all functions have docstrings</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="dt">convention</span> <span class="op">=</span> <span class="st">"google"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or skipping this rule by adding <code># fmt: skip</code> at the end of a line. Or use <code>#fmt: on</code> at the beginning of a block and <code>#fmt: off</code> at the end.</p>
-<p>Happy coding.</p>
+<p>and you could fix it right away.</p>
+<p>Happy coding!</p>
 
 
 </section>
