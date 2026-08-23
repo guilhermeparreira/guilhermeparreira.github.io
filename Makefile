@@ -1,6 +1,9 @@
 .PHONY: update
 
-update: # Github io builds the website
+update:
+ifndef MSG
+	$(error MSG is not set. Usage: make update MSG="your commit message")
+endif
 	git add .
-	git commit -m "fix: RSS working now"
+	git commit -m "$(MSG)"
 	git push

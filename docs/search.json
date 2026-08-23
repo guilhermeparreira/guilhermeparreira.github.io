@@ -193,7 +193,7 @@
     "href": "posts/dynamic_language/index.html#flexibility-in-python",
     "title": "Is Python a Statically or Dynamically Typed Language?",
     "section": "Flexibility in Python",
-    "text": "Flexibility in Python\nEven though this is an odd behavior in Python, it allows you the change the variable type while programming:\n\na = 5\nprint(type(a))\nprint(id(a))\na = \"5\"\nprint(type(a))\nprint(id(a))\n\n&lt;class 'int'&gt;\n94417963138472\n&lt;class 'str'&gt;\n94417963199496\n\n\nIt occurs because the value has a type (dynamic type language), not the variable. It also allows you to write less boilerplate code, and make your code into production faster."
+    "text": "Flexibility in Python\nEven though this is an odd behavior in Python, it allows you the change the variable type while programming:\n\na = 5\nprint(type(a))\nprint(id(a))\na = \"5\"\nprint(type(a))\nprint(id(a))\n\n&lt;class 'int'&gt;\n105532355079592\n&lt;class 'str'&gt;\n105532355140616\n\n\nIt occurs because the value has a type (dynamic type language), not the variable. It also allows you to write less boilerplate code, and make your code into production faster."
   },
   {
     "objectID": "posts/dynamic_language/index.html#what-if-you-want-to-put-more-restrictions-in-python",
