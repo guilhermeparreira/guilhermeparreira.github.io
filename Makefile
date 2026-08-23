@@ -2,5 +2,5 @@
 
 update: # Github io builds the website
 	git add .
-	git commit -m "website with docker and tags reviewed"
+	git commit -m "fix: RSS working now"
 	git push

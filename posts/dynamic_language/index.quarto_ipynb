@@ -8,14 +8,18 @@
         "title: \"Is Python a Statically or Dynamically Typed Language?\"\n",
         "description: \"Understanding dynamic typing in Python through bytecode and runtime type checks\"\n",
         "categories: [Python, Interviews]\n",
-        "date: 08-22-2026\n",
-        "image: .png\n",
+        "date: 08-23-2026\n",
+        "image: python_dynamic_or_static.png\n",
         "draft: false\n",
         "tbl-cap-location: top\n",
         "format:\n",
         "  html:\n",
         "    css: styles.css\n",
         "---\n",
+        "\n",
+        "::: cell\n",
+        "![](python_dynamic_or_static.png){fig-align=\"center\"}\n",
+        ":::\n",
         "\n",
         "Today, I am going to talk about the characteristics of `Python`.\n",
         "\n",
@@ -27,7 +31,7 @@
         "\n",
         "Let's go with an example:"
       ],
-      "id": "72f6c34d"
+      "id": "75f1caa1"
     },
     {
       "cell_type": "code",
@@ -42,7 +46,7 @@
         "        return a + b\n",
         "    return \"No invalid operation was found\""
       ],
-      "id": "fff47724",
+      "id": "6b8865d3",
       "execution_count": null,
       "outputs": []
     },
@@ -52,7 +56,7 @@
       "source": [
         "This function can run successfully even though there is an invalid operation inside the `if` clause:"
       ],
-      "id": "6d611fbc"
+      "id": "802bb3d9"
     },
     {
       "cell_type": "code",
@@ -60,7 +64,7 @@
       "source": [
         "python_dynamic_language_example(False)"
       ],
-      "id": "bca6acc4",
+      "id": "5171ff07",
       "execution_count": null,
       "outputs": []
     },
@@ -72,7 +76,7 @@
         "\n",
         "However, when we try to access the code portion that does the calculation, we receive the `TypeError`:"
       ],
-      "id": "331b6c08"
+      "id": "552db2e4"
     },
     {
       "cell_type": "code",
@@ -81,7 +85,7 @@
         "#| error: true\n",
         "python_dynamic_language_example(True)"
       ],
-      "id": "76ffcf6a",
+      "id": "80a2eb17",
       "execution_count": null,
       "outputs": []
     },
@@ -91,7 +95,7 @@
       "source": [
         "which means that `Python` did not perform the operation because it was operated between two invalid `types`, even though it was compiled, as can be seen by `dis`:"
       ],
-      "id": "6d2a50ae"
+      "id": "4b5aef44"
     },
     {
       "cell_type": "code",
@@ -100,7 +104,7 @@
         "import dis\n",
         "dis.dis(python_dynamic_language_example)"
       ],
-      "id": "0836e50f",
+      "id": "b0461842",
       "execution_count": null,
       "outputs": []
     },
@@ -122,7 +126,7 @@
         "\n",
         "Even though this is an odd behavior in Python, it allows you the change the variable type while programming:"
       ],
-      "id": "4c1c9295"
+      "id": "53be5eb0"
     },
     {
       "cell_type": "code",
@@ -135,7 +139,7 @@
         "print(type(a))\n",
         "print(id(a))"
       ],
-      "id": "696e10a0",
+      "id": "dbf14337",
       "execution_count": null,
       "outputs": []
     },
@@ -149,7 +153,7 @@
         "\n",
         "In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:"
       ],
-      "id": "6155fb6d"
+      "id": "1becccb2"
     },
     {
       "cell_type": "code",
@@ -168,7 +172,7 @@
         "\n",
         "dis.dis(python_dynamic_language_example_typed)"
       ],
-      "id": "adb9b4a6",
+      "id": "47e527fc",
       "execution_count": null,
       "outputs": []
     },
@@ -186,7 +190,7 @@
         "\n",
         "Happy coding!"
       ],
-      "id": "819950c3"
+      "id": "edfa2137"
     }
   ],
   "metadata": {

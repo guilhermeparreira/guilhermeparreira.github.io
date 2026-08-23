@@ -30,15 +30,14 @@ website:
         href: https://www.linkedin.com/in/guilherme-parreira/?locale=en_US
       - icon: stack-overflow
         href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
+      - icon: rss
+        href: posts.xml
 
 format:
   html:
     theme:
-      light: yeti
       dark: slate
-    # highlight-style:
-    #   light: pygments
-    #   dark: zenburnatom-one-dark
+      light: yeti
     css: styles.css
     toc: true
 

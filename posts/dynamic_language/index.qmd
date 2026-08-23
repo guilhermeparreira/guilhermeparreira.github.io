@@ -2,14 +2,18 @@
 title: "Is Python a Statically or Dynamically Typed Language?"
 description: "Understanding dynamic typing in Python through bytecode and runtime type checks"
 categories: [Python, Interviews]
-date: 08-22-2026
-image: .png
+date: 08-23-2026
+image: python_dynamic_or_static.png
 draft: false
 tbl-cap-location: top
 format:
   html:
     css: styles.css
 ---
+
+::: cell
+![](python_dynamic_or_static.png){fig-align="center"}
+:::
 
 Today, I am going to talk about the characteristics of `Python`.
 
