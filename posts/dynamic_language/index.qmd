@@ -1,7 +1,7 @@
 ---
 title: "Is Python a Statically or Dynamically Typed Language?"
 description: "Understanding dynamic typing in Python through bytecode and runtime type checks"
-categories: [Python, Interviews]
+categories: [Python, type checking,]
 date: 08-23-2026
 image: python_dynamic_or_static.png
 draft: false
@@ -15,9 +15,7 @@ format:
 ![](python_dynamic_or_static.png){fig-align="center"}
 :::
 
-Today, I am going to talk about the characteristics of `Python`.
-
-These are very common topics addressed in `Python` interviews. It allows the interviewer to know if the candidate knows the foundation of the language.
+Today, I am going to talk about intrinsic characteristics of `Python`.
 
 Have you ever received a `TypeError` while running your `Python` program?
 
@@ -109,5 +107,7 @@ dis.dis(python_dynamic_language_example_typed)
 :::
 
 and you could fix it right away.
+
+These are concepts that you may not even realize that are important unless you know it.
 
 Happy coding!
