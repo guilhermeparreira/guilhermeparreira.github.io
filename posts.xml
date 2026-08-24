@@ -29,12 +29,11 @@
 </figure>
 </div>
 </div>
-<p>Today, I am going to talk about the characteristics of <code>Python</code>.</p>
-<p>These are very common topics addressed in <code>Python</code> interviews. It allows the interviewer to know if the candidate knows the foundation of the language.</p>
+<p>Today, I am going to talk about intrinsic characteristics of <code>Python</code>.</p>
 <p>Have you ever received a <code>TypeError</code> while running your <code>Python</code> program?</p>
 <p>It occurs because <code>Python</code> is a dynamic type language. It means the language verifies variable types during execution (<code>runtime</code>) - not during compilation, even though Python does compile your code into bytecode before running it. The type check only happens the instant an operation is actually executed, not when the code is first parsed and compiled.</p>
 <p>Let’s go with an example:</p>
-<div id="6b8865d3" class="cell" data-execution_count="1">
+<div id="b0383afe" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -73,7 +72,7 @@ background-color: null;
 font-style: inherit;">"No invalid operation was found"</span></span></code></pre></div>
 </div>
 <p>This function can run successfully even though there is an invalid operation inside the <code>if</code> clause:</p>
-<div id="5171ff07" class="cell" data-execution_count="2">
+<div id="edbd3c6f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">python_dynamic_language_example(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
@@ -86,7 +85,7 @@ font-style: inherit;">False</span>)</span></code></pre></div>
 </div>
 <p>Moreover, since this is a <a href="https://quarto.org/docs/computations/python.html">Quarto document</a>, the mere fact that the whole <code>.qmd</code> file compiled successfully already shows the function was compiled to bytecode without error.</p>
 <p>However, when we try to access the code portion that does the calculation, we receive the <code>TypeError</code>:</p>
-<div id="80a2eb17" class="cell" data-execution_count="3">
+<div id="fcadbbec" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">python_dynamic_language_example(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
@@ -113,7 +112,7 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 </div>
 </div>
 <p>which means that <code>Python</code> did not perform the operation because it was operated between two invalid <code>types</code>, even though it was compiled, as can be seen by <code>dis</code>:</p>
-<div id="b0461842" class="cell" data-execution_count="4">
+<div id="45f3c0c0" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> dis</span>
@@ -155,7 +154,7 @@ font-style: inherit;">import</span> dis</span>
 <section id="flexibility-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="flexibility-in-python">Flexibility in Python</h2>
 <p>Even though this is an odd behavior in Python, it allows you the change the variable type while programming:</p>
-<div id="dbf14337" class="cell" data-execution_count="5">
+<div id="97b26667" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">a <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
@@ -188,9 +187,9 @@ background-color: null;
 font-style: inherit;">id</span>(a))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'int'&gt;
-105532355079592
+140585562395496
 &lt;class 'str'&gt;
-105532355140616</code></pre>
+140585562455856</code></pre>
 </div>
 </div>
 <p>It occurs because the <code>value</code> has a type (dynamic type language), not the <code>variable</code>. It also allows you to write less boilerplate code, and make your code into production faster.</p>
@@ -198,7 +197,7 @@ font-style: inherit;">id</span>(a))</span></code></pre></div>
 <section id="what-if-you-want-to-put-more-restrictions-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-you-want-to-put-more-restrictions-in-python">What if you want to put more restrictions in Python ?</h2>
 <p>In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:</p>
-<div id="47e527fc" class="cell" data-execution_count="6">
+<div id="cfc57928" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -287,6 +286,7 @@ font-style: inherit;">"No invalid"</span></span>
 </div>
 </div>
 <p>and you could fix it right away.</p>
+<p>These are concepts that you may not even realize that are important unless you know it.</p>
 <p>Happy coding!</p>
 
 
@@ -294,7 +294,7 @@ font-style: inherit;">"No invalid"</span></span>
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>Python</category>
-  <category>Interviews</category>
+  <category>type checking</category>
   <guid>https://guilhermeparreira.github.io/posts/dynamic_language/</guid>
   <pubDate>Sun, 23 Aug 2026 00:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/dynamic_language/python_dynamic_or_static.png" medium="image" type="image/png" height="53" width="144"/>
@@ -319,7 +319,7 @@ font-style: inherit;">"No invalid"</span></span>
 </div>
 <section id="first-things-first" class="level2">
 <h2 class="anchored" data-anchor-id="first-things-first">First things first</h2>
-<p>In my daily routine as a data scientist at <code>[4kst startup](https://4kst.ai/)</code>, I create the following demand for myself: “<strong>I need to make the LGBM model to run using GPU inside the container because it is broken in production</strong>. So far, so good. However, instead of”only fixing it”, I decided to approach it holistically. This was my current Dockerfile:</p>
+<p>In my daily routine as a data scientist, I noticed that <strong>in my production pipeline the LGBMRegressor model was not running with success on GPU inside the container</strong>. After that, I decided to take a look on how was the Dockerfile:</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -470,8 +470,9 @@ background-color: null;
 font-style: inherit;">\</span></span>
 <span id="cb1-31">]</span></code></pre></div>
 </section>
-<section id="some-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="some-concepts">Some Concepts</h2>
+<section id="some-concepts-you-can-skip-it" class="level2">
+<h2 class="anchored" data-anchor-id="some-concepts-you-can-skip-it">Some Concepts (you can skip it)</h2>
+<p>Before dive into the problem I will give some definition of <strong>containers</strong>, <strong>docker</strong> and <strong>virtual machine (VM)</strong>.</p>
 <p><strong>Containers</strong> are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux (<a href="../../posts/docker/index.html">that’s also way I use Ubuntu</a>), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.</p>
 <p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
 <p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
@@ -479,9 +480,9 @@ font-style: inherit;">\</span></span>
 </section>
 <section id="analyzing-the-current-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="analyzing-the-current-dockerfile">Analyzing the current Dockerfile</h2>
-<p>When we look into the Dockerfile, we see different issues:</p>
+<p>When I looked into the Dockerfile, I realized that there were several issues:</p>
 <ul>
-<li>Several packages are not being installed inside the conda:
+<li>Several packages are not being installed inside <code>conda</code>:
 <ul>
 <li>One of them is the <code>lightgbm</code>;</li>
 <li>All other packages are also GPU related;</li>
@@ -499,10 +500,11 @@ font-style: inherit;">\</span></span>
 </section>
 <section id="how-everything-got-solved" class="level2">
 <h2 class="anchored" data-anchor-id="how-everything-got-solved">How everything got solved:</h2>
+<p>Considering that solving the problem only for <code>lightgbm</code>, would leave many problems behind, I decided to take one by one.</p>
 <section id="lightgbm" class="level3">
 <h3 class="anchored" data-anchor-id="lightgbm">LightGBM</h3>
 <ol type="1">
-<li>First of all, I put it back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
+<li>First of all, I put back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
 <li>Then, I realized that <code>lightgbm</code> installs two libraries:
 <ol type="1">
 <li><code>liblightgbm</code> which is the C++ code;</li>

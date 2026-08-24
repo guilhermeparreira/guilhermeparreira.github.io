@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#first-things-first" id="toc-first-things-first" class="nav-link active" data-scroll-target="#first-things-first">First things first</a></li>
-  <li><a href="#some-concepts" id="toc-some-concepts" class="nav-link" data-scroll-target="#some-concepts">Some Concepts</a></li>
+  <li><a href="#some-concepts-you-can-skip-it" id="toc-some-concepts-you-can-skip-it" class="nav-link" data-scroll-target="#some-concepts-you-can-skip-it">Some Concepts (you can skip it)</a></li>
   <li><a href="#analyzing-the-current-dockerfile" id="toc-analyzing-the-current-dockerfile" class="nav-link" data-scroll-target="#analyzing-the-current-dockerfile">Analyzing the current Dockerfile</a></li>
   <li><a href="#how-everything-got-solved" id="toc-how-everything-got-solved" class="nav-link" data-scroll-target="#how-everything-got-solved">How everything got solved:</a>
   <ul class="collapse">
@@ -390,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="first-things-first" class="level2">
 <h2 class="anchored" data-anchor-id="first-things-first">First things first</h2>
-<p>In my daily routine as a data scientist at <code>[4kst startup](https://4kst.ai/)</code>, I create the following demand for myself: “<strong>I need to make the LGBM model to run using GPU inside the container because it is broken in production</strong>. So far, so good. However, instead of”only fixing it”, I decided to approach it holistically. This was my current Dockerfile:</p>
+<p>In my daily routine as a data scientist, I noticed that <strong>in my production pipeline the LGBMRegressor model was not running with success on GPU inside the container</strong>. After that, I decided to take a look on how was the Dockerfile:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> nvidia/cuda:12.6.3-runtime-ubuntu24.04</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># INSTALL CONDA</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -423,8 +423,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="st">    python3 main.docker.py"</span> <span class="op">\</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="some-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="some-concepts">Some Concepts</h2>
+<section id="some-concepts-you-can-skip-it" class="level2">
+<h2 class="anchored" data-anchor-id="some-concepts-you-can-skip-it">Some Concepts (you can skip it)</h2>
+<p>Before dive into the problem I will give some definition of <strong>containers</strong>, <strong>docker</strong> and <strong>virtual machine (VM)</strong>.</p>
 <p><strong>Containers</strong> are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux (<a href="../../posts/docker/index.html">that’s also way I use Ubuntu</a>), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.</p>
 <p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
 <p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
@@ -432,9 +433,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="analyzing-the-current-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="analyzing-the-current-dockerfile">Analyzing the current Dockerfile</h2>
-<p>When we look into the Dockerfile, we see different issues:</p>
+<p>When I looked into the Dockerfile, I realized that there were several issues:</p>
 <ul>
-<li>Several packages are not being installed inside the conda:
+<li>Several packages are not being installed inside <code>conda</code>:
 <ul>
 <li>One of them is the <code>lightgbm</code>;</li>
 <li>All other packages are also GPU related;</li>
@@ -452,10 +453,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="how-everything-got-solved" class="level2">
 <h2 class="anchored" data-anchor-id="how-everything-got-solved">How everything got solved:</h2>
+<p>Considering that solving the problem only for <code>lightgbm</code>, would leave many problems behind, I decided to take one by one.</p>
 <section id="lightgbm" class="level3">
 <h3 class="anchored" data-anchor-id="lightgbm">LightGBM</h3>
 <ol type="1">
-<li>First of all, I put it back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
+<li>First of all, I put back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
 <li>Then, I realized that <code>lightgbm</code> installs two libraries:
 <ol type="1">
 <li><code>liblightgbm</code> which is the C++ code;</li>
