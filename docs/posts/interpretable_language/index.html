@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Guilherme Parreira">
-<meta name="dcterms.date" content="2026-08-21">
-<meta name="description" content="A long story">
+<meta name="dcterms.date" content="2026-08-23">
+<meta name="description" content="Understanding dynamic typing in Python through bytecode and runtime type checks">
 
-<title>How I made LGBM to work in GPU inside Docker and decrease image size by 70% – Guilherme Parreira</title>
+<title>Is Python a Interpreted language? – Guilherme Parreira</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -111,6 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
@@ -314,17 +280,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">How I made LGBM to work in GPU inside Docker and decrease image size by 70%</h1>
+      <h1 class="title">Is Python a Interpreted language?</h1>
                   <div>
         <div class="description">
-          A long story
+          Understanding dynamic typing in Python through bytecode and runtime type checks
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Conda</div>
-                <div class="quarto-category">Docker</div>
-                <div class="quarto-category">Ubuntu</div>
-                <div class="quarto-category">GPU</div>
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">interpreter</div>
               </div>
                   </div>
   </div>
@@ -342,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 21, 2026</p>
+        <p class="date">August 23, 2026</p>
       </div>
     </div>
     
@@ -358,22 +322,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#first-things-first" id="toc-first-things-first" class="nav-link active" data-scroll-target="#first-things-first">First things first</a></li>
-  <li><a href="#some-concepts-you-can-skip-it" id="toc-some-concepts-you-can-skip-it" class="nav-link" data-scroll-target="#some-concepts-you-can-skip-it">Some Concepts (you can skip it)</a>
-  <ul class="collapse">
-  <li><a href="#command-definitions-in-the-docker" id="toc-command-definitions-in-the-docker" class="nav-link" data-scroll-target="#command-definitions-in-the-docker">Command definitions in the Docker</a></li>
-  </ul></li>
-  <li><a href="#analyzing-the-current-dockerfile" id="toc-analyzing-the-current-dockerfile" class="nav-link" data-scroll-target="#analyzing-the-current-dockerfile">Analyzing the current Dockerfile</a></li>
-  <li><a href="#how-everything-got-solved" id="toc-how-everything-got-solved" class="nav-link" data-scroll-target="#how-everything-got-solved">How everything got solved:</a>
-  <ul class="collapse">
-  <li><a href="#lightgbm" id="toc-lightgbm" class="nav-link" data-scroll-target="#lightgbm">LightGBM</a></li>
-  <li><a href="#flash-attn" id="toc-flash-attn" class="nav-link" data-scroll-target="#flash-attn">flash-attn</a></li>
-  <li><a href="#cuda-versions" id="toc-cuda-versions" class="nav-link" data-scroll-target="#cuda-versions">Cuda versions</a></li>
-  <li><a href="#pinned-ubuntu-image" id="toc-pinned-ubuntu-image" class="nav-link" data-scroll-target="#pinned-ubuntu-image">Pinned ubuntu image</a></li>
-  <li><a href="#channels-strict-and-conda-lock" id="toc-channels-strict-and-conda-lock" class="nav-link" data-scroll-target="#channels-strict-and-conda-lock">Channels strict and conda lock</a></li>
-  </ul></li>
-  <li><a href="#optimized-dockerfile" id="toc-optimized-dockerfile" class="nav-link" data-scroll-target="#optimized-dockerfile">Optimized Dockerfile</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  <li><a href="#programming-language" id="toc-programming-language" class="nav-link active" data-scroll-target="#programming-language">Programming language</a></li>
+  <li><a href="#pythons-implementation" id="toc-pythons-implementation" class="nav-link" data-scroll-target="#pythons-implementation">Python’s implementation</a></li>
+  <li><a href="#cpython---python-interpreted-language" id="toc-cpython---python-interpreted-language" class="nav-link" data-scroll-target="#cpython---python-interpreted-language">CPython -&gt; Python interpreted language</a></li>
   </ul>
 </nav>
     </div>
@@ -388,192 +339,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="what-is-docker.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="python_dynamic_or_static.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </div>
-<section id="first-things-first" class="level2">
-<h2 class="anchored" data-anchor-id="first-things-first">First things first</h2>
-<p>In my daily routine as a data scientist, I noticed that <strong>in my production pipeline the LGBMRegressor model was not running with success on GPU inside the container</strong>. After that, I decided to take a look on how was the Dockerfile:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> nvidia/cuda:12.6.3-runtime-ubuntu24.04</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># INSTALL CONDA</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> wget</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">wget</span> https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">bash</span> Miniconda3-py39_24.11.1-0-Linux-x86_64.sh <span class="at">-b</span> <span class="at">-p</span> /opt/conda</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> PATH=<span class="st">"/opt/conda/bin:${PATH}"</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE PIPELINE CONDA ENV</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /usr/src/pipeline</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> ./gpu-time-series-env.yaml .</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">conda</span> env create <span class="at">-f</span> gpu-time-series-env.yaml</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> CONDA_OVERRIDE_CUDA=12.2</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">SHELL</span> [<span class="st">"conda"</span>, <span class="st">"run"</span>, <span class="st">"-n"</span>, <span class="st">"gpu_time_series"</span>, <span class="st">"/bin/bash"</span>, <span class="st">"-c"</span>]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">conda</span> install <span class="at">-c</span> conda-forge tensorflow-gpu=2.17.0 lightgbm=4.6.0</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">conda</span> install conda-forge::flash-attn-layer-norm==2.6.3</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install xgboost==3.0.5</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># COPY CODE AND RUN</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [ <span class="op">\</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bash"</span>, <span class="st">"-c"</span>, <span class="op">\</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source /opt/conda/etc/profile.d/conda.sh &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="st">    conda activate gpu_time_series &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="st">    conda config --set channel_priority strict &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="st">    python3 main.docker.py"</span> <span class="op">\</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="some-concepts-you-can-skip-it" class="level2">
-<h2 class="anchored" data-anchor-id="some-concepts-you-can-skip-it">Some Concepts (you can skip it)</h2>
-<p>Before dive into the problem I will give some definition of <strong>containers</strong>, <strong>docker</strong> and <strong>virtual machine (VM)</strong>.</p>
-<p><strong>Containers</strong> are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux (<a href="../../posts/docker/index.html">that’s also way I use Ubuntu</a>), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.</p>
-<p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
-<p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
-<p>Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.</p>
-<section id="command-definitions-in-the-docker" class="level3">
-<h3 class="anchored" data-anchor-id="command-definitions-in-the-docker">Command definitions in the Docker</h3>
-<ul>
-<li><code>COPY</code> Transfers files and directories from your host machine (the build context) into the container’s filesystem during the build phase. It runs in build time</li>
-<li><code>RUN</code> runs on files inside the container</li>
-<li><code>CMD</code> sets the default command that executes automatically when the container starts running. It does not execute during the build process. It runs in Runtime</li>
-<li><code>SHELL</code> changes the default shell used to execute subsequent RUN, CMD and ENTRYPOINT instructions during the build. Linux containers use [“/bin/sh”, “-c”]. It runs in build configuration.</li>
-</ul>
-</section>
-</section>
-<section id="analyzing-the-current-dockerfile" class="level2">
-<h2 class="anchored" data-anchor-id="analyzing-the-current-dockerfile">Analyzing the current Dockerfile</h2>
-<p>When I looked into the Dockerfile, I realized that there were several issues:</p>
-<ul>
-<li>Several packages are not being installed inside <code>conda</code>:
-<ul>
-<li>One of them is the <code>lightgbm</code>;</li>
-<li>All other packages are also GPU related;</li>
-</ul></li>
-<li>We have two different versions of cuda:
-<ul>
-<li>Cuda <code>FROM</code> the image, which is <code>12.6.3</code>;</li>
-<li>Cuda version that will be used by <code>conda</code> (<code>CONDA_OVERRIDE_CUDA=12.2</code>);</li>
-</ul></li>
-<li><code>conda config --set channel_priority strict</code> in the <code>CMD</code> specifies that <code>conda</code> will use only one channel to install packages:
-<ul>
-<li>Once it is inside the container, we do not need to install anything else, only use it. Therefore, unnecessary;</li>
-</ul></li>
-</ul>
-</section>
-<section id="how-everything-got-solved" class="level2">
-<h2 class="anchored" data-anchor-id="how-everything-got-solved">How everything got solved:</h2>
-<p>Considering that solving the problem only for <code>lightgbm</code>, would leave many problems behind, I decided to take one by one.</p>
-<section id="lightgbm" class="level3">
-<h3 class="anchored" data-anchor-id="lightgbm">LightGBM</h3>
+<p>When I decided to study it, I felt the same as Naruto learning the Rasengan: It was difficult to learn: Naruto took 3 years to learn; and I took 10 years 😂, since I firstly heard the words “interpreted”/“compiled” language when I was learning R.</p>
+<p>Python, itself is a interpreted language, but there are many nuances that I want to discuss.</p>
+<section id="programming-language" class="level2">
+<h2 class="anchored" data-anchor-id="programming-language">Programming language</h2>
+<p>A programming language can be defined by two main pillars:</p>
 <ol type="1">
-<li>First of all, I put back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
-<li>Then, I realized that <code>lightgbm</code> installs two libraries:
+<li>Specification (Rules):
 <ol type="1">
-<li><code>liblightgbm</code> which is the C++ code;</li>
-<li><code>lightgbm</code> which is the Python API.</li>
+<li>Syntax: how the code is written; some languages my be more verbose than others. For example, in <code>C</code> you need to define the type of each variable and finish the line with <code>;</code>. Whereas <code>Python</code> does not require it, but <code>indentation</code> is obligatory for your code to run.</li>
+<li>Semantics: It defines basic operations, such as, the operator <code>+</code>, does what we think it does: two add two values together (in case of <code>floats</code>/<code>ints</code>) or concatenate two <code>lists</code> in Python.</li>
+<li>Data Types &amp; Core concepts: In <code>Python</code>, we have <code>dict</code>, but we do not have <code>dataframes</code>; <code>R</code> is the opposite.</li>
+</ol></li>
+<li>Implementation:
+<ol type="1">
+<li>Machines do not understand <code>source code</code>, it only binary machine code (0s and 1s). So, for every programming language, it is necessary a tool that <strong>translate</strong> the source code into binary code that can be:
+<ol type="1">
+<li><strong>Compiler:</strong> It will translate upfront the entire source code into an independente and exclusive binary code. It is a characteristic of <code>C</code>, <code>Rust</code> and <code>Go</code>;</li>
+<li><strong>Interpreter:</strong> It will translate the source code into binary code at the runtime line by line. Main implementations of <code>Python</code>, <code>JavaScript</code> and <code>R</code>.</li>
+</ol></li>
 </ol></li>
 </ol>
-<p><strong>Since one of them was installed by <code>conda-forge</code> channel, and another by <code>defaults</code>., it created a version mismatch between then, which did not make possible to use the GPU inside the container</strong>. Therefore, I reinstalled them using only <code>conda-forge</code>, which is the recommended channel nowadays.</p>
-<blockquote class="blockquote">
-<p>⚠️ GOOD PRACTICE ALERT: Use only a single channel when creating a conda env.</p>
-</blockquote>
-<p>In addition to that, <code>conda-forge</code> itself has three different ways to install its package: <code>cuda</code>, <code>gpu</code> or <code>cpu</code>. It also needs to be specified in the yaml. In this case, I did <code>liblightgbm=4.6.0=cuda*</code> and <code>lightgbm=4.6.0=cuda*</code>. <code>cuda</code> because is more modern than <code>gpu</code>. It guarantees that <code>conda-forge</code> would pick a <code>cuda</code> version of this library. I could be even more restrict to enforce <code>cuda</code> to be a specific version, but I set it loose.</p>
 </section>
-<section id="flash-attn" class="level3">
-<h3 class="anchored" data-anchor-id="flash-attn">flash-attn</h3>
-<p>It was also a bit pain, because it needs to be installed after <code>pytorch</code> (that’s way it was out of the <code>conda env</code>) once I installed from pip, which has an <code>import pytorch</code> after installation.</p>
-<blockquote class="blockquote">
-<p>The good news is that after installing from conda-forge, this pre-installation process does not exists, and made possible to include it inside the conda env, with no ordering needed.</p>
-</blockquote>
+<section id="pythons-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="pythons-implementation">Python’s implementation</h2>
+<p>What makes a programming language a program is its implementation. Python, has different implementations, such as <code>Nuitka</code>, <code>Cython</code>, <code>PyPy</code> with <code>JIT</code> and <code>CPython</code>; the two first implementations makes the Python a <strong>compiled language</strong> ahead of time, <code>PyPy</code> uses a <code>JIT</code> compilation make the source code into machine code during the runtime (not ahead of time), while the last and most used make it <strong>interpreted language</strong>. So, what makes a language interpreted or compiled is the implementation, not the rules of the language itself.</p>
 </section>
-<section id="cuda-versions" class="level3">
-<h3 class="anchored" data-anchor-id="cuda-versions">Cuda versions</h3>
-<p>What I realized is that inside the (<code>gpu-time-series-env.yaml</code>), I already had <code>cuda</code> (<code>cuda-version=12.9</code>). Therefore, it allowed me to get rid of image that install cuda and the <code>CONDA_OVERRIDE_CUDA</code> env var. Letting <code>conda</code> be the only one responsible by solving <code>cuda</code>.</p>
-<p>It could be a good solution, but it would not last long because my <code>cuda</code> environment was created using <code>conda env export --no-builds</code>, which only <strong>describes</strong> the environment, i.e.&nbsp;it lists the packages that I want. But it does not specify the builds, because these builds are from the respective machine where I am using, and may not be compatible inside the machine I need to install it (I had problem with it before installing using only <code>conda env export</code>).</p>
-<p>To solve this, I created the <code>conda-lock.yaml</code> file from <code>conda-lock</code> package, that locks the exact dependency resolution needed to reproduce an environment. It solves <code>conda</code> versioning of the packages and save it with all information needed to a fresh install. In order to create this file I also had to create the file <code>virtual-packages.yaml</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdirs</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">linux-64</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">packages</span><span class="kw">:</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">__glibc</span><span class="kw">:</span><span class="at"> </span><span class="st">"2.28"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">__cuda</span><span class="kw">:</span><span class="at"> </span><span class="st">"12.9"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>which specicies the cuda version, allowing the new image to know that cuda is available (just like <code>CONDA_OVERRIDE_CUDA</code> beore).</p>
-</section>
-<section id="pinned-ubuntu-image" class="level3">
-<h3 class="anchored" data-anchor-id="pinned-ubuntu-image">Pinned ubuntu image</h3>
-<p>When we just use <code>FROM ubuntu:24.04</code>, even though we pin the operational system, it keeps receiving patch updates, and can make our code to break unexpectedly. In order to overcome this, there are two main ways of doing it:</p>
-<ol type="1">
-<li>Using the <code>manifest digest</code>, which it is a <code>sha</code> key, not human readable, in this case<code>sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517</code>; or</li>
-<li>Using <code>&lt;name_of_ubuntu&gt;-&lt;published_date&gt;</code>, in this case <code>noble-20260810</code></li>
-</ol>
-<p>I used the second option, of course, because it is human readable.</p>
-</section>
-<section id="channels-strict-and-conda-lock" class="level3">
-<h3 class="anchored" data-anchor-id="channels-strict-and-conda-lock">Channels strict and conda lock</h3>
-<p>Once all packages are from <code>conda-forge</code>:</p>
-<ol type="1">
-<li>I no longer need <code>conda config --set channel_priority strict</code></li>
-<li>I no longer need <code>miniconda</code> (which has <code>default</code> and <code>conda-forge</code> channels available):
-<ol type="1">
-<li>I switched to <code>miniforge</code> which is the <code>miniconda</code> of only <code>conda-forge</code> channel, being lightweight.</li>
-</ol></li>
-</ol>
-<section id="pinning-miniforge" class="level4">
-<h4 class="anchored" data-anchor-id="pinning-miniforge">Pinning miniforge</h4>
-<p>I have also pinned <code>miniforge</code> to a version specific, because it will install Python on your container image; and an update on Python that may result an update to the <code>latest</code> <code>miniforge</code> can also break your software.</p>
-</section>
-</section>
-</section>
-<section id="optimized-dockerfile" class="level2">
-<h2 class="anchored" data-anchor-id="optimized-dockerfile">Optimized Dockerfile</h2>
-<p>After applying all theses changes, I was able to come up with the following solution:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ubuntu:noble-20260810</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> wget <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Linux-x86_64.sh <span class="at">-O</span> /tmp/miniforge.sh <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bash</span> /tmp/miniforge.sh <span class="at">-b</span> <span class="at">-p</span> /opt/conda <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> /tmp/miniforge.sh</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> PATH=<span class="st">"/opt/conda/bin:${PATH}"</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE PIPELINE CONDA ENV</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /usr/src/pipeline</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> conda-lock.yml .</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--no-cache-dir</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda-lock</span> install <span class="at">--micromamba</span> <span class="at">--name</span> gpu_time_series conda-lock.yml <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pip</span> uninstall <span class="at">-y</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> clean <span class="at">-afy</span> <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rm</span> <span class="at">-rf</span> /opt/conda/pkgs/cache/<span class="pp">*</span> ~/.cache/pip ~/.cache/conda-lock ~/.mamba ~/.local/share/mamba</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate environment for RUN commands</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">SHELL</span> [<span class="st">"conda"</span>, <span class="st">"run"</span>, <span class="st">"-n"</span>, <span class="st">"gpu_time_series"</span>, <span class="st">"/bin/bash"</span>, <span class="st">"-c"</span>]</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [ <span class="op">\</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bash"</span>, <span class="st">"-c"</span>, <span class="op">\</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source /opt/conda/etc/profile.d/conda.sh &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="st">    conda activate gpu_time_series &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    python3 main.docker.py"</span> <span class="op">\</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Which is 20% faster to build and a 70% lighter image than the previous Dockerfile because:</p>
-<ul>
-<li>Ubuntu and miniforge are lighter;</li>
-<li>I have used <code>micromamba</code> as well cleared all cache from package installation;</li>
-<li>Started using <code>.dockerignore</code>.</li>
-</ul>
-<div style="width:100%;height:0;padding-bottom:56%;position:relative;">
-<iframe src="https://giphy.com/embed/l0MYt5jPR6QX5pnqM" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen="">
-</iframe>
-</div>
-</section>
-<section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
-<p>I want to separate the <code>gpu-time-series-env.yaml</code> file into development and production, so I can save even more space on disk!</p>
-<p>Happy coding!</p>
+<section id="cpython---python-interpreted-language" class="level2">
+<h2 class="anchored" data-anchor-id="cpython---python-interpreted-language">CPython -&gt; Python interpreted language</h2>
+<p>After writing Python code, <code>CPython</code> firsts convert <code>source code</code> into <code>bytecode</code> <em>.pyc</em> files (it is the result of calling <code>dis.dis(&lt;your_function&gt;)</code>, see <a href="../../posts/dynamic_language/index.html#python-dynamic-example">is python a dynamic language</a>), and Python Virtual Machine <strong>interprets</strong> the bytecode into C machine code at run time so that <code>Python</code> gets executed. In summary, this is what happens under the hood.</p>
 
 
 </section>

@@ -62,6 +62,13 @@ When we run `FROM: ubuntu:24.04` in Dockerfile we are not installing a fresh new
 
 Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.
 
+### Command definitions in the Docker
+
++ `COPY` Transfers files and directories from your host machine (the build context) into the container's filesystem during the build phase. It runs in build time
++ `RUN` runs on files inside the container
++ `CMD` sets the default command that executes automatically when the container starts running. It does not execute during the build process. It runs in Runtime
++ `SHELL` changes the default shell used to execute subsequent RUN, CMD and ENTRYPOINT instructions during the build. Linux containers use ["/bin/sh", "-c"]. It runs in build configuration.
+
 ## Analyzing the current Dockerfile
 
 When I looked into the Dockerfile, I realized that there were several issues:
@@ -100,13 +107,32 @@ It was also a bit pain, because it needs to be installed after `pytorch` (that's
 
 ### Cuda versions
 
-What I realized is that inside the (`gpu-time-series-env.yaml`), I already had `cuda` (`cuda-version=12.9`). Therefore, it allowed me to get rid of image that install cuda and the `CONDA_OVERRIDE_CUDA env var`. Letting `conda` be the only one responsible by solving `cuda`.
+What I realized is that inside the (`gpu-time-series-env.yaml`), I already had `cuda` (`cuda-version=12.9`). Therefore, it allowed me to get rid of image that install cuda and the `CONDA_OVERRIDE_CUDA` env var. Letting `conda` be the only one responsible by solving `cuda`.
 
 It could be a good solution, but it would not last long because my `cuda` environment was created using `conda env export --no-builds`, which only **describes** the environment, i.e. it lists the packages that I want. But it does not specify the builds, because these builds are from the respective machine where I am using, and may not be compatible inside the machine I need to install it (I had problem with it before installing using only `conda env export`).
 
-To solve this, I used `conda-lock`, which is a package that locks the exact dependency resolution needed to reproduce an environment. It solves `conda` versioning of the packages and save it with all information needed to a fresh install.
+To solve this, I created the `conda-lock.yaml` file from `conda-lock` package, that locks the exact dependency resolution needed to reproduce an environment. It solves `conda` versioning of the packages and save it with all information needed to a fresh install. In order to create this file I also had to create the file `virtual-packages.yaml`:
 
-## Channels strict and conda lock
+```yaml
+subdirs:
+  linux-64:
+    packages:
+      __glibc: "2.28"
+      __cuda: "12.9"
+```
+
+which specicies the cuda version, allowing the new image to know that cuda is available (just like `CONDA_OVERRIDE_CUDA` beore).
+
+### Pinned ubuntu image
+
+When we just use `FROM ubuntu:24.04`, even though we pin the operational system, it keeps receiving patch updates, and can make our code to break unexpectedly. In order to overcome this, there are two main ways of doing it:
+
+1. Using the `manifest digest`, which it is a `sha` key, not human readable, in this case`sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517`; or
+2. Using `<name_of_ubuntu>-<published_date>`, in this case `noble-20260810`
+
+I used the second option, of course, because it is human readable.
+
+### Channels strict and conda lock
 
 Once all packages are from `conda-forge`:
 
@@ -114,15 +140,19 @@ Once all packages are from `conda-forge`:
 2. I no longer need `miniconda` (which has `default` and `conda-forge` channels available):
    1. I switched to `miniforge` which is the `miniconda` of only `conda-forge` channel, being lightweight.
 
+#### Pinning miniforge
+
+I have also pinned `miniforge` to a version specific, because it will install Python on your container image; and an update on Python that may result an update to the `latest` `miniforge` can also break your software.
+
 ## Optimized Dockerfile
 
 After applying all theses changes, I was able to come up with the following solution:
 
 ```dockerfile
-FROM ubuntu:24.04
+FROM ubuntu:noble-20260810
 
 RUN apt-get update && apt-get install -y wget && \
-    wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O /tmp/miniforge.sh && \
+    wget https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Linux-x86_64.sh -O /tmp/miniforge.sh && \
     bash /tmp/miniforge.sh -b -p /opt/conda && rm /tmp/miniforge.sh
 
 ENV PATH="/opt/conda/bin:${PATH}"

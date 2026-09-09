@@ -86,6 +86,7 @@ It occurs because the `value` has a type (dynamic type language), not the `varia
 In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:
 
 ```{python}
+#| label: python-dynamic-example
 def python_dynamic_language_example_typed(
     execute_invalid_operation: bool,
 ) -> str | TypeError:
@@ -96,6 +97,7 @@ def python_dynamic_language_example_typed(
         b: str = "5"
         return a + b
     return "No invalid"
+
 
 dis.dis(python_dynamic_language_example_typed)
 ```

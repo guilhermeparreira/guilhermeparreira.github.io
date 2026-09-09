@@ -1,0 +1,56 @@
+---
+title: "Is Python a Interpreted language?"
+description: "Understanding dynamic typing in Python through bytecode and runtime type checks"
+categories: [Python, interpreter, ]
+date: 08-23-2026
+image: python_dynamic_or_static.png
+draft: true
+tbl-cap-location: top
+format:
+  html:
+    css: styles.css
+---
+
+::: cell
+![](python_source_to_execution.png){fig-align="center"}
+:::
+
+When I decided to study it, I felt the same as Naruto learning the Rasengan: It was difficult to learn: Naruto took 3 years to learn; and I took 10 😂, since I firstly heard the words "interpreted"/"compiled" language when I was learning R.
+
+Python, itself is an interpreted language, but there are many nuances that I want to discuss. Let's start by defining what is a programming language.
+
+## Programming language
+
+A programming language can be defined by two main pillars:
+
+1. Specification (Rules):
+   1. Syntax: how the code is written; some languages my be more verbose than others. For example, in `C` you need to define the type of each variable and finish the line with `;`. Whereas `Python` does not require it, but `indentation` is obligatory for your code to run.
+   2. Semantics: It defines basic operations, such as, the operator `+`, does what we think it does: add two values together (in case of `floats`/`ints`) or concatenate two `lists` in Python.
+   3. Data Types & Core concepts: In `Python`, we have `dict`, but we do not have `dataframes`; `R` is the opposite.
+2. Implementation:
+   1. Machines do not understand `source code`, only binary machine code (0s and 1s). So, for every programming language, it is necessary a tool that **translates** the source code into binary code that can be:
+      1. **Compiler:** It will translate upfront the entire source code into an independent and exclusive binary code. It is a characteristic of `C`, `Rust` and `Go`;
+      2. **Interpreter:** It will translate the source code into binary code at the runtime line by line. Main implementations of `Python`, `JavaScript` and `R`.
+
+## Python's implementation
+
+What makes a programming language a program is its implementation. Python, has different implementations, such as:
+
++ `Nuitka` and `Cython` makes the Python a **compiled language**, so, all machine code is known ahead of time.
++ `PyPy` uses `JIT (Just-In-Time)` compilation: it creates the source code directly into machine code during the runtime (not ahead of time). It is a compiler just-in-time, instead of ahead of time.
++ `CPython`, the official implementation first compile to `bytecode`, and then to machine code at runtime. That's why Python is known as "**interpreted language**".
+
+So, what makes a language interpreted or compiled is the implementation, not the language itself.
+
+### CPython -> Python interpreted language
+
+After writing Python code, `CPython` firsts convert `source code` into `bytecode` *.pyc* files (it is the result of calling `dis.dis(<your_function>)`, see [is python a dynamic language](/posts/dynamic_language/index.qmd#python-dynamic-example)), and the Python Virtual Machine **interprets** each bytecode sequentially and then executes it into equivalent C code. In summary, this is what happens under the hood. In summary, it never translate `Python` code into `machine code`; instead, it executes an equivalent C code.
+
+Right now, I will dive into specific questions that come up when writing Python code:
+
+## Why is Numpy faster than pure Python code?
+
+It happens because numpy is vectorized, while Python do not. And by vectorized, it means that the code will pass through the
+
+
+## Why is C generally faster than Python?

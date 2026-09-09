@@ -12,6 +12,64 @@
 <generator>quarto-1.7.32</generator>
 <lastBuildDate>Sun, 23 Aug 2026 03:00:00 GMT</lastBuildDate>
 <item>
+  <title>Is Python a Interpreted language?</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/interpretable_language/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/interpretable_language/python_dynamic_or_static.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>When I decided to study it, I felt the same as Naruto learning the Rasengan: It was difficult to learn: Naruto took 3 years to learn; and I took 10 years 😂, since I firstly heard the words “interpreted”/“compiled” language when I was learning R.</p>
+<p>Python, itself is a interpreted language, but there are many nuances that I want to discuss.</p>
+<section id="programming-language" class="level2">
+<h2 class="anchored" data-anchor-id="programming-language">Programming language</h2>
+<p>A programming language can be defined by two main pillars:</p>
+<ol type="1">
+<li>Specification (Rules):
+<ol type="1">
+<li>Syntax: how the code is written; some languages my be more verbose than others. For example, in <code>C</code> you need to define the type of each variable and finish the line with <code>;</code>. Whereas <code>Python</code> does not require it, but <code>indentation</code> is obligatory for your code to run.</li>
+<li>Semantics: It defines basic operations, such as, the operator <code>+</code>, does what we think it does: two add two values together (in case of <code>floats</code>/<code>ints</code>) or concatenate two <code>lists</code> in Python.</li>
+<li>Data Types &amp; Core concepts: In <code>Python</code>, we have <code>dict</code>, but we do not have <code>dataframes</code>; <code>R</code> is the opposite.</li>
+</ol></li>
+<li>Implementation:
+<ol type="1">
+<li>Machines do not understand <code>source code</code>, it only binary machine code (0s and 1s). So, for every programming language, it is necessary a tool that <strong>translate</strong> the source code into binary code that can be:
+<ol type="1">
+<li><strong>Compiler:</strong> It will translate upfront the entire source code into an independente and exclusive binary code. It is a characteristic of <code>C</code>, <code>Rust</code> and <code>Go</code>;</li>
+<li><strong>Interpreter:</strong> It will translate the source code into binary code at the runtime line by line. Main implementations of <code>Python</code>, <code>JavaScript</code> and <code>R</code>.</li>
+</ol></li>
+</ol></li>
+</ol>
+</section>
+<section id="pythons-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="pythons-implementation">Python’s implementation</h2>
+<p>What makes a programming language a program is its implementation. Python, has different implementations, such as <code>Nuitka</code>, <code>Cython</code>, <code>PyPy</code> with <code>JIT</code> and <code>CPython</code>; the two first implementations makes the Python a <strong>compiled language</strong> ahead of time, <code>PyPy</code> uses a <code>JIT</code> compilation make the source code into machine code during the runtime (not ahead of time), while the last and most used make it <strong>interpreted language</strong>. So, what makes a language interpreted or compiled is the implementation, not the rules of the language itself.</p>
+</section>
+<section id="cpython---python-interpreted-language" class="level2">
+<h2 class="anchored" data-anchor-id="cpython---python-interpreted-language">CPython -&gt; Python interpreted language</h2>
+<p>After writing Python code, <code>CPython</code> firsts convert <code>source code</code> into <code>bytecode</code> <em>.pyc</em> files (it is the result of calling <code>dis.dis(&lt;your_function&gt;)</code>, see <a href="../../posts/dynamic_language/index.html#python-dynamic-example">is python a dynamic language</a>), and Python Virtual Machine <strong>interprets</strong> the bytecode into C machine code at run time so that <code>Python</code> gets executed. In summary, this is what happens under the hood.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Python</category>
+  <category>interpreter</category>
+  <guid>https://guilhermeparreira.github.io/posts/interpretable_language/</guid>
+  <pubDate>Sun, 23 Aug 2026 03:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language/python_dynamic_or_static.png" medium="image" type="image/png"/>
+</item>
+<item>
   <title>Is Python a Statically or Dynamically Typed Language?</title>
   <dc:creator>Guilherme Parreira</dc:creator>
   <link>https://guilhermeparreira.github.io/posts/dynamic_language/</link>
@@ -22,12 +80,18 @@
 
 
 
-<p>Today, I am going to talk about the characteristics of <code>Python</code>.</p>
-<p>These are very common topics addressed in <code>Python</code> interviews. It allows the interviewer to know if the candidate knows the foundation of the language.</p>
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/dynamic_language/python_dynamic_or_static.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>Today, I am going to talk about intrinsic characteristics of <code>Python</code>.</p>
 <p>Have you ever received a <code>TypeError</code> while running your <code>Python</code> program?</p>
 <p>It occurs because <code>Python</code> is a dynamic type language. It means the language verifies variable types during execution (<code>runtime</code>) - not during compilation, even though Python does compile your code into bytecode before running it. The type check only happens the instant an operation is actually executed, not when the code is first parsed and compiled.</p>
 <p>Let’s go with an example:</p>
-<div id="d6916a9b" class="cell" data-execution_count="1">
+<div id="cda43216" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -66,7 +130,7 @@ background-color: null;
 font-style: inherit;">"No invalid operation was found"</span></span></code></pre></div>
 </div>
 <p>This function can run successfully even though there is an invalid operation inside the <code>if</code> clause:</p>
-<div id="821b8de9" class="cell" data-execution_count="2">
+<div id="1c9c2b4b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">python_dynamic_language_example(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">False</span>)</span></code></pre></div>
@@ -79,7 +143,7 @@ font-style: inherit;">False</span>)</span></code></pre></div>
 </div>
 <p>Moreover, since this is a <a href="https://quarto.org/docs/computations/python.html">Quarto document</a>, the mere fact that the whole <code>.qmd</code> file compiled successfully already shows the function was compiled to bytecode without error.</p>
 <p>However, when we try to access the code portion that does the calculation, we receive the <code>TypeError</code>:</p>
-<div id="1d904d13" class="cell" data-execution_count="3">
+<div id="5255dd88" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">python_dynamic_language_example(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span></code></pre></div>
@@ -106,7 +170,7 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 </div>
 </div>
 <p>which means that <code>Python</code> did not perform the operation because it was operated between two invalid <code>types</code>, even though it was compiled, as can be seen by <code>dis</code>:</p>
-<div id="3f779b01" class="cell" data-execution_count="4">
+<div id="24ad45cd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> dis</span>
@@ -148,7 +212,7 @@ font-style: inherit;">import</span> dis</span>
 <section id="flexibility-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="flexibility-in-python">Flexibility in Python</h2>
 <p>Even though this is an odd behavior in Python, it allows you the change the variable type while programming:</p>
-<div id="f61064ab" class="cell" data-execution_count="5">
+<div id="d3e21b5f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">a <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
@@ -181,9 +245,9 @@ background-color: null;
 font-style: inherit;">id</span>(a))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'int'&gt;
-94417963138472
+111200753311144
 &lt;class 'str'&gt;
-94417963199496</code></pre>
+111200753372168</code></pre>
 </div>
 </div>
 <p>It occurs because the <code>value</code> has a type (dynamic type language), not the <code>variable</code>. It also allows you to write less boilerplate code, and make your code into production faster.</p>
@@ -191,7 +255,7 @@ font-style: inherit;">id</span>(a))</span></code></pre></div>
 <section id="what-if-you-want-to-put-more-restrictions-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-you-want-to-put-more-restrictions-in-python">What if you want to put more restrictions in Python ?</h2>
 <p>In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:</p>
-<div id="51801614" class="cell" data-execution_count="6">
+<div id="python-dynamic-example" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -245,7 +309,8 @@ font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"No invalid"</span></span>
 <span id="cb11-11"></span>
-<span id="cb11-12">dis.dis(python_dynamic_language_example_typed)</span></code></pre></div>
+<span id="cb11-12"></span>
+<span id="cb11-13">dis.dis(python_dynamic_language_example_typed)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  1           0 RESUME                   0
 
@@ -280,6 +345,7 @@ font-style: inherit;">"No invalid"</span></span>
 </div>
 </div>
 <p>and you could fix it right away.</p>
+<p>These are concepts that you may not even realize that are important unless you know it.</p>
 <p>Happy coding!</p>
 
 
@@ -287,7 +353,7 @@ font-style: inherit;">"No invalid"</span></span>
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>Python</category>
-  <category>Interviews</category>
+  <category>type checking</category>
   <guid>https://guilhermeparreira.github.io/posts/dynamic_language/</guid>
   <pubDate>Sun, 23 Aug 2026 03:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/dynamic_language/python_dynamic_or_static.png" medium="image" type="image/png" height="53" width="144"/>
@@ -312,7 +378,7 @@ font-style: inherit;">"No invalid"</span></span>
 </div>
 <section id="first-things-first" class="level2">
 <h2 class="anchored" data-anchor-id="first-things-first">First things first</h2>
-<p>In my daily routine as a data scientist at <code>[4kst startup](https://4kst.ai/)</code>, I create the following demand for myself: “<strong>I need to make the LGBM model to run using GPU inside the container because it is broken in production</strong>. So far, so good. However, instead of”only fixing it”, I decided to approach it holistically. This was my current Dockerfile:</p>
+<p>In my daily routine as a data scientist, I noticed that <strong>in my production pipeline the LGBMRegressor model was not running with success on GPU inside the container</strong>. After that, I decided to take a look on how was the Dockerfile:</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -463,18 +529,28 @@ background-color: null;
 font-style: inherit;">\</span></span>
 <span id="cb1-31">]</span></code></pre></div>
 </section>
-<section id="some-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="some-concepts">Some Concepts</h2>
+<section id="some-concepts-you-can-skip-it" class="level2">
+<h2 class="anchored" data-anchor-id="some-concepts-you-can-skip-it">Some Concepts (you can skip it)</h2>
+<p>Before dive into the problem I will give some definition of <strong>containers</strong>, <strong>docker</strong> and <strong>virtual machine (VM)</strong>.</p>
 <p><strong>Containers</strong> are a way to encapsulate your application and dependencies that can be installed in a different machine without the need to install every instruction manually. Unlike Virtual Machines (VMs), it does not virtualize the hardware, neither operates in a new Operational System (OS). Instead, it shares the same kernel of the host machine, with no overhead when it is operating inside a linux (<a href="../../posts/docker/index.html">that’s also way I use Ubuntu</a>), or a little overhead with Windows (it needs to be use WSL and Hypervision) or MacOS.</p>
 <p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
 <p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
 <p>Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.</p>
+<section id="command-definitions-in-the-docker" class="level3">
+<h3 class="anchored" data-anchor-id="command-definitions-in-the-docker">Command definitions in the Docker</h3>
+<ul>
+<li><code>COPY</code> Transfers files and directories from your host machine (the build context) into the container’s filesystem during the build phase. It runs in build time</li>
+<li><code>RUN</code> runs on files inside the container</li>
+<li><code>CMD</code> sets the default command that executes automatically when the container starts running. It does not execute during the build process. It runs in Runtime</li>
+<li><code>SHELL</code> changes the default shell used to execute subsequent RUN, CMD and ENTRYPOINT instructions during the build. Linux containers use [“/bin/sh”, “-c”]. It runs in build configuration.</li>
+</ul>
+</section>
 </section>
 <section id="analyzing-the-current-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="analyzing-the-current-dockerfile">Analyzing the current Dockerfile</h2>
-<p>When we look into the Dockerfile, we see different issues:</p>
+<p>When I looked into the Dockerfile, I realized that there were several issues:</p>
 <ul>
-<li>Several packages are not being installed inside the conda:
+<li>Several packages are not being installed inside <code>conda</code>:
 <ul>
 <li>One of them is the <code>lightgbm</code>;</li>
 <li>All other packages are also GPU related;</li>
@@ -492,10 +568,11 @@ font-style: inherit;">\</span></span>
 </section>
 <section id="how-everything-got-solved" class="level2">
 <h2 class="anchored" data-anchor-id="how-everything-got-solved">How everything got solved:</h2>
+<p>Considering that solving the problem only for <code>lightgbm</code>, would leave many problems behind, I decided to take one by one.</p>
 <section id="lightgbm" class="level3">
 <h3 class="anchored" data-anchor-id="lightgbm">LightGBM</h3>
 <ol type="1">
-<li>First of all, I put it back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
+<li>First of all, I put back all packages inside the <code>conda</code>, because I wanted to use <code>conda</code> the single source of truth, and it would guarantee that its solver would not break in the <code>Dockerfile</code>.</li>
 <li>Then, I realized that <code>lightgbm</code> installs two libraries:
 <ol type="1">
 <li><code>liblightgbm</code> which is the C++ code;</li>
@@ -517,13 +594,68 @@ font-style: inherit;">\</span></span>
 </section>
 <section id="cuda-versions" class="level3">
 <h3 class="anchored" data-anchor-id="cuda-versions">Cuda versions</h3>
-<p>What I realized is that inside the (<code>gpu-time-series-env.yaml</code>), I already had <code>cuda</code> (<code>cuda-version=12.9</code>). Therefore, it allowed me to get rid of image that install cuda and the <code>CONDA_OVERRIDE_CUDA env var</code>. Letting <code>conda</code> be the only one responsible by solving <code>cuda</code>.</p>
+<p>What I realized is that inside the (<code>gpu-time-series-env.yaml</code>), I already had <code>cuda</code> (<code>cuda-version=12.9</code>). Therefore, it allowed me to get rid of image that install cuda and the <code>CONDA_OVERRIDE_CUDA</code> env var. Letting <code>conda</code> be the only one responsible by solving <code>cuda</code>.</p>
 <p>It could be a good solution, but it would not last long because my <code>cuda</code> environment was created using <code>conda env export --no-builds</code>, which only <strong>describes</strong> the environment, i.e.&nbsp;it lists the packages that I want. But it does not specify the builds, because these builds are from the respective machine where I am using, and may not be compatible inside the machine I need to install it (I had problem with it before installing using only <code>conda env export</code>).</p>
-<p>To solve this, I used <code>conda-lock</code>, which is a package that locks the exact dependency resolution needed to reproduce an environment. It solves <code>conda</code> versioning of the packages and save it with all information needed to a fresh install.</p>
+<p>To solve this, I created the <code>conda-lock.yaml</code> file from <code>conda-lock</code> package, that locks the exact dependency resolution needed to reproduce an environment. It solves <code>conda</code> versioning of the packages and save it with all information needed to a fresh install. In order to create this file I also had to create the file <code>virtual-packages.yaml</code>:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">subdirs</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">linux-64</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">packages</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb2-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__glibc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2.28"</span></span>
+<span id="cb2-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">      </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__cuda</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"12.9"</span></span></code></pre></div>
+<p>which specicies the cuda version, allowing the new image to know that cuda is available (just like <code>CONDA_OVERRIDE_CUDA</code> beore).</p>
 </section>
+<section id="pinned-ubuntu-image" class="level3">
+<h3 class="anchored" data-anchor-id="pinned-ubuntu-image">Pinned ubuntu image</h3>
+<p>When we just use <code>FROM ubuntu:24.04</code>, even though we pin the operational system, it keeps receiving patch updates, and can make our code to break unexpectedly. In order to overcome this, there are two main ways of doing it:</p>
+<ol type="1">
+<li>Using the <code>manifest digest</code>, which it is a <code>sha</code> key, not human readable, in this case<code>sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517</code>; or</li>
+<li>Using <code>&lt;name_of_ubuntu&gt;-&lt;published_date&gt;</code>, in this case <code>noble-20260810</code></li>
+</ol>
+<p>I used the second option, of course, because it is human readable.</p>
 </section>
-<section id="channels-strict-and-conda-lock" class="level2">
-<h2 class="anchored" data-anchor-id="channels-strict-and-conda-lock">Channels strict and conda lock</h2>
+<section id="channels-strict-and-conda-lock" class="level3">
+<h3 class="anchored" data-anchor-id="channels-strict-and-conda-lock">Channels strict and conda lock</h3>
 <p>Once all packages are from <code>conda-forge</code>:</p>
 <ol type="1">
 <li>I no longer need <code>conda config --set channel_priority strict</code></li>
@@ -532,16 +664,21 @@ font-style: inherit;">\</span></span>
 <li>I switched to <code>miniforge</code> which is the <code>miniconda</code> of only <code>conda-forge</code> channel, being lightweight.</li>
 </ol></li>
 </ol>
+<section id="pinning-miniforge" class="level4">
+<h4 class="anchored" data-anchor-id="pinning-miniforge">Pinning miniforge</h4>
+<p>I have also pinned <code>miniforge</code> to a version specific, because it will install Python on your container image; and an update on Python that may result an update to the <code>latest</code> <code>miniforge</code> can also break your software.</p>
+</section>
+</section>
 </section>
 <section id="optimized-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="optimized-dockerfile">Optimized Dockerfile</h2>
 <p>After applying all theses changes, I was able to come up with the following solution:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">FROM</span> ubuntu:24.04</span>
-<span id="cb2-2"></span>
-<span id="cb2-3"><span class="kw" style="color: #003B4F;
+font-style: inherit;">FROM</span> ubuntu:noble-20260810</span>
+<span id="cb3-2"></span>
+<span id="cb3-3"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">RUN</span> <span class="ex" style="color: null;
@@ -559,9 +696,9 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-4">    <span class="fu" style="color: #4758AB;
+<span id="cb3-4">    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">wget</span> https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at" style="color: #657422;
+font-style: inherit;">wget</span> https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Linux-x86_64.sh <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">-O</span> /tmp/miniforge.sh <span class="kw" style="color: #003B4F;
 background-color: null;
@@ -569,7 +706,7 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-5">    <span class="fu" style="color: #4758AB;
+<span id="cb3-5">    <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">bash</span> /tmp/miniforge.sh <span class="at" style="color: #657422;
 background-color: null;
@@ -581,27 +718,27 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">rm</span> /tmp/miniforge.sh</span>
-<span id="cb2-6"></span>
-<span id="cb2-7"><span class="kw" style="color: #003B4F;
+<span id="cb3-6"></span>
+<span id="cb3-7"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">ENV</span> PATH=<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"/opt/conda/bin:${PATH}"</span></span>
-<span id="cb2-8"></span>
-<span id="cb2-9"><span class="co" style="color: #5E5E5E;
+<span id="cb3-8"></span>
+<span id="cb3-9"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># CREATE PIPELINE CONDA ENV</span></span>
-<span id="cb2-10"><span class="kw" style="color: #003B4F;
+<span id="cb3-10"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">WORKDIR</span> /usr/src/pipeline</span>
-<span id="cb2-11"></span>
-<span id="cb2-12"><span class="kw" style="color: #003B4F;
+<span id="cb3-11"></span>
+<span id="cb3-12"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">COPY</span> conda-lock.yml .</span>
-<span id="cb2-13"><span class="kw" style="color: #003B4F;
+<span id="cb3-13"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">RUN</span> <span class="ex" style="color: null;
@@ -614,7 +751,7 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-14">    <span class="ex" style="color: null;
+<span id="cb3-14">    <span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">conda-lock</span> install <span class="at" style="color: #657422;
 background-color: null;
@@ -626,7 +763,7 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-15">    <span class="ex" style="color: null;
+<span id="cb3-15">    <span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">pip</span> uninstall <span class="at" style="color: #657422;
 background-color: null;
@@ -636,7 +773,7 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-16">    <span class="ex" style="color: null;
+<span id="cb3-16">    <span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">conda</span> clean <span class="at" style="color: #657422;
 background-color: null;
@@ -646,18 +783,18 @@ font-weight: bold;
 font-style: inherit;">&amp;&amp;</span> <span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-17">    <span class="fu" style="color: #4758AB;
+<span id="cb3-17">    <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">rm</span> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">-rf</span> /opt/conda/pkgs/cache/<span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">*</span> ~/.cache/pip ~/.cache/conda-lock ~/.mamba ~/.local/share/mamba</span>
-<span id="cb2-18"></span>
-<span id="cb2-19"><span class="co" style="color: #5E5E5E;
+<span id="cb3-18"></span>
+<span id="cb3-19"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Activate environment for RUN commands</span></span>
-<span id="cb2-20"><span class="kw" style="color: #003B4F;
+<span id="cb3-20"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">SHELL</span> [<span class="st" style="color: #20794D;
@@ -673,41 +810,41 @@ background-color: null;
 font-style: inherit;">"/bin/bash"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"-c"</span>]</span>
-<span id="cb2-21"></span>
-<span id="cb2-22"><span class="kw" style="color: #003B4F;
+<span id="cb3-21"></span>
+<span id="cb3-22"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">COPY</span> . .</span>
-<span id="cb2-23"></span>
-<span id="cb2-24"><span class="kw" style="color: #003B4F;
+<span id="cb3-23"></span>
+<span id="cb3-24"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">CMD</span> [ <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-25">    <span class="st" style="color: #20794D;
+<span id="cb3-25">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"bash"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"-c"</span>, <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-26">    <span class="st" style="color: #20794D;
+<span id="cb3-26">    <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"source /opt/conda/etc/profile.d/conda.sh &amp;&amp; </span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-27"><span class="st" style="color: #20794D;
+<span id="cb3-27"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">    conda activate gpu_time_series &amp;&amp; </span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-28"><span class="st" style="color: #20794D;
+<span id="cb3-28"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">    python3 main.docker.py"</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">\</span></span>
-<span id="cb2-29">    ]</span></code></pre></div>
+<span id="cb3-29">    ]</span></code></pre></div>
 <p>Which is 20% faster to build and a 70% lighter image than the previous Dockerfile because:</p>
 <ul>
 <li>Ubuntu and miniforge are lighter;</li>

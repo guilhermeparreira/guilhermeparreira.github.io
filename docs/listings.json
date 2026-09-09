@@ -2,6 +2,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/interpretable_language/index.html",
       "/posts/dynamic_language/index.html",
       "/posts/docker/index.html",
       "/posts/mape/index.html",
