@@ -79,8 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e9fdf7801954d9bdf0baf64e520f33e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-b4a30c6124fa27b515088e09a130b57d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-623b3878d4a561f53913d2e4cea3f1a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-965c9f1063a5af9e74bfb1ef0624562e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Have you ever received a <code>TypeError</code> while running your <code>Python</code> program?</p>
 <p>It occurs because <code>Python</code> is a dynamic type language. It means the language verifies variable types during execution (<code>runtime</code>) - not during compilation, even though Python does compile your code into bytecode before running it. The type check only happens the instant an operation is actually executed, not when the code is first parsed and compiled.</p>
 <p>Let’s go with an example:</p>
-<div id="b0383afe" class="cell" data-execution_count="1">
+<div id="cda43216" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> python_dynamic_language_example(execute_invalid_operation):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The function was compiled to bytecode already"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -392,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"No invalid operation was found"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This function can run successfully even though there is an invalid operation inside the <code>if</code> clause:</p>
-<div id="edbd3c6f" class="cell" data-execution_count="2">
+<div id="1c9c2b4b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>python_dynamic_language_example(<span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The function was compiled to bytecode already</code></pre>
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Moreover, since this is a <a href="https://quarto.org/docs/computations/python.html">Quarto document</a>, the mere fact that the whole <code>.qmd</code> file compiled successfully already shows the function was compiled to bytecode without error.</p>
 <p>However, when we try to access the code portion that does the calculation, we receive the <code>TypeError</code>:</p>
-<div id="fcadbbec" class="cell" data-execution_count="3">
+<div id="5255dd88" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>python_dynamic_language_example(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The function was compiled to bytecode already</code></pre>
@@ -428,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>which means that <code>Python</code> did not perform the operation because it was operated between two invalid <code>types</code>, even though it was compiled, as can be seen by <code>dis</code>:</p>
-<div id="45f3c0c0" class="cell" data-execution_count="4">
+<div id="24ad45cd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dis</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dis.dis(python_dynamic_language_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -468,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="flexibility-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="flexibility-in-python">Flexibility in Python</h2>
 <p>Even though this is an odd behavior in Python, it allows you the change the variable type while programming:</p>
-<div id="97b26667" class="cell" data-execution_count="5">
+<div id="d3e21b5f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(a))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(a))</span>
@@ -477,9 +477,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'int'&gt;
-140585562395496
+111200753311144
 &lt;class 'str'&gt;
-140585562455856</code></pre>
+111200753372168</code></pre>
 </div>
 </div>
 <p>It occurs because the <code>value</code> has a type (dynamic type language), not the <code>variable</code>. It also allows you to write less boilerplate code, and make your code into production faster.</p>
@@ -487,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-if-you-want-to-put-more-restrictions-in-python" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-you-want-to-put-more-restrictions-in-python">What if you want to put more restrictions in Python ?</h2>
 <p>In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:</p>
-<div id="cfc57928" class="cell" data-execution_count="6">
+<div id="python-dynamic-example" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> python_dynamic_language_example_typed(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    execute_invalid_operation: <span class="bu">bool</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="bu">str</span> <span class="op">|</span> <span class="pp">TypeError</span>:</span>
@@ -499,7 +499,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">+</span> b</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"No invalid"</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>dis.dis(python_dynamic_language_example_typed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>dis.dis(python_dynamic_language_example_typed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  1           0 RESUME                   0
 

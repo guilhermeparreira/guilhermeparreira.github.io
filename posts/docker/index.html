@@ -79,8 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e9fdf7801954d9bdf0baf64e520f33e3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-b4a30c6124fa27b515088e09a130b57d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-623b3878d4a561f53913d2e4cea3f1a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-965c9f1063a5af9e74bfb1ef0624562e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -359,15 +359,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#first-things-first" id="toc-first-things-first" class="nav-link active" data-scroll-target="#first-things-first">First things first</a></li>
-  <li><a href="#some-concepts-you-can-skip-it" id="toc-some-concepts-you-can-skip-it" class="nav-link" data-scroll-target="#some-concepts-you-can-skip-it">Some Concepts (you can skip it)</a></li>
+  <li><a href="#some-concepts-you-can-skip-it" id="toc-some-concepts-you-can-skip-it" class="nav-link" data-scroll-target="#some-concepts-you-can-skip-it">Some Concepts (you can skip it)</a>
+  <ul class="collapse">
+  <li><a href="#command-definitions-in-the-docker" id="toc-command-definitions-in-the-docker" class="nav-link" data-scroll-target="#command-definitions-in-the-docker">Command definitions in the Docker</a></li>
+  </ul></li>
   <li><a href="#analyzing-the-current-dockerfile" id="toc-analyzing-the-current-dockerfile" class="nav-link" data-scroll-target="#analyzing-the-current-dockerfile">Analyzing the current Dockerfile</a></li>
   <li><a href="#how-everything-got-solved" id="toc-how-everything-got-solved" class="nav-link" data-scroll-target="#how-everything-got-solved">How everything got solved:</a>
   <ul class="collapse">
   <li><a href="#lightgbm" id="toc-lightgbm" class="nav-link" data-scroll-target="#lightgbm">LightGBM</a></li>
   <li><a href="#flash-attn" id="toc-flash-attn" class="nav-link" data-scroll-target="#flash-attn">flash-attn</a></li>
   <li><a href="#cuda-versions" id="toc-cuda-versions" class="nav-link" data-scroll-target="#cuda-versions">Cuda versions</a></li>
-  </ul></li>
+  <li><a href="#pinned-ubuntu-image" id="toc-pinned-ubuntu-image" class="nav-link" data-scroll-target="#pinned-ubuntu-image">Pinned ubuntu image</a></li>
   <li><a href="#channels-strict-and-conda-lock" id="toc-channels-strict-and-conda-lock" class="nav-link" data-scroll-target="#channels-strict-and-conda-lock">Channels strict and conda lock</a></li>
+  </ul></li>
   <li><a href="#optimized-dockerfile" id="toc-optimized-dockerfile" class="nav-link" data-scroll-target="#optimized-dockerfile">Optimized Dockerfile</a></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul>
@@ -430,6 +434,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In Data Science, we need a lighter, fast and isolated piece of software, that’s way containers are handy. We do not need to have another entire system to our disposal.</p>
 <p>When we run <code>FROM: ubuntu:24.04</code> in Dockerfile we are not installing a fresh new Ubuntu for that container. We are only installing some parts of the Ubuntu, such as <code>bash</code>, <code>apt</code> and <code>/usr</code>, <code>/etc</code> folders, while having the same kernel of the host (it is not even necessary to have the same version of the linux, as long as the kernel supports it).</p>
 <p>Lastly, but not least, Docker is a tool that manages the containers :). Dockerfile is the filename used to create an image, that containers can be created from it.</p>
+<section id="command-definitions-in-the-docker" class="level3">
+<h3 class="anchored" data-anchor-id="command-definitions-in-the-docker">Command definitions in the Docker</h3>
+<ul>
+<li><code>COPY</code> Transfers files and directories from your host machine (the build context) into the container’s filesystem during the build phase. It runs in build time</li>
+<li><code>RUN</code> runs on files inside the container</li>
+<li><code>CMD</code> sets the default command that executes automatically when the container starts running. It does not execute during the build process. It runs in Runtime</li>
+<li><code>SHELL</code> changes the default shell used to execute subsequent RUN, CMD and ENTRYPOINT instructions during the build. Linux containers use [“/bin/sh”, “-c”]. It runs in build configuration.</li>
+</ul>
+</section>
 </section>
 <section id="analyzing-the-current-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="analyzing-the-current-dockerfile">Analyzing the current Dockerfile</h2>
@@ -479,13 +492,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="cuda-versions" class="level3">
 <h3 class="anchored" data-anchor-id="cuda-versions">Cuda versions</h3>
-<p>What I realized is that inside the (<code>gpu-time-series-env.yaml</code>), I already had <code>cuda</code> (<code>cuda-version=12.9</code>). Therefore, it allowed me to get rid of image that install cuda and the <code>CONDA_OVERRIDE_CUDA env var</code>. Letting <code>conda</code> be the only one responsible by solving <code>cuda</code>.</p>
+<p>What I realized is that inside the (<code>gpu-time-series-env.yaml</code>), I already had <code>cuda</code> (<code>cuda-version=12.9</code>). Therefore, it allowed me to get rid of image that install cuda and the <code>CONDA_OVERRIDE_CUDA</code> env var. Letting <code>conda</code> be the only one responsible by solving <code>cuda</code>.</p>
 <p>It could be a good solution, but it would not last long because my <code>cuda</code> environment was created using <code>conda env export --no-builds</code>, which only <strong>describes</strong> the environment, i.e.&nbsp;it lists the packages that I want. But it does not specify the builds, because these builds are from the respective machine where I am using, and may not be compatible inside the machine I need to install it (I had problem with it before installing using only <code>conda env export</code>).</p>
-<p>To solve this, I used <code>conda-lock</code>, which is a package that locks the exact dependency resolution needed to reproduce an environment. It solves <code>conda</code> versioning of the packages and save it with all information needed to a fresh install.</p>
+<p>To solve this, I created the <code>conda-lock.yaml</code> file from <code>conda-lock</code> package, that locks the exact dependency resolution needed to reproduce an environment. It solves <code>conda</code> versioning of the packages and save it with all information needed to a fresh install. In order to create this file I also had to create the file <code>virtual-packages.yaml</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subdirs</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">linux-64</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">packages</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">__glibc</span><span class="kw">:</span><span class="at"> </span><span class="st">"2.28"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">__cuda</span><span class="kw">:</span><span class="at"> </span><span class="st">"12.9"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>which specicies the cuda version, allowing the new image to know that cuda is available (just like <code>CONDA_OVERRIDE_CUDA</code> beore).</p>
 </section>
+<section id="pinned-ubuntu-image" class="level3">
+<h3 class="anchored" data-anchor-id="pinned-ubuntu-image">Pinned ubuntu image</h3>
+<p>When we just use <code>FROM ubuntu:24.04</code>, even though we pin the operational system, it keeps receiving patch updates, and can make our code to break unexpectedly. In order to overcome this, there are two main ways of doing it:</p>
+<ol type="1">
+<li>Using the <code>manifest digest</code>, which it is a <code>sha</code> key, not human readable, in this case<code>sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517</code>; or</li>
+<li>Using <code>&lt;name_of_ubuntu&gt;-&lt;published_date&gt;</code>, in this case <code>noble-20260810</code></li>
+</ol>
+<p>I used the second option, of course, because it is human readable.</p>
 </section>
-<section id="channels-strict-and-conda-lock" class="level2">
-<h2 class="anchored" data-anchor-id="channels-strict-and-conda-lock">Channels strict and conda lock</h2>
+<section id="channels-strict-and-conda-lock" class="level3">
+<h3 class="anchored" data-anchor-id="channels-strict-and-conda-lock">Channels strict and conda lock</h3>
 <p>Once all packages are from <code>conda-forge</code>:</p>
 <ol type="1">
 <li>I no longer need <code>conda config --set channel_priority strict</code></li>
@@ -494,39 +521,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>I switched to <code>miniforge</code> which is the <code>miniconda</code> of only <code>conda-forge</code> channel, being lightweight.</li>
 </ol></li>
 </ol>
+<section id="pinning-miniforge" class="level4">
+<h4 class="anchored" data-anchor-id="pinning-miniforge">Pinning miniforge</h4>
+<p>I have also pinned <code>miniforge</code> to a version specific, because it will install Python on your container image; and an update on Python that may result an update to the <code>latest</code> <code>miniforge</code> can also break your software.</p>
+</section>
+</section>
 </section>
 <section id="optimized-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="optimized-dockerfile">Optimized Dockerfile</h2>
 <p>After applying all theses changes, I was able to come up with the following solution:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ubuntu:24.04</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> wget <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh <span class="at">-O</span> /tmp/miniforge.sh <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bash</span> /tmp/miniforge.sh <span class="at">-b</span> <span class="at">-p</span> /opt/conda <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> /tmp/miniforge.sh</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> PATH=<span class="st">"/opt/conda/bin:${PATH}"</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE PIPELINE CONDA ENV</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /usr/src/pipeline</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> conda-lock.yml .</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--no-cache-dir</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda-lock</span> install <span class="at">--micromamba</span> <span class="at">--name</span> gpu_time_series conda-lock.yml <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pip</span> uninstall <span class="at">-y</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> clean <span class="at">-afy</span> <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rm</span> <span class="at">-rf</span> /opt/conda/pkgs/cache/<span class="pp">*</span> ~/.cache/pip ~/.cache/conda-lock ~/.mamba ~/.local/share/mamba</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate environment for RUN commands</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">SHELL</span> [<span class="st">"conda"</span>, <span class="st">"run"</span>, <span class="st">"-n"</span>, <span class="st">"gpu_time_series"</span>, <span class="st">"/bin/bash"</span>, <span class="st">"-c"</span>]</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [ <span class="op">\</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bash"</span>, <span class="st">"-c"</span>, <span class="op">\</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source /opt/conda/etc/profile.d/conda.sh &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="st">    conda activate gpu_time_series &amp;&amp; </span><span class="op">\</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="st">    python3 main.docker.py"</span> <span class="op">\</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> ubuntu:noble-20260810</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">apt-get</span> update <span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> install <span class="at">-y</span> wget <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Linux-x86_64.sh <span class="at">-O</span> /tmp/miniforge.sh <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bash</span> /tmp/miniforge.sh <span class="at">-b</span> <span class="at">-p</span> /opt/conda <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> /tmp/miniforge.sh</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> PATH=<span class="st">"/opt/conda/bin:${PATH}"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CREATE PIPELINE CONDA ENV</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /usr/src/pipeline</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> conda-lock.yml .</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--no-cache-dir</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda-lock</span> install <span class="at">--micromamba</span> <span class="at">--name</span> gpu_time_series conda-lock.yml <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pip</span> uninstall <span class="at">-y</span> conda-lock <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">conda</span> clean <span class="at">-afy</span> <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rm</span> <span class="at">-rf</span> /opt/conda/pkgs/cache/<span class="pp">*</span> ~/.cache/pip ~/.cache/conda-lock ~/.mamba ~/.local/share/mamba</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate environment for RUN commands</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">SHELL</span> [<span class="st">"conda"</span>, <span class="st">"run"</span>, <span class="st">"-n"</span>, <span class="st">"gpu_time_series"</span>, <span class="st">"/bin/bash"</span>, <span class="st">"-c"</span>]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [ <span class="op">\</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bash"</span>, <span class="st">"-c"</span>, <span class="op">\</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"source /opt/conda/etc/profile.d/conda.sh &amp;&amp; </span><span class="op">\</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="st">    conda activate gpu_time_series &amp;&amp; </span><span class="op">\</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="st">    python3 main.docker.py"</span> <span class="op">\</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Which is 20% faster to build and a 70% lighter image than the previous Dockerfile because:</p>
 <ul>
 <li>Ubuntu and miniforge are lighter;</li>
