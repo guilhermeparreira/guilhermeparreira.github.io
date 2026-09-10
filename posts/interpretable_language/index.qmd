@@ -4,8 +4,9 @@ description: "Understanding dynamic typing in Python through bytecode and runtim
 categories: [Python, interpreter, ]
 date: 08-23-2026
 image: python_dynamic_or_static.png
-draft: true
+draft: false
 tbl-cap-location: top
+number-sections: true
 format:
   html:
     css: styles.css
@@ -30,27 +31,108 @@ A programming language can be defined by two main pillars:
 2. Implementation:
    1. Machines do not understand `source code`, only binary machine code (0s and 1s). So, for every programming language, it is necessary a tool that **translates** the source code into binary code that can be:
       1. **Compiler:** It will translate upfront the entire source code into an independent and exclusive binary code. It is a characteristic of `C`, `Rust` and `Go`;
-      2. **Interpreter:** It will translate the source code into binary code at the runtime line by line. Main implementations of `Python`, `JavaScript` and `R`.
+      2. **Interpreter:** It will translate the source code into binary code at the runtime line by line. This is the primary implementation strategy for `Python`, `JavaScript` and `R`.
 
 ## Python's implementation
 
-What makes a programming language a program is its implementation. Python, has different implementations, such as:
+What makes a programming language interpreted or compiled is its implementation. Python has different implementations, such as:
 
-+ `Nuitka` and `Cython` makes the Python a **compiled language**, so, all machine code is known ahead of time.
-+ `PyPy` uses `JIT (Just-In-Time)` compilation: it creates the source code directly into machine code during the runtime (not ahead of time). It is a compiler just-in-time, instead of ahead of time.
-+ `CPython`, the official implementation first compile to `bytecode`, and then to machine code at runtime. That's why Python is known as "**interpreted language**".
++ `Nuitka` and `Cython` make the Python a **compiled language**, so, all machine code is known ahead of time.
++ `PyPy` uses `JIT (Just-In-Time)` compilation: it takes the Python source file, converts it to bytecode[^1], and directly compile it into machine code during the runtime (not ahead of time). It is a just-in-time compiler, rather than an ahead-of-time compiler.
++ `CPython`, the official implementation, first compile the Python source code to `bytecode`[^2]. Then the Python Virtual Machine (PVM) - itself a program in C - reads that `bytecode` and hands each instruction off to an already-existing C function inside the interpreter that carries it out. That's why Python is known as an "**interpreted language**".
+  + `Bytecode` plays a vital role here: Python caches the first time a module is imported, saving it as a `.pyc` file so it does not need to be recompiled on every subsequent import.
+  + It never translates `Python` code into `machine code` directly; instead, the PVM executes the bytecode by invoking the corresponding pre-compiled C function for each instruction.
 
-So, what makes a language interpreted or compiled is the implementation, not the language itself.
+Finally, what makes a language interpreted or compiled is the implementation, not the language itself.
 
-### CPython -> Python interpreted language
+[^1]: bytecode is an intermediate low-level code that can be read and interpreted by a machine, being originated by a source code.
+[^2]: you can inspect the bytecode of any Python function by calling `dis.dis(<your_function>)`, see [is python a dynamic language](/posts/dynamic_language/index.qmd#python-dynamic-example).
 
-After writing Python code, `CPython` firsts convert `source code` into `bytecode` *.pyc* files (it is the result of calling `dis.dis(<your_function>)`, see [is python a dynamic language](/posts/dynamic_language/index.qmd#python-dynamic-example)), and the Python Virtual Machine **interprets** each bytecode sequentially and then executes it into equivalent C code. In summary, this is what happens under the hood. In summary, it never translate `Python` code into `machine code`; instead, it executes an equivalent C code.
+## Quick questions
 
 Right now, I will dive into specific questions that come up when writing Python code:
 
-## Why is Numpy faster than pure Python code?
+### Why is Numpy faster than pure Python code?
 
-It happens because numpy is vectorized, while Python do not. And by vectorized, it means that the code will pass through the
+It happens because Numpy is vectorized, while Python does not. And by vectorized, it means that the code will pass through the interpreter only once and all the routine will be executed in a loop in C; instead of for every loop calling the interpreter in regular `for loop` written in Python.
+
+Moreover, it has unboxed, contiguous, C-native buffers see in @sec-cfaster.
+
+I will show an example in order to make it clearer:
+
+```{python}
+# | label: python-versus-numpy
+
+import dis
+import numpy as np
+import time
 
 
-## Why is C generally faster than Python?
+def pure_python_version(n):
+    total = 0.0
+    for i in range(n):
+        total += i * i
+    return total
+
+
+def numpy_version(n):
+    arr = np.arange(n, dtype=np.float64)
+    return np.sum(arr * arr)
+
+
+N = 100_000_000
+
+start = time.perf_counter()
+result_py = pure_python_version(N)
+py_time = time.perf_counter() - start
+
+print("=" * 60)
+print(f"PURE PYTHON VERSION THAT TOOK {round(py_time, 2)} seconds in BYTECODE")
+print("=" * 60)
+dis.dis(pure_python_version)
+
+start = time.perf_counter()
+result_numpy = numpy_version(N)
+numpy_time = time.perf_counter() - start
+
+print()
+print("=" * 60)
+print(f"NUMPY VERSION THAT TOOK {round(numpy_time, 2)} seconds in BYTECODE")
+print("=" * 60)
+dis.dis(numpy_version)
+```
+
+I am not an expert on bytecode instructions in Python, but see that for pure Python, there is an operation called `FOR_ITER` that goes to `L2`, and then, it returns to `L1`, which it is the loop itself.
+
+When we look at the Numpy version, the for loop is gone, and all instructions run only once, not `N` times.
+
+### Why is C generally faster than Python? {#sec-cfaster}
+
+1. C does not have an interpreter; it dispatches all code ahead of time into machine code during compilation;
+2. Defining the variable types at declaration makes the code's memory layout known to the machine ahead of time:
+   1. It does not have to make [Runtime type checking](../dynamic_language/index.qmd)
+   2. It can calculate in advance how much of memory the operation in take, and optimize it
+3. Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.
+
+### If I annotate my functions, will my code run faster?
+
+NO. It happens because `CPython` ignores all type hints during compilation. See that in the below example the bytecode is the same:
+
+```{python}
+# | label: python-anotated-function
+import dis
+import time
+
+def add_no_hint(a, b):
+   return a + b
+
+def add_with_hint(a: int, b: int) -> int:
+   return a + b
+
+print("=== WITHOUT type hint ===")
+dis.dis(add_no_hint)
+print()
+print("=== WITH type hint ===")
+dis.dis(add_with_hint)
+```
+

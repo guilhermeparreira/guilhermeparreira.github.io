@@ -1,0 +1,208 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Is Python a Statically or Dynamically Typed Language?\"\n",
+        "description: \"Understanding dynamic typing in Python through bytecode and runtime type checks\"\n",
+        "categories: [Python, type checking,]\n",
+        "date: 08-23-2026\n",
+        "image: python_dynamic_or_static.png\n",
+        "draft: false\n",
+        "tbl-cap-location: top\n",
+        "format:\n",
+        "  html:\n",
+        "    css: styles.css\n",
+        "---\n",
+        "\n",
+        "::: cell\n",
+        "![](python_dynamic_or_static.png){fig-align=\"center\"}\n",
+        ":::\n",
+        "\n",
+        "Today, I am going to talk about intrinsic characteristics of `Python`.\n",
+        "\n",
+        "Have you ever received a `TypeError` while running your `Python` program?\n",
+        "\n",
+        "It occurs because `Python` is a dynamic type language. It means the language verifies variable types during execution (`runtime`) - not during compilation, even though Python does compile your code into bytecode before running it. The type check only happens the instant an operation is actually executed, not when the code is first parsed and compiled.\n",
+        "\n",
+        "Let's go with an example:"
+      ],
+      "id": "99db093c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def python_dynamic_language_example(execute_invalid_operation):\n",
+        "    print(\"The function was compiled to bytecode already\")\n",
+        "\n",
+        "    if execute_invalid_operation:\n",
+        "        a = 5\n",
+        "        b = \"5\"\n",
+        "        return a + b\n",
+        "    return \"No invalid operation was found\""
+      ],
+      "id": "b9a940a7",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This function can run successfully even though there is an invalid operation inside the `if` clause:"
+      ],
+      "id": "d735a346"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "python_dynamic_language_example(False)"
+      ],
+      "id": "5690b2c0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Moreover, since this is a [Quarto document](https://quarto.org/docs/computations/python.html), the mere fact that the whole `.qmd` file compiled successfully already shows the function was compiled to bytecode without error.\n",
+        "\n",
+        "However, when we try to access the code portion that does the calculation, we receive the `TypeError`:"
+      ],
+      "id": "d02ef8fe"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| error: true\n",
+        "python_dynamic_language_example(True)"
+      ],
+      "id": "cf480d50",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "which means that `Python` did not perform the operation because it was operated between two invalid `types`, even though it was compiled, as can be seen by `dis`:"
+      ],
+      "id": "fdc9b7d0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import dis\n",
+        "dis.dis(python_dynamic_language_example)"
+      ],
+      "id": "4267641f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The fact that `Python` compiled this code, it means that it is **dynamically type**, instead of **statically typed**:\n",
+        "\n",
+        "> Languages that verify the type of the variable before `runtime`, such as `Java`and `C++`, are known as `static type language`. The advantage of it is that in production you have more guarantees that your code will not break due to an accidental variable type change or operation. So, you know in advance that a mistake can occur.\n",
+        "\n",
+        "The fact that `Python` did not allow that operation occur in `runtime` means that it is **strongly typed**, instead of **weakly typed**:\n",
+        "\n",
+        "> Weak typed languages, such as `JavaScript` and `PHP` would allow this operation to occur. It would result in `\"55\"` (string) in `JavaScript` and `10` (integer) in PHP.\n",
+        "\n",
+        "Having these concepts in mind can help you to think on which language to use, or anticipate errors.\n",
+        "\n",
+        "## Flexibility in Python\n",
+        "\n",
+        "Even though this is an odd behavior in Python, it allows you the change the variable type while programming:"
+      ],
+      "id": "e73d52f4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "a = 5\n",
+        "print(type(a))\n",
+        "print(id(a))\n",
+        "a = \"5\"\n",
+        "print(type(a))\n",
+        "print(id(a))"
+      ],
+      "id": "0e851e3c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "It occurs because the `value` has a type (dynamic type language), not the `variable`. It also allows you to write less boilerplate code, and make your code into production faster.\n",
+        "\n",
+        "## What if you want to put more restrictions in Python ?\n",
+        "\n",
+        "In recent Python versions (3.x), what you can do is add type annotation to variables and output of functions. However, it will still allow the function to be compiled:"
+      ],
+      "id": "5dd69d2b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| label: python-dynamic-example\n",
+        "def python_dynamic_language_example_typed(\n",
+        "    execute_invalid_operation: bool,\n",
+        ") -> str | TypeError:\n",
+        "    print(\"The function was compiled to bytecode already\")\n",
+        "\n",
+        "    if execute_invalid_operation:\n",
+        "        a: int = 5\n",
+        "        b: str = \"5\"\n",
+        "        return a + b\n",
+        "    return \"No invalid\"\n",
+        "\n",
+        "\n",
+        "dis.dis(python_dynamic_language_example_typed)"
+      ],
+      "id": "python-dynamic-example",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**However**, if you are coding in an editor and uses a tool that does live checking, such as `Pylance` in `Vs Code` in `standard mode`, it would warn you about the operation:\n",
+        "\n",
+        "::: cell\n",
+        "![](static_python.png){fig-align=\"center\"}\n",
+        ":::\n",
+        "\n",
+        "and you could fix it right away.\n",
+        "\n",
+        "These are concepts that you may not even realize that are important unless you know it.\n",
+        "\n",
+        "Happy coding!"
+      ],
+      "id": "358935ec"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/home/guilherme/miniconda3/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

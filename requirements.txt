@@ -4,3 +4,4 @@ nbclient
 ipykernel
 pandas
 polars
+numpy
