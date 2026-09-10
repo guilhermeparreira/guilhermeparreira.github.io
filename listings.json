@@ -3,6 +3,7 @@
     "listing": "/posts.html",
     "items": [
       "/posts/dynamic_language/index.html",
+      "/posts/interpretable_language/index.html",
       "/posts/docker/index.html",
       "/posts/mape/index.html",
       "/posts/keyboard/index.html",
