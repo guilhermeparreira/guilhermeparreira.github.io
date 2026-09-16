@@ -2,7 +2,7 @@
 title: "Is Python an Interpreted language?"
 description: "Part 1 - Fundamentals"
 categories: [Python, interpreter, compiler, CPython, bytecode]
-date: 08-23-2026
+date: 09-14-2026
 image: python_interpreted_thumb_v2.png
 draft: false
 tbl-cap-location: top

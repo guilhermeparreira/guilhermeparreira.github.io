@@ -2,7 +2,7 @@
 title: "Is Python an Interpreted language?"
 description: "Part 2 - Practice & Quick questions"
 categories: [Python, interpreter, C, numpy, bytes]
-date: 08-23-2026
+date: 09-15-2026
 image: python_numpy_c_thumb.png
 draft: false
 tbl-cap-location: top
