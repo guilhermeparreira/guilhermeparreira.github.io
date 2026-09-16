@@ -1,7 +1,7 @@
 ---
 title: "Is Python a Statically or Dynamically Typed Language?"
 description: "Understanding dynamic typing in Python through bytecode and runtime type checks"
-categories: [Python, type checking,]
+categories: [Python, type checking, runtime]
 date: 08-23-2026
 image: python_dynamic_typing_thumb.png
 draft: false
