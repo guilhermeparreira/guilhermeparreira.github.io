@@ -1,0 +1,121 @@
+---
+title: "Is Python an Interpreted language?"
+description: "Part 2 - Practice & Quick questions"
+categories: [Python, interpreter, C, numpy, bytes]
+date: 08-23-2026
+image: python_numpy_c_thumb.png
+draft: false
+tbl-cap-location: top
+number-sections: true
+---
+
+This is part 2 of a series. Read [Part 1](../interpretable_language_part1/index.qmd) first.
+
+## Quick questions
+
+Right now, I will dive into specific questions that come up when writing Python code:
+
+### Why is Numpy faster than pure Python code?
+
+It happens because Numpy is vectorized, while Python does not. And by vectorized, it means that the code will pass through the interpreter only once and all the routine will be executed in a loop in C; instead of invoking the interpreter on every iteration of a regular Python `for` loop.
+
+Moreover, NumPy arrays use unboxed, contiguous, C-native buffers — more on why that matters in @sec-cfaster.
+
+I will show an example in order to make it clearer:
+
+```{python}
+# | label: python-versus-numpy
+
+import dis
+import numpy as np
+import time
+
+
+def pure_python_version(n):
+   total = 0.0
+   for i in range(n):
+      total += i * i
+   return total
+
+
+def numpy_version(n):
+   arr = np.arange(n, dtype=np.float64)
+   return np.sum(arr * arr)
+
+
+N = 100_000_000
+
+start = time.perf_counter()
+result_py = pure_python_version(N)
+py_time = time.perf_counter() - start
+
+print("=" * 60)
+print(f"PURE PYTHON VERSION THAT TOOK {round(py_time, 2)} seconds in BYTECODE")
+print("=" * 60)
+dis.dis(pure_python_version)
+
+start = time.perf_counter()
+result_numpy = numpy_version(N)
+numpy_time = time.perf_counter() - start
+
+print()
+print("=" * 60)
+print(f"NUMPY VERSION THAT TOOK {round(numpy_time, 2)} seconds in BYTECODE")
+print("=" * 60)
+dis.dis(numpy_version)
+```
+
+I am not an expert on bytecode instructions in Python, but see that for pure Python, there is an operation called `FOR_ITER` that goes to `L2`, and then, it returns to `L1`, which is the loop itself.
+
+When we look at the Numpy version, the for loop is gone, and all instructions run only once, not `N` times.
+
+### Why is C generally faster than Python? {#sec-cfaster}
+
+1. C does not have an interpreter; it dispatches all code ahead of time into machine code during compilation;
+2. Defining the variable types at declaration makes the code's memory layout known to the machine ahead of time:
+   + It does not have to make [Runtime type checking](../dynamic_language/index.qmd).
+   + It can calculate in advance how much of memory the operation will take, and optimize it.
+3. Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.
+
+In order to exemplify the third point, I will run an example to show how many bytes a Python integer uses:
+
+```{python}
+import sys
+
+x = 5
+print(f"type(x)        = {type(x)}")
+print(f"sys.getsizeof(x)   = {sys.getsizeof(x)} bytes")
+```
+
+It uses 28 bytes, against 4 (or 8) in C (normally), which:
++ 8 bytes is used to save its reference count (it counts how many variables are referencing to it);
++ 8 bytes for the type pointer (so that the interpreter knows the basic operations available on this variable);
++ 8 bytes for the size field;
++ 4 bytes for the cost of each additional digital chunk
+
+### If I annotate my functions, will my code run faster?
+
+NO. It happens because `CPython` ignores all type hints during compilation. See that in the below example the bytecode is the same:
+
+```{python}
+# | label: python-anotated-function
+import dis
+import time
+
+
+def add_no_hint(a, b):
+    return a + b
+
+
+def add_with_hint(a: int, b: int) -> int:
+    return a + b
+
+
+print("=== WITHOUT type hint ===")
+dis.dis(add_no_hint)
+print()
+print("=== WITH type hint ===")
+dis.dis(add_with_hint)
+```
+
+Happy coding!
