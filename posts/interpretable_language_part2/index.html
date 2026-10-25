@@ -79,8 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-623b3878d4a561f53913d2e4cea3f1a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-965c9f1063a5af9e74bfb1ef0624562e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-734eabc05d6f1478859e591fbf8f75f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-74532b2634f5af994a026fcb1086f386.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -425,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>dis.dis(numpy_version)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>============================================================
-PURE PYTHON VERSION THAT TOOK 8.25 seconds in BYTECODE
+PURE PYTHON VERSION THAT TOOK 15.95 seconds in BYTECODE
 ============================================================
   6           0 RESUME                   0
 
@@ -453,7 +453,7 @@ PURE PYTHON VERSION THAT TOOK 8.25 seconds in BYTECODE
              56 RETURN_VALUE
 
 ============================================================
-NUMPY VERSION THAT TOOK 0.23 seconds in BYTECODE
+NUMPY VERSION THAT TOOK 0.69 seconds in BYTECODE
 ============================================================
  13           0 RESUME                   0
 
@@ -490,7 +490,7 @@ NUMPY VERSION THAT TOOK 0.23 seconds in BYTECODE
 <li>Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.</li>
 </ol>
 <p>In order to exemplify the third point, I will run an example to show how many bytes a Python integer uses:</p>
-<div id="cd8ce6f8" class="cell" data-execution_count="2">
+<div id="a18c6068" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span>
