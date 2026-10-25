@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Guilherme Parreira">
+<meta name="dcterms.date" content="2026-09-15">
+<meta name="description" content="Threads, processes, futures and asyncio: which one to pick to speed up your code">
+
+<title>Concurrency and Parallelism in Python – Guilherme Parreira</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon_profile.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ae579f3da58ae5d632a23343848217bd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-5701e246c64f2f5e91145e5bfbbc068b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = true;
+    const darkModeDefault = authorPrefersDark;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Guilherme Parreira</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">My Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/guilhermeparreira" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/guilherme-parreira/?locale=en_US" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+    <a href="https://pt.stackoverflow.com/users/33947/guilherme-parreira" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-stack-overflow"></i></a>
+    <a href="../../posts.xml" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-rss"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Concurrency and Parallelism in Python</h1>
+                  <div>
+        <div class="description">
+          Threads, processes, futures and asyncio: which one to pick to speed up your code
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">concurrency</div>
+                <div class="quarto-category">parallelism</div>
+                <div class="quarto-category">threads</div>
+                <div class="quarto-category">multiprocessing</div>
+                <div class="quarto-category">asyncio</div>
+                <div class="quarto-category">cores</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://guilhermeparreira.github.io/">Guilherme Parreira</a> </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 15, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multithreading" id="toc-multithreading" class="nav-link active" data-scroll-target="#multithreading"><span class="header-section-number">1</span> Multithreading</a></li>
+  <li><a href="#multiprocessing" id="toc-multiprocessing" class="nav-link" data-scroll-target="#multiprocessing"><span class="header-section-number">2</span> Multiprocessing</a>
+  <ul class="collapse">
+  <li><a href="#threads-and-processes-in-the-os" id="toc-threads-and-processes-in-the-os" class="nav-link" data-scroll-target="#threads-and-processes-in-the-os"><span class="header-section-number">2.1</span> Threads and processes in the OS</a></li>
+  </ul></li>
+  <li><a href="#futures" id="toc-futures" class="nav-link" data-scroll-target="#futures"><span class="header-section-number">3</span> Futures</a></li>
+  <li><a href="#asyncio" id="toc-asyncio" class="nav-link" data-scroll-target="#asyncio"><span class="header-section-number">4</span> Asyncio</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">6</span> Glossary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<p>Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.</p>
+<p>Nowadays, computers have multiple physical cores, and each physical core can expose more than one <em>logical</em> core (hardware thread) through Simultaneous Multithreading (SMT), which Intel calls Hyper-Threading. On Intel and AMD consumer processors, this is usually 2 hardware threads per core, while some server processors (such as IBM POWER) go up to 8. You can check how many logical cores your machine has with <code>os.cpu_count()</code> in Python.</p>
+<p>Therefore, it is worth taking advantage of all this power and running more than one thing at a time.</p>
+<blockquote class="blockquote">
+<p>“Parallel programming can be defined as a model aims to create compatible programs with ready environments to execute code simultaneously.” Jan Palach - Parallel Programming with Python</p>
+</blockquote>
+<p>Before going further, it is important to separate two terms that are often used interchangeably:</p>
+<ul>
+<li><strong>Concurrency</strong>: multiple tasks make progress during the same period of time, but not necessarily at the same instant. The tasks take turns.</li>
+<li><strong>Parallelism</strong>: multiple tasks are executed at the exact same instant, on different cores.</li>
+</ul>
+<p>Parallelism is a special case of concurrency: every parallel program is concurrent, but not every concurrent program is parallel. That is why the Python documentation groups all the tools below under the name <a href="https://docs.python.org/3/library/concurrency.html">Concurrent Execution</a>.</p>
+<p>In Python, we have three main ways of running code concurrently:</p>
+<ul>
+<li>Multithreading (<code>threading</code>)</li>
+<li>Multiprocessing (<code>multiprocessing</code>)</li>
+<li>Asynchronous I/O (<code>asyncio</code>)</li>
+</ul>
+<p>And a high-level interface on top of the first two: <code>concurrent.futures</code>.</p>
+<p>In order to choose one of these methods, we first need to understand the problem we are trying to solve, and pick the right tool for it. The main question is: is my code waiting for something (<strong>I/O-bound</strong>), or is it busy computing (<strong>CPU-bound</strong>)?</p>
+<section id="multithreading" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="multithreading"><span class="header-section-number">1</span> Multithreading</h2>
+<p>A multithreaded program is a program that uses multiple threads to run its tasks. A thread is the unit that actually executes your code, and every process has at least one thread (the main thread). All the threads of a process share the same memory space, and in Python they are real OS threads, which means the operating system decides when each one runs.</p>
+<p>The downside of multithreading in Python is the GIL (Global Interpreter Lock): a lock that allows only a single thread to execute Python bytecode at a time inside a process. So, even if you start 8 threads on an 8-core machine, only one of them is running Python code at any given moment, while the others wait for the GIL to be released.</p>
+<p>Since Python 3.13 there is an optional <em>free-threaded</em> build (PEP 703) in which the GIL can be disabled, and since Python 3.14 this build is officially supported (PEP 779). In this build, threads can truly run in parallel, but some third-party libraries may not support it yet, and single-threaded code can be slightly slower.</p>
+<p>Be aware that the GIL does <strong>not</strong> protect you from race conditions. It protects the interpreter’s internal state, not your program’s logic: an operation such as <code>counter += 1</code> is made of several bytecode instructions, and a thread can be switched in the middle of them. Whenever threads modify shared data, you should protect it with a <code>threading.Lock</code>. Without the GIL, these bugs simply become more likely to show up.</p>
+<p>Therefore, in the usual scenario, threads run concurrently, not in parallel: only one executes Python code, while the others wait.</p>
+<p>The advantage of multithreading shows up when the program performs Input/Output (I/O) operations, such as waiting for a server to respond, reading a file, or querying a database. While a thread is blocked waiting for I/O, it releases the GIL, and another thread can run. The threads then operate in an interleaved way. For example:</p>
+<ol type="1">
+<li>Thread 1 sends a request to the server and waits for the response (it releases the GIL, and the OS schedules another thread).</li>
+<li>Thread 2 sends its request to the server and also waits for the response.</li>
+<li>Thread 1 receives the data from the server and finishes.</li>
+<li>Thread 2 receives the data from the server and finishes.</li>
+</ol>
+<p>Instead of waiting for two responses one after the other, the program waits for both at the same time.</p>
+<p>Even though the threads are not running at the same instant, this is the impression the user gets, because the switches between threads happen very fast. Even when no thread is waiting for I/O, Python asks the running thread to release the GIL every 5 milliseconds by default (see <code>sys.getswitchinterval()</code>), so that every thread gets its turn.</p>
+<p>Many C extensions, such as NumPy, also release the GIL during heavy computations, so threads can be useful in these cases too.</p>
+</section>
+<section id="multiprocessing" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="multiprocessing"><span class="header-section-number">2</span> Multiprocessing</h2>
+<p>When we use multiprocessing, the main program (the parent process, whose ID you get with <code>os.getpid()</code>) starts several child processes (from inside a child, <code>os.getppid()</code> returns the parent’s ID). Each child process has its own Python interpreter, its own memory, and <strong>its own GIL</strong>. Therefore, the processes do not compete for a single lock, and they can run truly in parallel, at the same time, on different cores.</p>
+<p>This is useful when you have a CPU-bound operation (heavy calculations, data processing, model training) and want to use all the cores of your machine. You can start more processes than you have cores, but the benefit is achieved when each process gets its own core; beyond that, the processes just take turns.</p>
+<p>The price to pay is that processes do not share memory. The data needs to be serialized (pickled) and sent to each process, and the results need to be sent back to the parent. Starting a process is also much more expensive than starting a thread. So, for light operations, or for I/O-bound tasks, multiprocessing can be slower than multithreading and will use more memory.</p>
+<p>A good experiment is to watch how many processes are running on your OS.</p>
+<section id="threads-and-processes-in-the-os" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="threads-and-processes-in-the-os"><span class="header-section-number">2.1</span> Threads and processes in the OS</h3>
+<p>For example, take a look at this <code>htop</code> screenshot:</p>
+<p><img src="htop.png" class="img-fluid"></p>
+<p>We have 198 tasks, which in this case means processes, and they are using 1526 threads in total, but only 1 is running at this moment (the others are sleeping, waiting for something to happen).</p>
+<p>So, an OS can start as many processes as it needs (regardless of the number of cores), and each process can have multiple threads associated with it. Your machine is, all the time, running a multiprocess <em>and</em> multithreaded workload.</p>
+</section>
+</section>
+<section id="futures" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="futures"><span class="header-section-number">3</span> Futures</h2>
+<p>The <code>concurrent.futures</code> module provides a single, high-level interface for both approaches above: <code>ThreadPoolExecutor</code> (a pool of threads) and <code>ProcessPoolExecutor</code> (a pool of processes). You submit a task to a pool of <em>workers</em>, and you immediately receive a <strong>Future</strong>: an object that represents a result that is not ready yet. Later, you call <code>.result()</code> to get the value, waiting for it if needed.</p>
+<p>The nice part is that switching from threads to processes is usually a matter of changing a single line, since both executors have the same API (<code>submit</code>, <code>map</code>, and so on). It does not add a new way of running code, it just makes threads and processes easier to use.</p>
+</section>
+<section id="asyncio" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="asyncio"><span class="header-section-number">4</span> Asyncio</h2>
+<p>Asyncio - <strong>A</strong>synchronous <strong>I</strong>/<strong>O</strong> (<strong>I</strong>nput/<strong>O</strong>utput) - is a Python library for writing concurrent code using the <code>async</code> and <code>await</code> syntax. As the name says, it is also aimed at I/O operations, but differently from multithreading, it runs on a <strong>single thread</strong>. Since there is only one thread, the GIL is not a concern here. Instead of the OS deciding when to switch, <strong>we</strong> mark in the code the points where the program is waiting (with <code>await</code>), and at those points it can jump to another task.</p>
+<p>It is like going to a coffee shop and ordering a machine coffee. The clerk presses the button to make the coffee, and instead of waiting for it to be ready, they take the order of the next customer. After that, they go back to the machine and collect the first coffee, which is ready by now.</p>
+<p>Each of these routines is, in Python, a <strong>coroutine</strong>: a function defined with <code>async def</code>, that can pause its execution and resume later from the same point. The <strong>single</strong> clerk orders the coffee, <code>await</code>s for it to be ready, checks whether there is another customer, charges them, and then returns to the machine to collect the coffee for the first customer.</p>
+<p>The one coordinating all of this is the <strong>event loop</strong>, managed by <code>asyncio</code> (usually started with <code>asyncio.run()</code>). It keeps track of all the tasks and, whenever a task hits an <code>await</code>, it resumes another task that is ready to continue.</p>
+<p>The main advantage over multithreading is that the switching is cooperative: we tell the event loop exactly where the code can be paused, instead of letting the OS interrupt the threads at any point. This avoids many race conditions, and since tasks are much lighter than threads, a single program can handle thousands of simultaneous connections.</p>
+<p>The disadvantage is that the whole code needs to be asynchronous: a single blocking call (such as <code>time.sleep()</code> or <code>requests.get()</code>) freezes the whole event loop, since there is only one thread. Therefore, the libraries you use also need to support asynchronous code (for example, <code>aiohttp</code> or <code>httpx</code> instead of <code>requests</code>), and many of them do not. When there is no alternative, you can send the blocking call to a thread with <code>asyncio.to_thread()</code>.</p>
+</section>
+<section id="conclusion" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5</span> Conclusion</h2>
+<div id="tbl-summary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Summary of the three approaches
+</figcaption>
+<div aria-describedby="tbl-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Multithreading</th>
+<th>Multiprocessing</th>
+<th>Asyncio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python module</td>
+<td><code>threading</code>, <code>concurrent.futures.ThreadPoolExecutor</code></td>
+<td><code>multiprocessing</code>, <code>concurrent.futures.ProcessPoolExecutor</code></td>
+<td><code>asyncio</code></td>
+</tr>
+<tr class="even">
+<td>Concurrent or parallel?</td>
+<td>Concurrent (parallel only in the free-threaded build)</td>
+<td>Parallel</td>
+<td>Concurrent</td>
+</tr>
+<tr class="odd">
+<td>Unit of work</td>
+<td>OS thread</td>
+<td>OS process</td>
+<td>Coroutine (task)</td>
+</tr>
+<tr class="even">
+<td>Who decides when to switch?</td>
+<td>The OS (preemptive)</td>
+<td>The OS (each process runs on its own)</td>
+<td>The code, at each <code>await</code> (cooperative)</td>
+</tr>
+<tr class="odd">
+<td>Affected by the GIL?</td>
+<td>Yes, one thread runs Python at a time</td>
+<td>No, each process has its own GIL</td>
+<td>Not relevant, it is a single thread</td>
+</tr>
+<tr class="even">
+<td>Memory</td>
+<td>Shared between threads</td>
+<td>Separate for each process; data must be pickled</td>
+<td>Shared, single thread</td>
+</tr>
+<tr class="odd">
+<td>Startup cost</td>
+<td>Low</td>
+<td>High</td>
+<td>Very low</td>
+</tr>
+<tr class="even">
+<td>Race conditions</td>
+<td>Yes, needs locks</td>
+<td>Rare, since nothing is shared by default</td>
+<td>Fewer, switches only at <code>await</code></td>
+</tr>
+<tr class="odd">
+<td>Best for</td>
+<td>I/O-bound tasks, or C extensions that release the GIL</td>
+<td>CPU-bound tasks</td>
+<td>I/O-bound tasks with many connections</td>
+</tr>
+<tr class="even">
+<td>Main drawback</td>
+<td>GIL limits CPU-bound code</td>
+<td>Memory and communication overhead</td>
+<td>Every library must be async</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>As a rule of thumb: if your code is waiting, use threads or asyncio; if your code is computing, use processes.</p>
+</section>
+<section id="glossary" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="glossary"><span class="header-section-number">6</span> Glossary</h2>
+<p>I have included some terminology that may or may not be directly related to the text, but that may help with a general understanding:</p>
+<ul>
+<li><strong>Concurrency</strong>: two tasks make progress in the same period of time, but not necessarily at the same instant.</li>
+<li><strong>Parallelism</strong>: two tasks are executed at the same instant.</li>
+<li><strong>Synchronous code</strong>: runs a task until it is finished, and only then starts the next one.</li>
+<li><strong>Asynchronous code</strong>: can start a task, pause it, and later resume from where it stopped, until it is finished.</li>
+<li><strong>Future</strong>: an object representing a result that will be available in the future. The computation may start now or later.</li>
+<li><strong>Lazy evaluation</strong>: an expression is only evaluated when its value is needed.</li>
+<li><strong>Future vs.&nbsp;lazy evaluation</strong>: a lazy value does nothing until it is requested. A Future, on the other hand, is usually computed in parallel or concurrently with the rest of the code, at some moment between its creation and the moment the code needs (or waits for) the result. So, it can run in a thread or in a process.</li>
+<li><strong>Promise</strong>: a commitment that a computation will be performed and its result delivered. The term is common in JavaScript; in Python, the closest concept is the Future.</li>
+<li><strong><code>with</code></strong>: guarantees that the cleanup code of a context manager (closing a file, releasing a lock, shutting down an executor) is executed when the block ends, even if an exception is raised inside it.</li>
+<li><strong>Generator</strong>: a Python function returns a generator when it uses <code>yield</code> instead of <code>return</code>. Its values are produced lazily, one at a time.</li>
+<li><strong><code>yield from</code> and <code>await</code></strong>: ways of consuming another generator or coroutine, respectively. <code>await</code> can only be used inside an asynchronous function (<code>async def</code>). <code>yield from</code> was used by the old generator-based coroutines, which were removed in Python 3.11.</li>
+<li><strong><code>aiohttp.ClientSession</code></strong>: manages HTTP requests asynchronously, without blocking the event loop.</li>
+<li><strong><code>requests</code></strong>: a blocking library; it runs requests synchronously.</li>
+<li><strong><code>async</code></strong>: defines that a function is asynchronous (a coroutine).</li>
+<li><strong><code>await</code></strong>: pauses the current coroutine until the awaited operation finishes, letting the event loop run other tasks in the meantime.</li>
+<li><strong>Task</strong>: a unit of work that the computer must execute.</li>
+<li><strong>Worker</strong>: “the guy” that executes the tasks. It can be a thread or a process, for example. What a worker is depends on the context of your code.</li>
+<li><strong>I/O-bound</strong>: a task whose time is mostly spent waiting for input/output (network, disk, database).</li>
+<li><strong>CPU-bound</strong>: a task whose time is mostly spent computing.</li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/guilhermeparreira\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="dark">
+<input type="hidden" id="giscus-alt-theme" value="light">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      if (authorPrefersDark) {
+          [baseTheme, altTheme] = [altTheme, baseTheme];
+      }
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "guilhermeparreira/guilhermeparreira.github.io";
+    script.dataset.repoId = "R_kgDOMqTkUA";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOMqTkUM4CiNf2";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "bottom";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
