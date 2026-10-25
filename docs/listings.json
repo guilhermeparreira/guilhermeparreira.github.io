@@ -4,9 +4,11 @@
     "items": [
       "/posts/multithread/index.html",
       "/posts/interpretable_language_part2/index.html",
+      "/posts/multithread_part2/index.html",
       "/posts/interpretable_language_part1/index.html",
       "/posts/dynamic_language/index.html",
       "/posts/docker/index.html",
+      "/posts/polars_pandas/index.html",
       "/posts/mape/index.html",
       "/posts/keyboard/index.html",
       "/posts/ubuntu/index.html",

@@ -10,7 +10,7 @@
 <atom:link href="https://guilhermeparreira.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description>A data science blog</description>
 <generator>quarto-1.7.32</generator>
-<lastBuildDate>Tue, 15 Sep 2026 03:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 25 Oct 2026 03:00:00 GMT</lastBuildDate>
 <item>
   <title>Concurrency and Parallelism in Python</title>
   <dc:creator>Guilherme Parreira</dc:creator>
@@ -22,6 +22,11 @@
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/multithread/concurrency_hero.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.</p>
 <p>Nowadays, computers have multiple physical cores, and each physical core can expose more than one <em>logical</em> core (hardware thread) through Simultaneous Multithreading (SMT), which Intel calls Hyper-Threading. On Intel and AMD consumer processors, this is usually 2 hardware threads per core, while some server processors (such as IBM POWER) go up to 8. You can check how many logical cores your machine has with <code>os.cpu_count()</code> in Python.</p>
 <p>Therefore, it is worth taking advantage of all this power and running more than one thing at a time.</p>
@@ -46,7 +51,7 @@
 <h2 data-number="1" class="anchored" data-anchor-id="multithreading"><span class="header-section-number">1</span> Multithreading</h2>
 <p>A multithreaded program is a program that uses multiple threads to run its tasks. A thread is the unit that actually executes your code, and every process has at least one thread (the main thread). All the threads of a process share the same memory space, and in Python they are real OS threads, which means the operating system decides when each one runs.</p>
 <p>The downside of multithreading in Python is the GIL (Global Interpreter Lock): a lock that allows only a single thread to execute Python bytecode at a time inside a process. So, even if you start 8 threads on an 8-core machine, only one of them is running Python code at any given moment, while the others wait for the GIL to be released.</p>
-<p>Since Python 3.13 there is an optional <em>free-threaded</em> build (PEP 703) in which the GIL can be disabled, and since Python 3.14 this build is officially supported (PEP 779). In this build, threads can truly run in parallel, but some third-party libraries may not support it yet, and single-threaded code can be slightly slower.</p>
+<p>Since Python 3.13 there is an optional <em>free-threaded</em> build (PEP 703) in which the GIL can be disabled, and since Python 3.14 this build is officially supported (PEP 779). In this build, threads can truly run in parallel. The trade-offs are that some third-party libraries may not support it yet, and that a program using a single thread runs slower on the free-threaded build than on the regular one (about 40% slower in 3.13, reduced to roughly 5-10% in 3.14), because the interpreter needs extra internal work to stay safe without the GIL.</p>
 <p>Be aware that the GIL does <strong>not</strong> protect you from race conditions. It protects the interpreter’s internal state, not your program’s logic: an operation such as <code>counter += 1</code> is made of several bytecode instructions, and a thread can be switched in the middle of them. Whenever threads modify shared data, you should protect it with a <code>threading.Lock</code>. Without the GIL, these bugs simply become more likely to show up.</p>
 <p>Therefore, in the usual scenario, threads run concurrently, not in parallel: only one executes Python code, while the others wait.</p>
 <p>The advantage of multithreading shows up when the program performs Input/Output (I/O) operations, such as waiting for a server to respond, reading a file, or querying a database. While a thread is blocked waiting for I/O, it releases the GIL, and another thread can run. The threads then operate in an interleaved way. For example:</p>
@@ -185,6 +190,7 @@ Table&nbsp;1: Summary of the three approaches
 <ul>
 <li><strong>Concurrency</strong>: two tasks make progress in the same period of time, but not necessarily at the same instant.</li>
 <li><strong>Parallelism</strong>: two tasks are executed at the same instant.</li>
+<li><strong>Race condition</strong>: when more than one thread accesses the same piece of memory at the same time, and at least one of them modifies it, so the result depends on the order in which the threads happen to run.</li>
 <li><strong>Synchronous code</strong>: runs a task until it is finished, and only then starts the next one.</li>
 <li><strong>Asynchronous code</strong>: can start a task, pause it, and later resume from where it stopped, until it is finished.</li>
 <li><strong>Future</strong>: an object representing a result that will be available in the future. The computation may start now or later.</li>
@@ -203,6 +209,11 @@ Table&nbsp;1: Summary of the three approaches
 <li><strong>I/O-bound</strong>: a task whose time is mostly spent waiting for input/output (network, disk, database).</li>
 <li><strong>CPU-bound</strong>: a task whose time is mostly spent computing.</li>
 </ul>
+</section>
+<section id="thanks" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="thanks"><span class="header-section-number">7</span> Thanks</h2>
+<p>Special thanks for the great youtube channel by <span class="citation" data-cites="EduardoMendes">@EduardoMendes</span> and its <a href="https://www.youtube.com/playlist?list=PLOQgLBuj2-3KU6TnzJQJVfL5aiaOQuZ4o">playlist</a> on parallelism and concurrency.</p>
+<p>Happy coding!</p>
 
 
 </section>
@@ -216,8 +227,8 @@ Table&nbsp;1: Summary of the three approaches
   <category>asyncio</category>
   <category>cores</category>
   <guid>https://guilhermeparreira.github.io/posts/multithread/</guid>
-  <pubDate>Tue, 15 Sep 2026 03:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/multithread/python_numpy_c_thumb.png" medium="image" type="image/png"/>
+  <pubDate>Sun, 25 Oct 2026 03:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/multithread/concurrency_thumb.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Is Python an Interpreted language?</title>
@@ -405,7 +416,7 @@ font-style: inherit;">60</span>)</span>
 <span id="cb1-37">dis.dis(numpy_version)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>============================================================
-PURE PYTHON VERSION THAT TOOK 15.95 seconds in BYTECODE
+PURE PYTHON VERSION THAT TOOK 16.59 seconds in BYTECODE
 ============================================================
   6           0 RESUME                   0
 
@@ -433,7 +444,7 @@ PURE PYTHON VERSION THAT TOOK 15.95 seconds in BYTECODE
              56 RETURN_VALUE
 
 ============================================================
-NUMPY VERSION THAT TOOK 0.69 seconds in BYTECODE
+NUMPY VERSION THAT TOOK 2.6 seconds in BYTECODE
 ============================================================
  13           0 RESUME                   0
 
@@ -470,7 +481,7 @@ NUMPY VERSION THAT TOOK 0.69 seconds in BYTECODE
 <li>Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.</li>
 </ol>
 <p>In order to exemplify the third point, I will run an example to show how many bytes a Python integer uses:</p>
-<div id="a18c6068" class="cell" data-execution_count="2">
+<div id="1e66261a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> sys</span>
@@ -604,7 +615,242 @@ font-style: inherit;">"=== WITH type hint ==="</span>)</span>
   <category>bytes</category>
   <guid>https://guilhermeparreira.github.io/posts/interpretable_language_part2/</guid>
   <pubDate>Tue, 15 Sep 2026 03:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part2/python_numpy_c_thumb.png" medium="image" type="image/png" height="76" width="144"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part2/python_numpy_c_thumb.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>Parallelizing your code</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/multithread_part2/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>```{markdown, code-fold=“false”} #| eval: false #| code-fold: false</p>
+<p>A queue objet in Python, can have two methods: + <code>get</code> will retrieve an element from the queue. Once it is <code>got</code>, it is no longer in the <code>queue</code>. + <code>queue</code> will show all elements in a queue.</p>
+<p>https://github.com/dunossauro/live-de-python/blob/main/codigo/Live052/decomposicao.py</p>
+<p>Python does not process real “parallel” threads, they are threads concurrent. So, they search for a specific time window that they can solve the task while the others are waiting.</p>
+<p>Threads basically are workers generated within your program that perform tasks inside a single core. If you have more than one thread, you have multithreading. In order to arrange all of them, you need to set up an <code>event</code>, so every object in a queue respects this event (because every thread needs to stay organized in the same core); also a <code>queue</code>, so it will be submitted to the <code>thread</code>. Having a <code>queue</code> and the <code>event</code> setup, you can generate your pool of <code>threads</code>, choosing as many as you want, and they will complete the task for you; finally, you have to send the <code>kill</code> “method”, so the thread dies at the end and frees memory.</p>
+<p>They all share the same memory.</p>
+<p>It is concurrent processing.</p>
+<pre><code>
+
+```{markdown, code-fold="false"}
+#| eval: false
+#| code-fold: false
+
+Each process is a program\script\"thing" that has isolated memory and share the processing queue running independently.
+
+`os.getpid()` returns the current process
+`os.getppid()` returns the parent process, the process that originated the current process.
+
+Concurrent are executions in a program inside the same process. Parallel are different processes.?
+
+You can use the library `multiprocessing` to start a new process from a `function`. Besides, it can share elements from a `Queue`, using the `Queue` of the parent process. The `Queue` is a process.?.
+
+In here, each `worker` is a `process`.
+
+You can start as many processes as you want on your single core, or distribuite it in many cores.
+
+The function that will be executed is `dumped` using `pickle` into each process, and it needs to be serializable (for example, it could not be a closure).
+
+It runs without GIL (Global Interpreter Lock) restrictions: only 1 thread can execute the same piece of code at the same time: two threads can not save two objects using the same function, even if the objects are different at the same time. Or it can be understood as well a lock (block) of an assynchronous programming.
+
+It is parallelized processing.</code></pre>
+<section id="collections" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="collections"><span class="header-section-number">1</span> Collections</h2>
+<ul>
+<li>Python has different data <code>structures</code>: dict, list, string, tuples, sets. Each one with their own limitation in order to gain speed.</li>
+<li>But It also has <code>collections</code>, which are containers of data that allow users to extend the original data structures to their own use, such as <code>UserDict</code>, <code>Userlist</code> and <code>UserString</code>. When heritage from <code>collections.abc</code> your new objects/class will work like a builtin in Python. Collections are an example of monkey patch.</li>
+<li><code>Monkey Patch</code> is a technique in programming to change the default behavior of a piece of code (function, element, class) at runtime.</li>
+<li></li>
+</ul>
+<!-- This is used for `mutable` Python objects -->
+<div id="19c451c6" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> asyncio</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"></span>
+<span id="cb2-4"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> fetch(name, delay):  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 1. async def =&gt; coroutine function</span></span>
+<span id="cb2-5">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>name<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> start"</span>)</span>
+<span id="cb2-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> asyncio.sleep(delay)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 2. suspend here, let others run</span></span>
+<span id="cb2-7">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>name<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> done"</span>)</span>
+<span id="cb2-8">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> name</span>
+<span id="cb2-9"></span>
+<span id="cb2-10"></span>
+<span id="cb2-11"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> main():  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 3. anything that awaits must be async</span></span>
+<span id="cb2-12">    results <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> asyncio.gather(  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 4. run all three concurrently</span></span>
+<span id="cb2-13">        fetch(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"A"</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>),</span>
+<span id="cb2-14">        fetch(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"B"</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>),</span>
+<span id="cb2-15">        fetch(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"C"</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>),</span>
+<span id="cb2-16">    )</span>
+<span id="cb2-17">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(results)</span>
+<span id="cb2-18"></span>
+<span id="cb2-19"></span>
+<span id="cb2-20">asyncio.run(main())  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 5. the ONE sync-&gt;async boundary</span></span></code></pre></div>
+</div>
+<div id="9f1e5e14" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">balance <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span></span>
+<span id="cb3-2"></span>
+<span id="cb3-3"></span>
+<span id="cb3-4"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> withdraw(amount):</span>
+<span id="cb3-5">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">global</span> balance</span>
+<span id="cb3-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> balance <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;=</span> amount:  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># (1) CHECK</span></span>
+<span id="cb3-7">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> asyncio.sleep(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># (2) SUSPEND — other tasks run here</span></span>
+<span id="cb3-8">        balance <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-=</span> amount  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># (3) ACT on a now-stale check</span></span>
+<span id="cb3-9"></span>
+<span id="cb3-10"></span>
+<span id="cb3-11"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> main():</span>
+<span id="cb3-12">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">await</span> asyncio.gather(withdraw(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>), withdraw(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>))</span>
+<span id="cb3-13">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(balance)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -100. Both passed the check before either subtracted.</span></span></code></pre></div>
+</div>
+</section>
+<section id="library-concurrent.futures" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="library-concurrent.futures"><span class="header-section-number">2</span> Library concurrent.futures</h2>
+<p>Dentro do concurrent.futures tem uma classe chamada Executor, com três métodos principais: - Submit, que retorna Future, que é uma promise. que é uma promessa de que algo vai ser feito no futuro, ou está sendo feito agora. Mas a ideia principal é que não vai dar um lock no processo atual. - Map, vai pegar uma função e vai mandar para um iterável qualquer, Podendo definir timeout e chunksize. - Shutdown, com o wait = True diz que vai rodar a future até terminar.</p>
+<ul>
+<li>Executor objects</li>
+<li>ThreadPools:
+<ul>
+<li>Tarefas bloqueantes de I/O vão dar bypass no GIL - E aqui o asyncio é matador.</li>
+<li>Threads atuam concorrentemente dentro de um processo. Não são paralelas.</li>
+</ul></li>
+<li>ProcessPools</li>
+<li>Future objects</li>
+</ul>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Python</category>
+  <category>multiprocesses</category>
+  <category>C</category>
+  <category>numpy</category>
+  <category>bytes</category>
+  <category>threads</category>
+  <category>cores</category>
+  <guid>https://guilhermeparreira.github.io/posts/multithread_part2/</guid>
+  <pubDate>Tue, 15 Sep 2026 03:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/multithread_part2/python_numpy_c_thumb.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Is Python an Interpreted language?</title>
@@ -689,7 +935,7 @@ font-style: inherit;">"=== WITH type hint ==="</span>)</span>
   <category>bytecode</category>
   <guid>https://guilhermeparreira.github.io/posts/interpretable_language_part1/</guid>
   <pubDate>Mon, 14 Sep 2026 03:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part1/python_interpreted_thumb_v2.png" medium="image" type="image/png" height="76" width="144"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part1/python_interpreted_thumb_v3.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Is Python a Statically or Dynamically Typed Language?</title>
@@ -1495,6 +1741,45 @@ font-style: inherit;">\</span></span>
   <guid>https://guilhermeparreira.github.io/posts/docker/</guid>
   <pubDate>Fri, 21 Aug 2026 03:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/docker/what-is-docker.png" medium="image" type="image/png" height="119" width="144"/>
+</item>
+<item>
+  <title>Polars vs Pandas</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/polars_pandas/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<div class="cell">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/polars_pandas/mape.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+<p>In Apache Spark we have two features that are crucial for query optimization:</p>
+<ul>
+<li><em>Projection Pushdown:</em> It allows the query to select only the desiderd columns;</li>
+<li><em>Predicate Pushdown:</em> It allows the query to make filter operation before any other;</li>
+</ul>
+<p>Novelty and Outlier Detection:</p>
+<ul>
+<li><em>Outlier Detection:</em> Observation that are far from other in the training set</li>
+<li><em>Novelty Detection:</em> It detects whether a new observation is an outlier</li>
+</ul>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>MAPE</category>
+  <category>Data Science</category>
+  <category>Time Series</category>
+  <guid>https://guilhermeparreira.github.io/posts/polars_pandas/</guid>
+  <pubDate>Sat, 09 May 2026 03:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/polars_pandas/mape.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>MAPE and its pitfalls</title>

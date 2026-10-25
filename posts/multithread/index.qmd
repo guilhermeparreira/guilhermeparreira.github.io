@@ -2,12 +2,14 @@
 title: "Concurrency and Parallelism in Python"
 description: "Threads, processes, futures and asyncio: which one to pick to speed up your code"
 categories: [Python, concurrency, parallelism, threads, multiprocessing, asyncio, cores]
-date: 09-15-2026
-image: python_numpy_c_thumb.png
+date: 10-25-2026
+image: concurrency_thumb.png
 draft: false
 tbl-cap-location: top
 number-sections: true
 ---
+
+![](concurrency_hero.png){fig-align="center"}
 
 Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.
 

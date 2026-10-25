@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Guilherme Parreira">
-<meta name="dcterms.date" content="2026-09-15">
+<meta name="dcterms.date" content="2026-10-25">
 <meta name="description" content="Threads, processes, futures and asyncio: which one to pick to speed up your code">
 
 <title>Concurrency and Parallelism in Python – Guilherme Parreira</title>
@@ -310,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 15, 2026</p>
+        <p class="date">October 25, 2026</p>
       </div>
     </div>
     
@@ -335,6 +335,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#asyncio" id="toc-asyncio" class="nav-link" data-scroll-target="#asyncio"><span class="header-section-number">4</span> Asyncio</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
   <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary"><span class="header-section-number">6</span> Glossary</a></li>
+  <li><a href="#thanks" id="toc-thanks" class="nav-link" data-scroll-target="#thanks"><span class="header-section-number">7</span> Thanks</a></li>
   </ul>
 </nav>
     </div>
@@ -346,6 +347,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="concurrency_hero.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.</p>
 <p>Nowadays, computers have multiple physical cores, and each physical core can expose more than one <em>logical</em> core (hardware thread) through Simultaneous Multithreading (SMT), which Intel calls Hyper-Threading. On Intel and AMD consumer processors, this is usually 2 hardware threads per core, while some server processors (such as IBM POWER) go up to 8. You can check how many logical cores your machine has with <code>os.cpu_count()</code> in Python.</p>
 <p>Therefore, it is worth taking advantage of all this power and running more than one thing at a time.</p>
@@ -370,7 +376,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1" class="anchored" data-anchor-id="multithreading"><span class="header-section-number">1</span> Multithreading</h2>
 <p>A multithreaded program is a program that uses multiple threads to run its tasks. A thread is the unit that actually executes your code, and every process has at least one thread (the main thread). All the threads of a process share the same memory space, and in Python they are real OS threads, which means the operating system decides when each one runs.</p>
 <p>The downside of multithreading in Python is the GIL (Global Interpreter Lock): a lock that allows only a single thread to execute Python bytecode at a time inside a process. So, even if you start 8 threads on an 8-core machine, only one of them is running Python code at any given moment, while the others wait for the GIL to be released.</p>
-<p>Since Python 3.13 there is an optional <em>free-threaded</em> build (PEP 703) in which the GIL can be disabled, and since Python 3.14 this build is officially supported (PEP 779). In this build, threads can truly run in parallel, but some third-party libraries may not support it yet, and single-threaded code can be slightly slower.</p>
+<p>Since Python 3.13 there is an optional <em>free-threaded</em> build (PEP 703) in which the GIL can be disabled, and since Python 3.14 this build is officially supported (PEP 779). In this build, threads can truly run in parallel. The trade-offs are that some third-party libraries may not support it yet, and that a program using a single thread runs slower on the free-threaded build than on the regular one (about 40% slower in 3.13, reduced to roughly 5-10% in 3.14), because the interpreter needs extra internal work to stay safe without the GIL.</p>
 <p>Be aware that the GIL does <strong>not</strong> protect you from race conditions. It protects the interpreter’s internal state, not your program’s logic: an operation such as <code>counter += 1</code> is made of several bytecode instructions, and a thread can be switched in the middle of them. Whenever threads modify shared data, you should protect it with a <code>threading.Lock</code>. Without the GIL, these bugs simply become more likely to show up.</p>
 <p>Therefore, in the usual scenario, threads run concurrently, not in parallel: only one executes Python code, while the others wait.</p>
 <p>The advantage of multithreading shows up when the program performs Input/Output (I/O) operations, such as waiting for a server to respond, reading a file, or querying a database. While a thread is blocked waiting for I/O, it releases the GIL, and another thread can run. The threads then operate in an interleaved way. For example:</p>
@@ -509,6 +515,7 @@ Table&nbsp;1: Summary of the three approaches
 <ul>
 <li><strong>Concurrency</strong>: two tasks make progress in the same period of time, but not necessarily at the same instant.</li>
 <li><strong>Parallelism</strong>: two tasks are executed at the same instant.</li>
+<li><strong>Race condition</strong>: when more than one thread accesses the same piece of memory at the same time, and at least one of them modifies it, so the result depends on the order in which the threads happen to run.</li>
 <li><strong>Synchronous code</strong>: runs a task until it is finished, and only then starts the next one.</li>
 <li><strong>Asynchronous code</strong>: can start a task, pause it, and later resume from where it stopped, until it is finished.</li>
 <li><strong>Future</strong>: an object representing a result that will be available in the future. The computation may start now or later.</li>
@@ -527,6 +534,11 @@ Table&nbsp;1: Summary of the three approaches
 <li><strong>I/O-bound</strong>: a task whose time is mostly spent waiting for input/output (network, disk, database).</li>
 <li><strong>CPU-bound</strong>: a task whose time is mostly spent computing.</li>
 </ul>
+</section>
+<section id="thanks" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="thanks"><span class="header-section-number">7</span> Thanks</h2>
+<p>Special thanks for the great youtube channel by <span class="citation" data-cites="EduardoMendes">@EduardoMendes</span> and its <a href="https://www.youtube.com/playlist?list=PLOQgLBuj2-3KU6TnzJQJVfL5aiaOQuZ4o">playlist</a> on parallelism and concurrency.</p>
+<p>Happy coding!</p>
 
 
 </section>
