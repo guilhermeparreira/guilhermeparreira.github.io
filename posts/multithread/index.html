@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Guilherme Parreira">
-<meta name="dcterms.date" content="2026-09-15">
+<meta name="dcterms.date" content="2026-10-25">
 <meta name="description" content="Threads, processes, futures and asyncio: which one to pick to speed up your code">
 
 <title>Concurrency and Parallelism in Python – Guilherme Parreira</title>
@@ -310,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">September 15, 2026</p>
+        <p class="date">October 25, 2026</p>
       </div>
     </div>
     
@@ -347,6 +347,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="concurrency_hero.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.</p>
 <p>Nowadays, computers have multiple physical cores, and each physical core can expose more than one <em>logical</em> core (hardware thread) through Simultaneous Multithreading (SMT), which Intel calls Hyper-Threading. On Intel and AMD consumer processors, this is usually 2 hardware threads per core, while some server processors (such as IBM POWER) go up to 8. You can check how many logical cores your machine has with <code>os.cpu_count()</code> in Python.</p>
 <p>Therefore, it is worth taking advantage of all this power and running more than one thing at a time.</p>

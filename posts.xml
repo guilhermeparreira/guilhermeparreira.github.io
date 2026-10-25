@@ -10,394 +10,7 @@
 <atom:link href="https://guilhermeparreira.github.io/posts.xml" rel="self" type="application/rss+xml"/>
 <description>A data science blog</description>
 <generator>quarto-1.7.32</generator>
-<lastBuildDate>Tue, 15 Sep 2026 00:00:00 GMT</lastBuildDate>
-<item>
-  <title>Is Python an Interpreted language?</title>
-  <dc:creator>Guilherme Parreira</dc:creator>
-  <link>https://guilhermeparreira.github.io/posts/interpretable_language_part2/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>This is part 2 of a series. Read <a href="../../posts/interpretable_language_part1/index.html">Part 1</a> first.</p>
-<section id="quick-questions" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="quick-questions"><span class="header-section-number">1</span> Quick questions</h2>
-<p>Right now, I will dive into specific questions that come up when writing Python code:</p>
-<section id="why-is-numpy-faster-than-pure-python-code" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="why-is-numpy-faster-than-pure-python-code"><span class="header-section-number">1.1</span> Why is Numpy faster than pure Python code?</h3>
-<p>It happens because Numpy is vectorized, while Python does not. And by vectorized, it means that the code will pass through the interpreter only once and all the routine will be executed in a loop in C; instead of invoking the interpreter on every iteration of a regular Python <code>for</code> loop.</p>
-<p>Moreover, NumPy arrays use unboxed, contiguous, C-native buffers — more on why that matters in Section&nbsp;1.2.</p>
-<p>I will show an example in order to make it clearer:</p>
-<div id="python-versus-numpy" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> dis</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> np</span>
-<span id="cb1-3"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> time</span>
-<span id="cb1-4"></span>
-<span id="cb1-5"></span>
-<span id="cb1-6"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> pure_python_version(n):</span>
-<span id="cb1-7">   total <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.0</span></span>
-<span id="cb1-8">   <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">in</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">range</span>(n):</span>
-<span id="cb1-9">      total <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+=</span> i <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> i</span>
-<span id="cb1-10">   <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> total</span>
-<span id="cb1-11"></span>
-<span id="cb1-12"></span>
-<span id="cb1-13"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> numpy_version(n):</span>
-<span id="cb1-14">   arr <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> np.arange(n, dtype<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>np.float64)</span>
-<span id="cb1-15">   <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> np.<span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">sum</span>(arr <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> arr)</span>
-<span id="cb1-16"></span>
-<span id="cb1-17"></span>
-<span id="cb1-18">N <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100_000_000</span></span>
-<span id="cb1-19"></span>
-<span id="cb1-20">start <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.perf_counter()</span>
-<span id="cb1-21">result_py <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pure_python_version(N)</span>
-<span id="cb1-22">py_time <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.perf_counter() <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> start</span>
-<span id="cb1-23"></span>
-<span id="cb1-24"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">60</span>)</span>
-<span id="cb1-25"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"PURE PYTHON VERSION THAT TOOK </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">round</span>(py_time, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>)<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;"> seconds in BYTECODE"</span>)</span>
-<span id="cb1-26"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">60</span>)</span>
-<span id="cb1-27">dis.dis(pure_python_version)</span>
-<span id="cb1-28"></span>
-<span id="cb1-29">start <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.perf_counter()</span>
-<span id="cb1-30">result_numpy <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> numpy_version(N)</span>
-<span id="cb1-31">numpy_time <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> time.perf_counter() <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span> start</span>
-<span id="cb1-32"></span>
-<span id="cb1-33"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>()</span>
-<span id="cb1-34"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">60</span>)</span>
-<span id="cb1-35"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"NUMPY VERSION THAT TOOK </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">round</span>(numpy_time, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>)<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;"> seconds in BYTECODE"</span>)</span>
-<span id="cb1-36"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">60</span>)</span>
-<span id="cb1-37">dis.dis(numpy_version)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>============================================================
-PURE PYTHON VERSION THAT TOOK 15.95 seconds in BYTECODE
-============================================================
-  6           0 RESUME                   0
-
-  7           2 LOAD_CONST               1 (0.0)
-              4 STORE_FAST               1 (total)
-
-  8           6 LOAD_GLOBAL              1 (NULL + range)
-             16 LOAD_FAST                0 (n)
-             18 CALL                     1
-             26 GET_ITER
-        &gt;&gt;   28 FOR_ITER                10 (to 52)
-             32 STORE_FAST               2 (i)
-
-  9          34 LOAD_FAST                1 (total)
-             36 LOAD_FAST                2 (i)
-             38 LOAD_FAST                2 (i)
-             40 BINARY_OP                5 (*)
-             44 BINARY_OP               13 (+=)
-             48 STORE_FAST               1 (total)
-             50 JUMP_BACKWARD           12 (to 28)
-
-  8     &gt;&gt;   52 END_FOR
-
- 10          54 LOAD_FAST                1 (total)
-             56 RETURN_VALUE
-
-============================================================
-NUMPY VERSION THAT TOOK 0.69 seconds in BYTECODE
-============================================================
- 13           0 RESUME                   0
-
- 14           2 LOAD_GLOBAL              0 (np)
-             12 LOAD_ATTR                3 (NULL|self + arange)
-             32 LOAD_FAST                0 (n)
-             34 LOAD_GLOBAL              0 (np)
-             44 LOAD_ATTR                4 (float64)
-             64 KW_NAMES                 1 (('dtype',))
-             66 CALL                     2
-             74 STORE_FAST               1 (arr)
-
- 15          76 LOAD_GLOBAL              0 (np)
-             86 LOAD_ATTR                7 (NULL|self + sum)
-            106 LOAD_FAST                1 (arr)
-            108 LOAD_FAST                1 (arr)
-            110 BINARY_OP                5 (*)
-            114 CALL                     1
-            122 RETURN_VALUE</code></pre>
-</div>
-</div>
-<p>I am not an expert on bytecode instructions in Python, but see that for pure Python, there is an operation called <code>FOR_ITER</code> that goes to <code>L2</code>, and then, it returns to <code>L1</code>, which is the loop itself.</p>
-<p>When we look at the Numpy version, the for loop is gone, and all instructions run only once, not <code>N</code> times.</p>
-</section>
-<section id="sec-cfaster" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="sec-cfaster"><span class="header-section-number">1.2</span> Why is C generally faster than Python?</h3>
-<ol type="1">
-<li>C does not have an interpreter; it dispatches all code ahead of time into machine code during compilation;</li>
-<li>Defining the variable types at declaration makes the code’s memory layout known to the machine ahead of time:
-<ul>
-<li>It does not have to make <a href="../../posts/dynamic_language/index.html">Runtime type checking</a>.</li>
-<li>It can calculate in advance how much of memory the operation will take, and optimize it.</li>
-</ul></li>
-<li>Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.</li>
-</ol>
-<p>In order to exemplify the third point, I will run an example to show how many bytes a Python integer uses:</p>
-<div id="a18c6068" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> sys</span>
-<span id="cb3-2"></span>
-<span id="cb3-3">x <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5</span></span>
-<span id="cb3-4"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"type(x)        = </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">type</span>(x)<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"</span>)</span>
-<span id="cb3-5"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"sys.getsizeof(x)   = </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>sys<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">.</span>getsizeof(x)<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;"> bytes"</span>)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>type(x)        = &lt;class 'int'&gt;
-sys.getsizeof(x)   = 28 bytes</code></pre>
-</div>
-</div>
-<p>It uses 28 bytes, against 4 (or 8) in C (normally), which: + 8 bytes is used to save its reference count (it counts how many variables are referencing to it); + 8 bytes for the type pointer (so that the interpreter knows the basic operations available on this variable); + 8 bytes for the size field; + 4 bytes for the cost of each additional digital chunk</p>
-</section>
-<section id="if-i-annotate-my-functions-will-my-code-run-faster" class="level3" data-number="1.3">
-<h3 data-number="1.3" class="anchored" data-anchor-id="if-i-annotate-my-functions-will-my-code-run-faster"><span class="header-section-number">1.3</span> If I annotate my functions, will my code run faster?</h3>
-<p>NO. It happens because <code>CPython</code> ignores all type hints during compilation. See that in the below example the bytecode is the same:</p>
-<div id="python-anotated-function" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> dis</span>
-<span id="cb5-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> time</span>
-<span id="cb5-3"></span>
-<span id="cb5-4"></span>
-<span id="cb5-5"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> add_no_hint(a, b):</span>
-<span id="cb5-6">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> b</span>
-<span id="cb5-7"></span>
-<span id="cb5-8"></span>
-<span id="cb5-9"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">def</span> add_with_hint(a: <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>, b: <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>) <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-&gt;</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">int</span>:</span>
-<span id="cb5-10">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> b</span>
-<span id="cb5-11"></span>
-<span id="cb5-12"></span>
-<span id="cb5-13"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"=== WITHOUT type hint ==="</span>)</span>
-<span id="cb5-14">dis.dis(add_no_hint)</span>
-<span id="cb5-15"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>()</span>
-<span id="cb5-16"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"=== WITH type hint ==="</span>)</span>
-<span id="cb5-17">dis.dis(add_with_hint)</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>=== WITHOUT type hint ===
-  5           0 RESUME                   0
-
-  6           2 LOAD_FAST                0 (a)
-              4 LOAD_FAST                1 (b)
-              6 BINARY_OP                0 (+)
-             10 RETURN_VALUE
-
-=== WITH type hint ===
-  9           0 RESUME                   0
-
- 10           2 LOAD_FAST                0 (a)
-              4 LOAD_FAST                1 (b)
-              6 BINARY_OP                0 (+)
-             10 RETURN_VALUE</code></pre>
-</div>
-</div>
-<p>Happy coding!</p>
-
-
-</section>
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>Python</category>
-  <category>interpreter</category>
-  <category>C</category>
-  <category>numpy</category>
-  <category>bytes</category>
-  <guid>https://guilhermeparreira.github.io/posts/interpretable_language_part2/</guid>
-  <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part2/python_numpy_c_thumb.png" medium="image" type="image/png" height="76" width="144"/>
-</item>
+<lastBuildDate>Sun, 25 Oct 2026 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Concurrency and Parallelism in Python</title>
   <dc:creator>Guilherme Parreira</dc:creator>
@@ -409,6 +22,11 @@ font-style: inherit;">"=== WITH type hint ==="</span>)</span>
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://guilhermeparreira.github.io/posts/multithread/concurrency_hero.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>Once upon a time, computers had a single core that could run only one stream of instructions at a time, so programs were executed strictly sequentially.</p>
 <p>Nowadays, computers have multiple physical cores, and each physical core can expose more than one <em>logical</em> core (hardware thread) through Simultaneous Multithreading (SMT), which Intel calls Hyper-Threading. On Intel and AMD consumer processors, this is usually 2 hardware threads per core, while some server processors (such as IBM POWER) go up to 8. You can check how many logical cores your machine has with <code>os.cpu_count()</code> in Python.</p>
 <p>Therefore, it is worth taking advantage of all this power and running more than one thing at a time.</p>
@@ -609,8 +227,395 @@ Table&nbsp;1: Summary of the three approaches
   <category>asyncio</category>
   <category>cores</category>
   <guid>https://guilhermeparreira.github.io/posts/multithread/</guid>
+  <pubDate>Sun, 25 Oct 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/multithread/concurrency_thumb.png" medium="image" type="image/png" height="96" width="144"/>
+</item>
+<item>
+  <title>Is Python an Interpreted language?</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/interpretable_language_part2/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>This is part 2 of a series. Read <a href="../../posts/interpretable_language_part1/index.html">Part 1</a> first.</p>
+<section id="quick-questions" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="quick-questions"><span class="header-section-number">1</span> Quick questions</h2>
+<p>Right now, I will dive into specific questions that come up when writing Python code:</p>
+<section id="why-is-numpy-faster-than-pure-python-code" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="why-is-numpy-faster-than-pure-python-code"><span class="header-section-number">1.1</span> Why is Numpy faster than pure Python code?</h3>
+<p>It happens because Numpy is vectorized, while Python does not. And by vectorized, it means that the code will pass through the interpreter only once and all the routine will be executed in a loop in C; instead of invoking the interpreter on every iteration of a regular Python <code>for</code> loop.</p>
+<p>Moreover, NumPy arrays use unboxed, contiguous, C-native buffers — more on why that matters in Section&nbsp;1.2.</p>
+<p>I will show an example in order to make it clearer:</p>
+<div id="python-versus-numpy" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> dis</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> time</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"></span>
+<span id="cb1-6"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> pure_python_version(n):</span>
+<span id="cb1-7">   total <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.0</span></span>
+<span id="cb1-8">   <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(n):</span>
+<span id="cb1-9">      total <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+=</span> i <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> i</span>
+<span id="cb1-10">   <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> total</span>
+<span id="cb1-11"></span>
+<span id="cb1-12"></span>
+<span id="cb1-13"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> numpy_version(n):</span>
+<span id="cb1-14">   arr <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.arange(n, dtype<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np.float64)</span>
+<span id="cb1-15">   <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sum</span>(arr <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> arr)</span>
+<span id="cb1-16"></span>
+<span id="cb1-17"></span>
+<span id="cb1-18">N <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100_000_000</span></span>
+<span id="cb1-19"></span>
+<span id="cb1-20">start <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.perf_counter()</span>
+<span id="cb1-21">result_py <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pure_python_version(N)</span>
+<span id="cb1-22">py_time <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.perf_counter() <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> start</span>
+<span id="cb1-23"></span>
+<span id="cb1-24"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60</span>)</span>
+<span id="cb1-25"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"PURE PYTHON VERSION THAT TOOK </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">round</span>(py_time, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> seconds in BYTECODE"</span>)</span>
+<span id="cb1-26"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60</span>)</span>
+<span id="cb1-27">dis.dis(pure_python_version)</span>
+<span id="cb1-28"></span>
+<span id="cb1-29">start <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.perf_counter()</span>
+<span id="cb1-30">result_numpy <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> numpy_version(N)</span>
+<span id="cb1-31">numpy_time <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> time.perf_counter() <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> start</span>
+<span id="cb1-32"></span>
+<span id="cb1-33"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>()</span>
+<span id="cb1-34"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60</span>)</span>
+<span id="cb1-35"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"NUMPY VERSION THAT TOOK </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">round</span>(numpy_time, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> seconds in BYTECODE"</span>)</span>
+<span id="cb1-36"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"="</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">60</span>)</span>
+<span id="cb1-37">dis.dis(numpy_version)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>============================================================
+PURE PYTHON VERSION THAT TOOK 16.59 seconds in BYTECODE
+============================================================
+  6           0 RESUME                   0
+
+  7           2 LOAD_CONST               1 (0.0)
+              4 STORE_FAST               1 (total)
+
+  8           6 LOAD_GLOBAL              1 (NULL + range)
+             16 LOAD_FAST                0 (n)
+             18 CALL                     1
+             26 GET_ITER
+        &gt;&gt;   28 FOR_ITER                10 (to 52)
+             32 STORE_FAST               2 (i)
+
+  9          34 LOAD_FAST                1 (total)
+             36 LOAD_FAST                2 (i)
+             38 LOAD_FAST                2 (i)
+             40 BINARY_OP                5 (*)
+             44 BINARY_OP               13 (+=)
+             48 STORE_FAST               1 (total)
+             50 JUMP_BACKWARD           12 (to 28)
+
+  8     &gt;&gt;   52 END_FOR
+
+ 10          54 LOAD_FAST                1 (total)
+             56 RETURN_VALUE
+
+============================================================
+NUMPY VERSION THAT TOOK 2.6 seconds in BYTECODE
+============================================================
+ 13           0 RESUME                   0
+
+ 14           2 LOAD_GLOBAL              0 (np)
+             12 LOAD_ATTR                3 (NULL|self + arange)
+             32 LOAD_FAST                0 (n)
+             34 LOAD_GLOBAL              0 (np)
+             44 LOAD_ATTR                4 (float64)
+             64 KW_NAMES                 1 (('dtype',))
+             66 CALL                     2
+             74 STORE_FAST               1 (arr)
+
+ 15          76 LOAD_GLOBAL              0 (np)
+             86 LOAD_ATTR                7 (NULL|self + sum)
+            106 LOAD_FAST                1 (arr)
+            108 LOAD_FAST                1 (arr)
+            110 BINARY_OP                5 (*)
+            114 CALL                     1
+            122 RETURN_VALUE</code></pre>
+</div>
+</div>
+<p>I am not an expert on bytecode instructions in Python, but see that for pure Python, there is an operation called <code>FOR_ITER</code> that goes to <code>L2</code>, and then, it returns to <code>L1</code>, which is the loop itself.</p>
+<p>When we look at the Numpy version, the for loop is gone, and all instructions run only once, not <code>N</code> times.</p>
+</section>
+<section id="sec-cfaster" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="sec-cfaster"><span class="header-section-number">1.2</span> Why is C generally faster than Python?</h3>
+<ol type="1">
+<li>C does not have an interpreter; it dispatches all code ahead of time into machine code during compilation;</li>
+<li>Defining the variable types at declaration makes the code’s memory layout known to the machine ahead of time:
+<ul>
+<li>It does not have to make <a href="../../posts/dynamic_language/index.html">Runtime type checking</a>.</li>
+<li>It can calculate in advance how much of memory the operation will take, and optimize it.</li>
+</ul></li>
+<li>Python values are boxed — every int/float is a full object with type info and a reference count, not a raw number sitting in memory. C works directly with raw bytes, no wrapper.</li>
+</ol>
+<p>In order to exemplify the third point, I will run an example to show how many bytes a Python integer uses:</p>
+<div id="1e66261a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> sys</span>
+<span id="cb3-2"></span>
+<span id="cb3-3">x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span></span>
+<span id="cb3-4"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"type(x)        = </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">type</span>(x)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span>
+<span id="cb3-5"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"sys.getsizeof(x)   = </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>sys<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>getsizeof(x)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> bytes"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>type(x)        = &lt;class 'int'&gt;
+sys.getsizeof(x)   = 28 bytes</code></pre>
+</div>
+</div>
+<p>It uses 28 bytes, against 4 (or 8) in C (normally), which: + 8 bytes is used to save its reference count (it counts how many variables are referencing to it); + 8 bytes for the type pointer (so that the interpreter knows the basic operations available on this variable); + 8 bytes for the size field; + 4 bytes for the cost of each additional digital chunk</p>
+</section>
+<section id="if-i-annotate-my-functions-will-my-code-run-faster" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="if-i-annotate-my-functions-will-my-code-run-faster"><span class="header-section-number">1.3</span> If I annotate my functions, will my code run faster?</h3>
+<p>NO. It happens because <code>CPython</code> ignores all type hints during compilation. See that in the below example the bytecode is the same:</p>
+<div id="python-anotated-function" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> dis</span>
+<span id="cb5-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> time</span>
+<span id="cb5-3"></span>
+<span id="cb5-4"></span>
+<span id="cb5-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> add_no_hint(a, b):</span>
+<span id="cb5-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> b</span>
+<span id="cb5-7"></span>
+<span id="cb5-8"></span>
+<span id="cb5-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> add_with_hint(a: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, b: <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>:</span>
+<span id="cb5-10">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> b</span>
+<span id="cb5-11"></span>
+<span id="cb5-12"></span>
+<span id="cb5-13"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"=== WITHOUT type hint ==="</span>)</span>
+<span id="cb5-14">dis.dis(add_no_hint)</span>
+<span id="cb5-15"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>()</span>
+<span id="cb5-16"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"=== WITH type hint ==="</span>)</span>
+<span id="cb5-17">dis.dis(add_with_hint)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== WITHOUT type hint ===
+  5           0 RESUME                   0
+
+  6           2 LOAD_FAST                0 (a)
+              4 LOAD_FAST                1 (b)
+              6 BINARY_OP                0 (+)
+             10 RETURN_VALUE
+
+=== WITH type hint ===
+  9           0 RESUME                   0
+
+ 10           2 LOAD_FAST                0 (a)
+              4 LOAD_FAST                1 (b)
+              6 BINARY_OP                0 (+)
+             10 RETURN_VALUE</code></pre>
+</div>
+</div>
+<p>Happy coding!</p>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Python</category>
+  <category>interpreter</category>
+  <category>C</category>
+  <category>numpy</category>
+  <category>bytes</category>
+  <guid>https://guilhermeparreira.github.io/posts/interpretable_language_part2/</guid>
   <pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/multithread/python_numpy_c_thumb.png" medium="image" type="image/png"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part2/python_numpy_c_thumb.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Is Python an Interpreted language?</title>
@@ -695,7 +700,7 @@ Table&nbsp;1: Summary of the three approaches
   <category>bytecode</category>
   <guid>https://guilhermeparreira.github.io/posts/interpretable_language_part1/</guid>
   <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part1/python_interpreted_thumb_v2.png" medium="image" type="image/png" height="76" width="144"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/interpretable_language_part1/python_interpreted_thumb_v3.png" medium="image" type="image/png" height="96" width="144"/>
 </item>
 <item>
   <title>Is Python a Statically or Dynamically Typed Language?</title>
