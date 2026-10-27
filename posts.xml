@@ -2203,7 +2203,7 @@ background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"google"</span></span></code></pre></div>
-<p>or skipping this rule by adding <code># fmt: skip</code> at the end of a line. Or use <code>#fmt: on</code> at the beginning of a block and <code>#fmt: off</code> at the end.</p>
+<p>or: - skipping this rule by adding <code># fmt: skip</code> at the end of a line. - Or using <code>#fmt: off</code> at the beginning of a block code and <code>#fmt: on</code> at the end.</p>
 <p>Happy coding.</p>
 
 
