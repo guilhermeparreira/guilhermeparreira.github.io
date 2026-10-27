@@ -1926,11 +1926,11 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 <p>Today I want to talk about <a href="https://github.com/astral-sh/ruff">RUFF</a>, my default formatter (and much more) for Python language.</p>
 <p>In a nutshell, RUFF can be seen as a tool that performs all these tasks:</p>
 <p>RUFF = <code>Flake8</code> + <code>isort</code> + <code>black</code> + <code>pydocstyle</code> + <code>pyupgrade</code> + <code>autoflake</code></p>
-<p><code>Flake8</code> = <code>Linter</code>, which fix style + syntax errors</p>
+<p><code>Flake8</code> = <code>Linter</code>, which reports style + syntax errors</p>
 <p><code>isort</code> = <em>Sort</em> the imports</p>
-<p><code>black</code> = <code>formatter</code> ; <code>PEP8</code> complaint. Ex.: line-length: 88; Single/Double quotes; empty lines; parenthesis</p>
+<p><code>black</code> = <code>formatter</code> ; mostly <code>PEP8</code> compliant, but with a default line-length of 88 instead of PEP 8’s 79. It handles single/double quotes, empty lines and parentheses</p>
 <p><code>pydocstyle</code> = docstrings</p>
-<p><code>pyupgrade</code> = upgrade syntax for newer versions of <code>python</code> packages</p>
+<p><code>pyupgrade</code> = upgrade syntax for newer <code>python</code> versions</p>
 <p><code>autoflake</code> = Remove unused imports and unused variables</p>
 <p>So, instead of having to set up each one individually, use <code>RUFF</code> and have all these tools into a single one. <code>RUFF</code> was written in <code>rust</code>, so it is not a wrap of the previously mentioned. Also, it is way faster than the previous tools.</p>
 <section id="setting-it-up-on-vscode" class="level2">
@@ -2069,27 +2069,12 @@ background-color: null;
 font-style: inherit;">true,</span></span>
 <span id="cb1-15"><span class="er" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">//</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">Disable</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">other</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">formatters</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">to</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">avoid</span> <span class="er" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">conflicts</span></span>
-<span id="cb1-16"><span class="er" style="color: #AD0000;
-background-color: null;
 font-style: inherit;">"editor.formatOnSave":</span> <span class="er" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">true,</span></span></code></pre></div>
 <p>But these are only global settings in my personal environment.</p>
-<p>Working with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a <code>.vscode/settings.json</code> inside of the folder of your project guarantees that everyone will use the same formatted. For that, just copy your personal settings to <code>.vscode/settings.json</code>.</p>
-<p>I also make <code>Ruff</code> as a default extension in <code>.vscode/settings.json</code>:</p>
+<p>Working with others on the same project can be painful if you don’t have a default formatter (because other team members can have different formatters and specifications); as a result, code may change the formatting for a new user. Therefore, having a <code>.vscode/settings.json</code> inside of the folder of your project guarantees that everyone will use the same formatter. For that, just copy your personal settings to <code>.vscode/settings.json</code>.</p>
+<p>I also make <code>Ruff</code> as a default extension in <code>.vscode/extensions.json</code>:</p>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">{</span></span>
@@ -2109,11 +2094,11 @@ font-style: inherit;">]</span></span>
 <span id="cb2-5"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">}</span></span></code></pre></div>
-<p>Last but not least, you can also install <code>ruff</code> and your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the <code>.vscode/settings.json</code> guarantees that the suggestions will be made on the fly. But it depends on <code>VsCode</code>.</p>
+<p>Last but not least, you can also install <code>ruff</code> in your environment and implement it on your CI/CD routines. But it will not be covered here. Installing the extension and using the <code>.vscode/settings.json</code> guarantees that the suggestions will be made on the fly. But it depends on your IDE and that everyone from your team uses it.</p>
 </section>
 <section id="bonus-caveat" class="level2">
 <h2 class="anchored" data-anchor-id="bonus-caveat">Bonus (Caveat)</h2>
-<p>I struggled to start using a tool like this because I used to write code in a single long line. I always received the <code>E501: line-too-long</code> warning from <code>black</code>. It happens when the number of characters in a line is longer than 79 characters, which is the recommendation in PEP 8. After applying a tool like <code>ruff</code> my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the <code>line-length</code> a little bit (from 79 to for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.</p>
+<p>I struggled to start using a tool like this because I used to write code in a single long line. I always received the <code>E501: line-too-long</code> warning from <code>pycodestyle/Flake8</code>. It happens when a line is longer than 79 characters, which is the recommendation in PEP 8 (<code>ruff</code>, like <code>black</code>, uses a slightly larger default of 88 characters). After applying a tool like <code>ruff</code> my code changed drastically (as it would force me to break lines), and it was uncomfortable in the beginning. So, I started to relax the parameter of the <code>line-length</code> a little bit (from the default to, for example, 150 characters) and started to analyze the impact of change. Then I realized that the impact on my previous code was not large at all.</p>
 <p>Leaving the limit as the default, PEP 8 argues that you can open multiple files side by side, making also easier to see the <code>git diff</code> changes.</p>
 <p>Anyway, if you think that this limit is small, you can relax it a little bit globally, doing it by:</p>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><span class="kw" style="color: #003B4F;
@@ -2126,7 +2111,9 @@ font-style: inherit;">line-length</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">130</span></span>
+font-style: inherit;">130</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># E501 (line-too-long) now only warns above 130 characters</span></span>
 <span id="cb3-3"></span>
 <span id="cb3-4"><span class="dt" style="color: #AD0000;
 background-color: null;
@@ -2137,29 +2124,28 @@ background-color: null;
 font-style: inherit;">[</span></span>
 <span id="cb3-5">    <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"E501"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Ignore long lines</span></span>
-<span id="cb3-6">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"E302"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Ignore blank lines issue</span></span>
-<span id="cb3-7">    <span class="st" style="color: #20794D;
-background-color: null;
 font-style: inherit;">"E701"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">,</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Ignore single-line if statements</span></span>
-<span id="cb3-8"><span class="op" style="color: #5E5E5E;
+<span id="cb3-6"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">]</span></span>
-<span id="cb3-9"><span class="dt" style="color: #AD0000;
+<span id="cb3-7"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">lint.extend-select</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"D"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Enable the docstring rules (pydocstyle), which are off by default</span></span>
+<span id="cb3-8"><span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">extend-include</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2170,40 +2156,45 @@ background-color: null;
 font-style: inherit;">"*.ipynb"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">]</span></span>
-<span id="cb3-10"></span>
-<span id="cb3-11"><span class="kw" style="color: #003B4F;
+<span id="cb3-9"></span>
+<span id="cb3-10"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">[tool.ruff.format]</span></span>
-<span id="cb3-12"><span class="dt" style="color: #AD0000;
+<span id="cb3-11"><span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">quote-style</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"double"</span></span>
-<span id="cb3-13"><span class="dt" style="color: #AD0000;
+<span id="cb3-12"><span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">docstring-code-format</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
 background-color: null;
 font-style: inherit;">true</span></span>
-<span id="cb3-14"></span>
-<span id="cb3-15"><span class="kw" style="color: #003B4F;
+<span id="cb3-13"></span>
+<span id="cb3-14"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">[tool.ruff.lint.pydocstyle]</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># It enforces that all functions have docstrings</span></span>
-<span id="cb3-16"><span class="dt" style="color: #AD0000;
+font-style: inherit;"># Docstring style that the "D" rules check against</span></span>
+<span id="cb3-15"><span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">convention</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"google"</span></span></code></pre></div>
-<p>or: - skipping this rule by adding <code># fmt: skip</code> at the end of a line. - Or using <code>#fmt: off</code> at the beginning of a block code and <code>#fmt: on</code> at the end.</p>
+<p>Or, if you only want to keep a few specific lines as they are:</p>
+<ul>
+<li>Add <code># noqa: E501</code> at the end of a line, so the linter stops warning that it is too long.</li>
+<li>Add <code># fmt: skip</code> at the end of a line, so the formatter does not reformat it.</li>
+<li>Wrap a block of code between <code># fmt: off</code> and <code># fmt: on</code>, so the formatter leaves the whole block untouched.</li>
+</ul>
 <p>Happy coding.</p>
 
 
