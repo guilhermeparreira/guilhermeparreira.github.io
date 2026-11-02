@@ -1535,14 +1535,20 @@ font-style: inherit;">\</span></span>
 </ul>
 <p>I will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for <code>MAPE</code> can be described as:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BMAPE%7D%20=%20%5Cfrac%7B%5Csum_%7Bi=1%7D%5E%7Bn%7D%20%5Cleft%7C%20%5Cfrac%7By_i%20-%20%5Chat%7By%7D_i%7D%7By_i%7D%20%5Cright%7C%7D%7Bn%7D"></p>
-<p>which is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:</p>
+<p>where:</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?y_i"> is the true value of observation <img src="https://latex.codecogs.com/png.latex?i"> (<code>y_true</code>);</li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Chat%7By%7D_i"> is the predicted value of observation <img src="https://latex.codecogs.com/png.latex?i"> (<code>y_pred</code>);</li>
+<li><img src="https://latex.codecogs.com/png.latex?n"> is the number of observations.</li>
+</ul>
+<p>It is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:</p>
 </section>
 <section id="but" class="level1">
 <h1>BUT:</h1>
 <section id="mape-is-a-biased-metric" class="level2">
 <h2 class="anchored" data-anchor-id="mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</h2>
-<p>To give a simple example, let’s suppose that our <code>ypred</code> is 100; if the <code>yreal</code> is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if <code>yreal</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
-<p>The following table illustrate this:</p>
+<p>To give a simple example, let’s suppose that our <code>y_pred</code> is 100; if the <code>y_true</code> is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if <code>y_true</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
+<p>See Table&nbsp;1, which illustrates this:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-biased" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1595,17 +1601,23 @@ Table&nbsp;1: Illustration of a case when MAPE is biased
 </figure>
 </div>
 </div>
-<p>Check that MAE and MSE behave as expected (they don’t bias for under/over forecasts).</p>
+<p>Check in Table&nbsp;1 that MAE and MSE behave as expected (they don’t bias for under/over forecasts).</p>
 </section>
-<section id="mape-is-not-define-when-y_true-is-zero" class="level2">
-<h2 class="anchored" data-anchor-id="mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</h2>
-<p>The denominator of mape is <em>y_true</em>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what <code>sklearn.metrics.mean_average_percentage_error</code> do (setting y_true to <img src="https://latex.codecogs.com/png.latex?2.22x10%5E-16">). But it gives other problems: 1. Setting y_true to <img src="https://latex.codecogs.com/png.latex?2.22x10%5E-16"> will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</p>
-<p>In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:</p>
+<section id="mape-is-not-defined-when-y_true-is-zero" class="level2">
+<h2 class="anchored" data-anchor-id="mape-is-not-defined-when-y_true-is-zero"><em>MAPE</em> is not defined when <code>y_true</code> is zero</h2>
+<p>The denominator of mape is <code>y_true</code>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set <code>y_true</code> to a small value near to zero, which is what <code>sklearn.metrics.mean_absolute_percentage_error</code> do (setting <code>y_true</code> to <img src="https://latex.codecogs.com/png.latex?2.22*10%5E-16"> when <code>y_true</code> is zero). But it gives other problems:</p>
+<ol type="1">
+<li>Setting <code>y_true</code> to <img src="https://latex.codecogs.com/png.latex?2.22*10%5E-16"> will lead to a even higher MAPE number;</li>
+<li>You will never know a “true” value of the error for this series;</li>
+<li>Your prediction will be compromised even if your predictions are really good (let’s say 0.00001);</li>
+<li>If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</li>
+</ol>
+<p>In practical terms, see in Table&nbsp;2 how MAPE will behave if for a <code>y_true</code> of 0, we set 2.22E-16 for the last two rows of the table:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-impact" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
+Table&nbsp;2: Impact in MAPE when <code>y_true</code> is zero or near zero
 </figcaption>
 <div aria-describedby="tbl-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1634,17 +1646,17 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 <td style="text-align: right;">2.25</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">2.22E-16</td>
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.5</td>
-<td style="text-align: right;">5.55x10^15</td>
+<td style="text-align: right;">2.25x10^15</td>
 <td style="text-align: right;">0.25</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">2.22E-16</td>
 <td style="text-align: right;">1.5</td>
 <td style="text-align: right;">1.5</td>
-<td style="text-align: right;">1.67x10^16</td>
+<td style="text-align: right;">6.76x10^15</td>
 <td style="text-align: right;">2.25</td>
 </tr>
 </tbody>
@@ -1653,7 +1665,7 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 </figure>
 </div>
 </div>
-<p>Check that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).</p>
+<p>Check in Table&nbsp;2 that MAE and MSE behave as expected (are not impacted when <code>y_true</code> is zero or 2.22E-16).</p>
 <p>Others also don’t calculate the forecast for these points, but you will end up with same problem as number 2.</p>
 </section>
 <section id="mape-does-not-minimizes-the-error-towards-the-mean-value" class="level2">
@@ -1665,8 +1677,10 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 <section id="alternatives" class="level1">
 <h1>Alternatives</h1>
 <p>In order to overcome the asymmetry problem of MAPE, sMAPE and other adjusted MAPEs were proposed, but no one of them have good properties: they are still undefined if <code>y_true</code> and <code>y_pred</code> are zero, <a href="https://robjhyndman.com/hyndsight/smape/">check it out</a>.</p>
-<p>A really good alternative for this scenario is to use <strong>rRMSE</strong>, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average value of all values of a series, or the last points equal to the length of the forecast, or any other length.</p>
-<p>With it, you can have a unbiased metric, defined at zero, that it is easy to read and understand, because it is a percentage.</p>
+<p>A really good alternative for this scenario is to use <strong>rRMSE</strong>, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average of all values of a series, or the average of the last points of the series (as many points as the length of the forecast horizon), or of a window of any other length.</p>
+<p>Of course, if all the values of your time series are 0, then you can not use <strong>rRMSE</strong>, because the division will be by 0. However, if all points are zero, perhaps, you do not need a forecast 😛.</p>
+<p>With it, you get an unbiased metric that is defined when <code>y_true</code> is zero (except in the edge case where the reference value itself is zero, e.g.&nbsp;a series of only zeros), and that is easy to read and understand, because it is a percentage.</p>
+<p>Happy forecasting!</p>
 
 
 </section>
@@ -1677,7 +1691,7 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
   <category>Time Series</category>
   <guid>https://guilhermeparreira.github.io/posts/mape/</guid>
   <pubDate>Sat, 09 May 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/mape/mape.png" medium="image" type="image/png" height="144" width="144"/>
+  <media:content url="https://guilhermeparreira.github.io/posts/mape/mape.png" medium="image" type="image/png" height="87" width="144"/>
 </item>
 <item>
   <title>Sofle v2 keyboard is cheaper than a wrist exam</title>
@@ -1880,29 +1894,6 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
   <guid>https://guilhermeparreira.github.io/posts/ubuntu/</guid>
   <pubDate>Thu, 08 May 2025 00:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/ubuntu/jammy.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>My first post</title>
-  <dc:creator>Guilherme Parreira</dc:creator>
-  <link>https://guilhermeparreira.github.io/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>Hello guys!</p>
-<p>I will use the blog for sharing data science content.</p>
-<p>I hope you all like.</p>
-
-
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>Welcome</category>
-  <guid>https://guilhermeparreira.github.io/posts/welcome/</guid>
-  <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
-  <media:content url="https://guilhermeparreira.github.io/posts/welcome/welcome.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>Ruff in a Nutshell + Configuring it on VsCode</title>
@@ -2208,6 +2199,29 @@ font-style: inherit;">"google"</span></span></code></pre></div>
   <guid>https://guilhermeparreira.github.io/posts/ruff/</guid>
   <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
   <media:content url="https://guilhermeparreira.github.io/posts/ruff/ruff.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+<item>
+  <title>My first post</title>
+  <dc:creator>Guilherme Parreira</dc:creator>
+  <link>https://guilhermeparreira.github.io/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Hello guys!</p>
+<p>I will use the blog for sharing data science content.</p>
+<p>I hope you all like.</p>
+
+
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Welcome</category>
+  <guid>https://guilhermeparreira.github.io/posts/welcome/</guid>
+  <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+  <media:content url="https://guilhermeparreira.github.io/posts/welcome/welcome.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 </channel>
 </rss>

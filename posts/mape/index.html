@@ -44,8 +44,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-734eabc05d6f1478859e591fbf8f75f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-74532b2634f5af994a026fcb1086f386.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a8a7f638e14f1434b343068d4c317b11.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3fe07f810a59d3f8c6f6efaaa0351489.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,6 +73,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script data-goatcounter="https://guilhermeparreira.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -355,7 +356,7 @@ window.Quarto = {
   <li><a href="#but" id="toc-but" class="nav-link" data-scroll-target="#but">BUT:</a>
   <ul class="collapse">
   <li><a href="#mape-is-a-biased-metric" id="toc-mape-is-a-biased-metric" class="nav-link" data-scroll-target="#mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</a></li>
-  <li><a href="#mape-is-not-define-when-y_true-is-zero" id="toc-mape-is-not-define-when-y_true-is-zero" class="nav-link" data-scroll-target="#mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</a></li>
+  <li><a href="#mape-is-not-defined-when-y_true-is-zero" id="toc-mape-is-not-defined-when-y_true-is-zero" class="nav-link" data-scroll-target="#mape-is-not-defined-when-y_true-is-zero"><em>MAPE</em> is not defined when <code>y_true</code> is zero</a></li>
   <li><a href="#mape-does-not-minimizes-the-error-towards-the-mean-value" id="toc-mape-does-not-minimizes-the-error-towards-the-mean-value" class="nav-link" data-scroll-target="#mape-does-not-minimizes-the-error-towards-the-mean-value">MAPE does not minimizes the error towards the mean value</a></li>
   </ul></li>
   <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives">Alternatives</a></li>
@@ -387,14 +388,20 @@ window.Quarto = {
 </ul>
 <p>I will give an example for the last bit: Let’s suppose that a salesperson had to sell 100 pairs of boots, but he sold 80, so how far is he from the target? Well, (80-100)/100 = -0,20 = -20%. So the salesperson is 20% far from the target. The formula for <code>MAPE</code> can be described as:</p>
 <p><span class="math display">\[\text{MAPE} = \frac{\sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|}{n}\]</span></p>
-<p>which is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:</p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span> is the true value of observation <span class="math inline">\(i\)</span> (<code>y_true</code>);</li>
+<li><span class="math inline">\(\hat{y}_i\)</span> is the predicted value of observation <span class="math inline">\(i\)</span> (<code>y_pred</code>);</li>
+<li><span class="math inline">\(n\)</span> is the number of observations.</li>
+</ul>
+<p>It is so intuitive. However, behind this popularity, MAPE has several pitfalls, specially when working with high number of time series at the same time:</p>
 </section>
 <section id="but" class="level1">
 <h1>BUT:</h1>
 <section id="mape-is-a-biased-metric" class="level2">
 <h2 class="anchored" data-anchor-id="mape-is-a-biased-metric"><em>MAPE</em> is a biased metric:</h2>
-<p>To give a simple example, let’s suppose that our <code>ypred</code> is 100; if the <code>yreal</code> is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if <code>yreal</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
-<p>The following table illustrate this:</p>
+<p>To give a simple example, let’s suppose that our <code>y_pred</code> is 100; if the <code>y_true</code> is 150, we have a MAPE equals to 0.33, in contrast to MAPE equals 1 if <code>y_true</code> is 50. So, MAPE will always push toward to biased underforecasting.</p>
+<p>See <a href="#tbl-biased" class="quarto-xref">Table&nbsp;1</a>, which illustrates this:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-biased" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -447,17 +454,23 @@ Table&nbsp;1: Illustration of a case when MAPE is biased
 </figure>
 </div>
 </div>
-<p>Check that MAE and MSE behave as expected (they don’t bias for under/over forecasts).</p>
+<p>Check in <a href="#tbl-biased" class="quarto-xref">Table&nbsp;1</a> that MAE and MSE behave as expected (they don’t bias for under/over forecasts).</p>
 </section>
-<section id="mape-is-not-define-when-y_true-is-zero" class="level2">
-<h2 class="anchored" data-anchor-id="mape-is-not-define-when-y_true-is-zero"><em>MAPE</em> is not define when <code>y_true</code> is zero</h2>
-<p>The denominator of mape is <em>y_true</em>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set y_true to a small value near to zero, which is what <code>sklearn.metrics.mean_average_percentage_error</code> do (setting y_true to <span class="math inline">\(2.22x10^-16\)</span>). But it gives other problems: 1. Setting y_true to <span class="math inline">\(2.22x10^-16\)</span> will lead to a even higher MAPE number; 2. You will never know a “true” value of the error for this series; 3. Your prediction will be compromised even if your predictions are really good (let’s say 0.00001); 4. If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</p>
-<p>In practical terms, see how MAPE will behave if for a true value of 0, we set 9E-17 for the last two rows of the table:</p>
+<section id="mape-is-not-defined-when-y_true-is-zero" class="level2">
+<h2 class="anchored" data-anchor-id="mape-is-not-defined-when-y_true-is-zero"><em>MAPE</em> is not defined when <code>y_true</code> is zero</h2>
+<p>The denominator of mape is <code>y_true</code>. So, MAPE might return <code>NaN</code> on your programming software or <code>Inf</code>. In order to “fix” it, what many people do is to set <code>y_true</code> to a small value near to zero, which is what <code>sklearn.metrics.mean_absolute_percentage_error</code> do (setting <code>y_true</code> to <span class="math inline">\(2.22*10^-16\)</span> when <code>y_true</code> is zero). But it gives other problems:</p>
+<ol type="1">
+<li>Setting <code>y_true</code> to <span class="math inline">\(2.22*10^-16\)</span> will lead to a even higher MAPE number;</li>
+<li>You will never know a “true” value of the error for this series;</li>
+<li>Your prediction will be compromised even if your predictions are really good (let’s say 0.00001);</li>
+<li>If you need to aggregate the metric of this series with other series, your comparison will be compromised because the resulting MAPE will be towards a very high number.</li>
+</ol>
+<p>In practical terms, see in <a href="#tbl-impact" class="quarto-xref">Table&nbsp;2</a> how MAPE will behave if for a <code>y_true</code> of 0, we set 2.22E-16 for the last two rows of the table:</p>
 <div style="width: 75%; margin: auto;">
 <div id="tbl-impact" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
+Table&nbsp;2: Impact in MAPE when <code>y_true</code> is zero or near zero
 </figcaption>
 <div aria-describedby="tbl-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -486,17 +499,17 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 <td style="text-align: right;">2.25</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">2.22E-16</td>
 <td style="text-align: right;">0.5</td>
 <td style="text-align: right;">0.5</td>
-<td style="text-align: right;">5.55x10^15</td>
+<td style="text-align: right;">2.25x10^15</td>
 <td style="text-align: right;">0.25</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">9E-17</td>
+<td style="text-align: right;">2.22E-16</td>
 <td style="text-align: right;">1.5</td>
 <td style="text-align: right;">1.5</td>
-<td style="text-align: right;">1.67x10^16</td>
+<td style="text-align: right;">6.76x10^15</td>
 <td style="text-align: right;">2.25</td>
 </tr>
 </tbody>
@@ -505,7 +518,7 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 </figure>
 </div>
 </div>
-<p>Check that MAE and MSE behave as expected (are not impacted when y_true is zero or 9E-17).</p>
+<p>Check in <a href="#tbl-impact" class="quarto-xref">Table&nbsp;2</a> that MAE and MSE behave as expected (are not impacted when <code>y_true</code> is zero or 2.22E-16).</p>
 <p>Others also don’t calculate the forecast for these points, but you will end up with same problem as number 2.</p>
 </section>
 <section id="mape-does-not-minimizes-the-error-towards-the-mean-value" class="level2">
@@ -517,8 +530,10 @@ Table&nbsp;2: Impact in MAPE when y_true is zero or near zero
 <section id="alternatives" class="level1">
 <h1>Alternatives</h1>
 <p>In order to overcome the asymmetry problem of MAPE, sMAPE and other adjusted MAPEs were proposed, but no one of them have good properties: they are still undefined if <code>y_true</code> and <code>y_pred</code> are zero, <a href="https://robjhyndman.com/hyndsight/smape/">check it out</a>.</p>
-<p>A really good alternative for this scenario is to use <strong>rRMSE</strong>, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average value of all values of a series, or the last points equal to the length of the forecast, or any other length.</p>
-<p>With it, you can have a unbiased metric, defined at zero, that it is easy to read and understand, because it is a percentage.</p>
+<p>A really good alternative for this scenario is to use <strong>rRMSE</strong>, which is the relative Root mean squared error. All you need to do is to divide the RMSE by a value that will be used as a reference of your data. If we think on a time series problem, we can take the average of all values of a series, or the average of the last points of the series (as many points as the length of the forecast horizon), or of a window of any other length.</p>
+<p>Of course, if all the values of your time series are 0, then you can not use <strong>rRMSE</strong>, because the division will be by 0. However, if all points are zero, perhaps, you do not need a forecast 😛.</p>
+<p>With it, you get an unbiased metric that is defined when <code>y_true</code> is zero (except in the edge case where the reference value itself is zero, e.g.&nbsp;a series of only zeros), and that is easy to read and understand, because it is a percentage.</p>
+<p>Happy forecasting!</p>
 
 
 </section>
