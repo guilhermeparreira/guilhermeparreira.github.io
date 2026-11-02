@@ -40,5 +40,6 @@ format:
       light: yeti
     css: styles.css
     toc: true
-
-# blog
+    include-in-header:
+      text: |
+        <script data-goatcounter="https://guilhermeparreira.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
