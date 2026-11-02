@@ -2,7 +2,7 @@
 title: "MAPE and its pitfalls"
 description: "Why MAPE should not be your choice"
 date: 29-09-2024
-updated: 02-11-2026
+date-modified: 2026-11-02
 categories: [MAPE, Data Science, Time Series] # self-defined categories
 image: mape.png
 draft: false
