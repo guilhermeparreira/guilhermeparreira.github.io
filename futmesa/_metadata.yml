@@ -1,0 +1,16 @@
+# Opções válidas para todas as páginas da seção Futmesa
+
+lang: pt-BR
+title-block-banner: true
+css: futmesa.css
+
+execute:
+  echo: false
+
+author:
+  - name: "Guilherme Parreira"
+    url: "https://guilhermeparreira.github.io/"
+
+# Comentários: Disqus (não exige conta no GitHub). O shortname fica em _disqus.html
+comments: false
+include-after-body: _disqus.html

@@ -1,0 +1,14 @@
+---
+title: "Futmesa"
+subtitle: "Análises e histórias do futebol de mesa (12 Toques)"
+lang: pt-BR
+listing:
+  contents: futmesa # todas as páginas dentro da pasta `futmesa` aparecem aqui (e não no blog)
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [image, date, title, description, categories]
+---
+
+Páginas sobre o futebol de mesa, feitas a partir da base histórica do Campeonato Brasileiro
+Individual (12 Toques), de 1989 a 2025.

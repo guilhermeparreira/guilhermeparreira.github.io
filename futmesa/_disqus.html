@@ -1,0 +1,43 @@
+<!-- Comentários da seção Futmesa (Disqus). Preencha o shortname criado em https://disqus.com/admin/create/ -->
+<script>
+  (function () {
+    const DISQUS_SHORTNAME = "guilhermeparreira"; // ex.: "futmesa-guilherme"
+    const SITE = "https://guilhermeparreira.github.io";
+    const conteudo = document.querySelector("main.content");
+    if (!DISQUS_SHORTNAME || !conteudo) return;
+
+    const secao = document.createElement("section");
+    secao.className = "fm-comentarios";
+    secao.innerHTML = '<h2 class="anchored" id="comentarios">Comentários</h2><div id="disqus_thread"></div>';
+    conteudo.appendChild(secao);
+
+    // Mesmo tópico para /pagina/ e /pagina/index.html
+    const caminho = location.pathname.replace(/index\.html$/, "");
+    window.disqus_config = function () {
+      this.page.url = SITE + caminho;
+      this.page.identifier = caminho;
+    };
+
+    function carregar() {
+      const s = document.createElement("script");
+      s.src = "https://" + DISQUS_SHORTNAME + ".disqus.com/embed.js";
+      s.setAttribute("data-timestamp", +new Date());
+      document.body.appendChild(s);
+    }
+
+    // Só carrega quando o leitor chega perto dos comentários
+    const aoChegar = new IntersectionObserver(function (entradas) {
+      if (entradas.some((e) => e.isIntersecting)) {
+        aoChegar.disconnect();
+        carregar();
+      }
+    }, { rootMargin: "600px" });
+    aoChegar.observe(secao);
+
+    // O Disqus escolhe claro/escuro pela cor da página: recarrega quando o tema do site muda
+    new MutationObserver(function () {
+      if (window.DISQUS) window.DISQUS.reset({ reload: true, config: window.disqus_config });
+    }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  })();
+</script>
+<noscript>Ative o JavaScript para ver os comentários.</noscript>

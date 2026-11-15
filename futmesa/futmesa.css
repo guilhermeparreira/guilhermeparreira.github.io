@@ -1,0 +1,219 @@
+/* Seção Futmesa: cores dos gráficos (claro/escuro) e componentes das páginas */
+
+body {
+    --fm-s1: #2a78d6;
+    --fm-s2: #eb6834;
+    --fm-s3: #1baf7a;
+    --fm-s4: #eda100;
+    --fm-s5: #e87ba4;
+    --fm-s6: #008300;
+    --fm-s7: #6250d6;
+    --fm-outros: #a9a8a2;
+    /* estados: paleta Dark2 (ColorBrewer), na ordem SP, PR, RJ, PE, SC, RS, GO */
+    --fm-e1: #1b9e77;
+    --fm-e2: #d95f02;
+    --fm-e3: #7570b3;
+    --fm-e4: #66a61e;
+    --fm-e5: #e7298a;
+    --fm-e6: #dba100;
+    --fm-e7: #a6761d;
+    --fm-e-outros: #8c8c8c;
+    /* rampa de um só tom: q1 = menor, q5 = maior */
+    --fm-q1: #86b6ef;
+    --fm-q2: #5598e7;
+    --fm-q3: #2a78d6;
+    --fm-q4: #1c5cab;
+    --fm-q5: #104281;
+    --fm-tinta-q-baixo: #0b0b0b;
+    --fm-tinta-q-alto: #ffffff;
+    --fm-superficie: #ffffff;
+    --fm-cartao: #f6f8fa;
+    --fm-borda: rgba(11, 11, 11, 0.12);
+    --fm-suave: #6b6a65;
+}
+
+body.quarto-dark {
+    --fm-s1: #3987e5;
+    --fm-s2: #d95926;
+    --fm-s3: #199e70;
+    --fm-s4: #c98500;
+    --fm-s5: #d55181;
+    --fm-s6: #0ca30c;
+    --fm-s7: #9085e9;
+    --fm-outros: #7d7c77;
+    --fm-e3: #8f8ac6;
+    --fm-e-outros: #9a9a9a;
+    --fm-q1: #1c5cab;
+    --fm-q2: #2a78d6;
+    --fm-q3: #5598e7;
+    --fm-q4: #86b6ef;
+    --fm-q5: #b7d3f6;
+    --fm-tinta-q-baixo: #ffffff;
+    --fm-tinta-q-alto: #0b0b0b;
+    --fm-superficie: #272b30;
+    --fm-cartao: #32383e;
+    --fm-borda: rgba(255, 255, 255, 0.14);
+    --fm-suave: #b3b2ab;
+}
+
+/* O styles.css do blog pinta as saídas de código como caixas cinza; aqui a saída é o conteúdo. */
+.cell-output,
+.quarto-dark .cell-output {
+    background-color: transparent !important;
+    border-left: 0 !important;
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Gráficos (Observable Plot) */
+figure[class^="plot-"],
+svg[class^="plot-"] {
+    --plot-background: var(--fm-superficie);
+}
+
+.fm-rolagem {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+}
+
+/* Gráficos ano a ano mantêm a largura mínima e rolam para o lado em telas estreitas */
+.fm-largo svg[class^="plot-"] {
+    max-width: none;
+}
+
+.fm-nota {
+    color: var(--fm-suave);
+    font-size: 0.85em;
+    margin: 0.25rem 0 1.25rem 0;
+}
+
+/* Filtro geral de categoria: acompanha a rolagem */
+.fm-filtro {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--fm-superficie);
+    border-bottom: 1px solid var(--fm-borda);
+    padding: 0.6rem 0 0.35rem 0;
+    margin-bottom: 1.25rem;
+    transition: top 0.2s ease;
+}
+
+/* Enquanto a barra do site está visível, o filtro fica logo abaixo dela */
+#quarto-header:not(.headroom--unpinned)~#quarto-content .fm-filtro {
+    top: 58px;
+}
+
+.fm-filtro form,
+.fm-controle form {
+    width: auto;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.95rem;
+    --label-width: auto;
+}
+
+.fm-filtro form>label,
+.fm-controle form>label {
+    font-weight: 600;
+    width: auto;
+    margin-right: 0.25rem;
+}
+
+.fm-filtro form>div label,
+.fm-controle form>div label {
+    margin-right: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Números de destaque */
+.fm-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin: 0.5rem 0 1.5rem 0;
+}
+
+.fm-kpi {
+    background: var(--fm-cartao);
+    border: 1px solid var(--fm-borda);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+}
+
+.fm-kpi-valor {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.fm-kpi-rotulo {
+    color: var(--fm-suave);
+    font-size: 0.85rem;
+}
+
+.fm-kpi-detalhe {
+    font-size: 0.8rem;
+    color: var(--fm-suave);
+}
+
+/* Tabelas */
+.fm-tabela {
+    overflow-x: auto;
+    max-height: 520px;
+    overflow-y: auto;
+    border: 1px solid var(--fm-borda);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.fm-tabela table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+}
+
+.fm-tabela th {
+    position: sticky;
+    top: 0;
+    background: var(--fm-cartao);
+    text-align: right;
+    padding: 0.4rem 0.4rem;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--fm-borda);
+}
+
+.fm-tabela td {
+    text-align: right;
+    padding: 0.3rem 0.4rem;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--fm-borda);
+}
+
+.fm-tabela th.fm-esq,
+.fm-tabela td.fm-esq {
+    text-align: left;
+}
+
+.fm-tabela tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Foto de abertura */
+.quarto-figure img {
+    border-radius: 8px;
+}
+
+figcaption {
+    color: var(--fm-suave);
+    font-size: 0.85em;
+}
+
+.fm-comentarios {
+    margin-top: 3rem;
+}

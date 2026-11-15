@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "**/*.qmd" # only .qmd files become pages (keeps CLAUDE.md out of the site)
 
 execute:
   freeze: auto
@@ -20,9 +22,8 @@ website:
         text: Home
       - href: posts.qmd # add your listing page file to your navbar, just like you would any other new web page
         text: My Blog
-    # right:
-      # - icon: rss
-        # href: index.xml
+      - href: futmesa.qmd # listing page of the Futmesa section (pages live in the `futmesa` folder)
+        text: Futmesa
     tools:
       - icon: github
         href: https://github.com/guilhermeparreira
@@ -30,8 +31,6 @@ website:
         href: https://www.linkedin.com/in/guilherme-parreira/?locale=en_US
       - icon: stack-overflow
         href: https://pt.stackoverflow.com/users/33947/guilherme-parreira
-      - icon: rss
-        href: posts.xml
 
 format:
   html:
@@ -39,6 +38,7 @@ format:
       dark: slate
       light: yeti
     css: styles.css
+    respect-user-color-scheme: true # start in the visitor's system/browser theme (light or dark)
     toc: true
     include-in-header:
       text: |

@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://guilhermeparreira.github.io/index.html</loc>
-    <lastmod>2026-08-23T12:55:10.226Z</lastmod>
-  </url>
-  <url>
     <loc>https://guilhermeparreira.github.io/posts/welcome/index.html</loc>
     <lastmod>2025-07-22T01:34:03.501Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
-    <lastmod>2026-08-22T02:19:25.957Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/ruff/index.html</loc>
@@ -18,46 +10,50 @@
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/mape/index.html</loc>
-    <lastmod>2026-11-02T23:39:59.695Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/keyboard/index.html</loc>
-    <lastmod>2025-08-05T23:51:36.529Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts.html</loc>
-    <lastmod>2026-08-23T12:55:50.998Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/docker/index.html</loc>
-    <lastmod>2026-08-29T17:45:47.032Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/dynamic_language/index.html</loc>
-    <lastmod>2026-09-16T01:35:01.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/interpretable_language/index.html</loc>
-    <lastmod>2026-09-16T00:16:25.302Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/polars_pandas/index.html</loc>
-    <lastmod>2026-02-17T14:17:46.370Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guilhermeparreira.github.io/posts/interpretable_language_part1/index.html</loc>
-    <lastmod>2026-10-25T15:21:20.960Z</lastmod>
+    <lastmod>2026-11-15T22:12:40.215Z</lastmod>
   </url>
   <url>
     <loc>https://guilhermeparreira.github.io/posts/interpretable_language_part2/index.html</loc>
     <lastmod>2026-10-25T15:25:24.546Z</lastmod>
   </url>
   <url>
+    <loc>https://guilhermeparreira.github.io/posts/dynamic_language/index.html</loc>
+    <lastmod>2026-09-16T01:35:01.293Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts.html</loc>
+    <lastmod>2026-11-15T23:16:22.364Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/futmesa/historico-brasileiro/index.html</loc>
+    <lastmod>2026-11-15T23:08:13.183Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/futmesa.html</loc>
+    <lastmod>2026-11-15T23:16:22.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/index.html</loc>
+    <lastmod>2026-08-23T12:55:10.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/docker/index.html</loc>
+    <lastmod>2026-08-29T17:45:47.032Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/interpretable_language_part1/index.html</loc>
+    <lastmod>2026-10-25T15:21:20.960Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guilhermeparreira.github.io/posts/keyboard/index.html</loc>
+    <lastmod>2025-08-05T23:51:36.529Z</lastmod>
+  </url>
+  <url>
     <loc>https://guilhermeparreira.github.io/posts/multithread/index.html</loc>
     <lastmod>2026-10-25T15:25:25.348Z</lastmod>
   </url>
   <url>
-    <loc>https://guilhermeparreira.github.io/posts/multithread_part2/index.html</loc>
-    <lastmod>2026-10-25T13:45:36.006Z</lastmod>
+    <loc>https://guilhermeparreira.github.io/posts/ubuntu/index.html</loc>
+    <lastmod>2026-11-12T00:12:32.561Z</lastmod>
   </url>
 </urlset>
