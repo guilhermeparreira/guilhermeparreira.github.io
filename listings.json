@@ -7,11 +7,17 @@
       "/posts/interpretable_language_part1/index.html",
       "/posts/dynamic_language/index.html",
       "/posts/docker/index.html",
-      "/posts/mape/index.html",
       "/posts/keyboard/index.html",
       "/posts/ubuntu/index.html",
+      "/posts/mape/index.html",
       "/posts/ruff/index.html",
       "/posts/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/futmesa.html",
+    "items": [
+      "/futmesa/historico-brasileiro/index.html"
     ]
   }
 ]
