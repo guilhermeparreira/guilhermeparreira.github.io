@@ -1,6 +1,47 @@
 # Seção Futmesa — briefing para o site (Quarto, GitHub Pages)
 
-Colar este arquivo na raiz do repositório do site (ou o conteúdo no `CLAUDE.md` de lá).
+Para incluir uma nova edição do campeonato, use a skill `atualizar-futmesa` (`.claude/skills/`).
+
+## Regras de trabalho neste repositório
+
+- **Publicação**: o site é renderizado e publicado pelo GitHub Actions a cada push em `main`
+  (`.github/workflows/publish-quarto.yml`, branch `gh-pages`). `make update MSG="..."` faz add, commit e push
+  de tudo: só rode quando eu pedir para publicar.
+- **`docs/`** é a saída do `quarto render` local e está versionada, mas não é o que vai ao ar. Não edite à mão.
+  Para testar sem sujar `docs/`, renderize em outra pasta: `quarto render --output-dir <pasta temporária>`.
+- **Só `.qmd` vira página** (`render` no `_quarto.yml`). Arquivos e pastas que começam com `_` são ignorados pelo Quarto.
+- **Idioma**: blog (`posts/`) em inglês; seção Futmesa (`futmesa/`) em português. Em código: nomes de colunas e
+  textos para o leitor em português; código e docstrings em inglês.
+- **Datas no YAML dos posts**: `MM-DD-YYYY` ou `YYYY-MM-DD`. `DD-MM-YYYY` é lido errado pelo Quarto.
+- **Python**: o Python padrão da máquina não tem `polars`/`pandas`; os posts antigos dependem do `_freeze/`.
+  Para rodar `_scripts/futmesa_dados.py` use um ambiente com `polars` (no Actions ele vem do `requirements.txt`).
+- **Tema**: o site abre no tema do sistema do visitante. Qualquer coisa visual precisa funcionar no claro (yeti)
+  e no escuro (slate), e em largura de celular.
+- **Verificação**: depois de mexer em página com OJS, renderize e abra no navegador servindo por HTTP
+  (abrir o HTML do disco não carrega os dados). Não diga que funciona sem ter visto.
+- **Serviços externos** (comentários, formulários, etc.): confirme que o serviço está no ar antes de recomendar.
+- **RSS**: removido do site de propósito. Não recriar feeds.
+
+## Como a seção Futmesa funciona
+
+- `futmesa.qmd` é a listagem da seção; toda página dentro de `futmesa/` aparece nela, e não no blog.
+- `_scripts/futmesa_dados.py` lê os Parquet (do GitHub, ou de `--origem`) e grava `futmesa/dados/brasileiro.json`.
+  O JSON fica versionado para o preview local funcionar; o Actions regera antes do render.
+- As páginas usam Observable JS (blocos `{ojs}`) e Observable Plot: os dados são carregados e agregados no
+  navegador. O filtro de categoria no topo vale para a página inteira.
+- `futmesa/futmesa.css` guarda as cores dos gráficos (variáveis `--fm-*`, com versão clara e escura).
+- Comentários da seção: Disqus (`futmesa/_disqus.html`). O blog usa giscus.
+- Aviso de inconsistência: issue no `futmesa-brasileirao` (template `inconsistencia.yml`).
+
+## Decisões já tomadas no relatório
+
+- Sub-20 (2008) conta como Sub-18 e Infantil (1994) como Sub-15; há o filtro "Sub-15 + Sub-18".
+- "Estado de origem" = UF da primeira participação (a base não tem estado de nascimento).
+- Anos com classificação incompleta: menos de 90% dos participantes informados ou menos de 60 linhas.
+  Não quebram sequências de participação, mas só contam para quem aparece.
+- 2020 e 2021 aparecem no eixo dos gráficos como "Pandemia", sem dados.
+- Títulos de todas as categorias do filtro têm o mesmo peso.
+- Referência ao PDF: citar a página de documentos históricos da CBFM, nunca o link direto do arquivo.
 
 ## Objetivo
 
@@ -12,7 +53,7 @@ Individual de Futebol de Mesa (12 Toques), 1989–2025. Público: os próprios b
 2. **Página do botonista**: a pessoa escolhe o nome e vê toda a trajetória (ano, categoria,
    divisão, posição, estatísticas). Uma página única com filtro (Observable JS) e o id na URL
    (`?botonista=robertinho-pr`) para compartilhar, em vez de ~1.700 páginas.
-3. **Aviso de inconsistência**: link para um formulário em cada página, para não poluir os comentários.
+3. **Aviso de inconsistência**: link em cada página para abrir uma issue no `futmesa-brasileirao`, para não poluir os comentários.
 4. **Transparência**: página mostrando o de-para de nomes usado.
 5. Futuro: storytelling sobre os campeonatos.
 
@@ -42,6 +83,7 @@ Vêm do repositório `futmesa-brasileirao` (pasta `saida/`); o site só consome,
 - Use sempre `id_botonista` para identificar a pessoa (nomes se repetem; pessoas mudam de estado).
   O ID é heurístico e pode ter erros.
 
-## Automação desejada
+## Automação
 
-No workflow de publicação, antes do `quarto render`, baixar os três Parquet do `futmesa-brasileirao`.
+No workflow de publicação, antes do `quarto render`, `_scripts/futmesa_dados.py` baixa os Parquet do
+`futmesa-brasileirao` e regera o JSON. Ainda falta: disparar a publicação do site quando `saida/` mudar lá.
