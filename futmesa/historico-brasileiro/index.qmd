@@ -532,7 +532,7 @@ ou deixe um comentário no fim da página — as correções são feitas na base
   [documentos históricos da CBFM](https://www.cbfm.com.br/documentos-historicos/){target="_blank"} (Confederação Brasileira de Futebol de Mesa).
 - [Planilha Excel com a base completa](https://github.com/guilhermeparreira/futmesa-brasileirao/raw/main/saida/campeonato_brasileiro_12_toques.xlsx):
   classificação de todas as edições, campeonatos, verificações de qualidade e dicionário das colunas.
-****- [Base de dados estruturada e código de extração](https://github.com/guilhermeparreira/futmesa-brasileirao){target="_blank"}:
+- [Base de dados estruturada e código de extração](https://github.com/guilhermeparreira/futmesa-brasileirao){target="_blank"}:
   as regras de leitura do PDF, as correções manuais e as verificações de qualidade.
 - [Padronização dos nomes dos botonistas](https://github.com/guilhermeparreira/futmesa-brasileirao/blob/main/dados/depara_botonistas.csv){target="_blank"}
   e [dos clubes](https://github.com/guilhermeparreira/futmesa-brasileirao/blob/main/dados/depara_clubes.csv){target="_blank"} (de-para).
