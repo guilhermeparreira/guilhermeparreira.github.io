@@ -165,7 +165,7 @@
     "href": "futmesa/historico-brasileiro/index.html#referências",
     "title": "A história do Campeonato Brasileiro em números",
     "section": "Referências",
-    "text": "Referências\n\nHistória do Campeonato Brasileiro 12 Toques – 3ª edição, documento em PDF com as classificações finais de 1989 a 2025, de onde vêm todos os dados e a foto desta página. Está disponível na página de documentos históricos da CBFM (Confederação Brasileira de Futebol de Mesa).\nPlanilha Excel com a base completa: classificação de todas as edições, campeonatos, verificações de qualidade e dicionário das colunas. ****- Base de dados estruturada e código de extração: as regras de leitura do PDF, as correções manuais e as verificações de qualidade.\nPadronização dos nomes dos botonistas e dos clubes (de-para).\n\n\nhtml`&lt;p class=\"fm-nota\"&gt;Dados atualizados em ${new Date(dados.gerado_em + \"T12:00:00\").toLocaleDateString(\"pt-BR\")}.&lt;/p&gt;`"
+    "text": "Referências\n\nHistória do Campeonato Brasileiro 12 Toques – 3ª edição, documento em PDF com as classificações finais de 1989 a 2025, de onde vêm todos os dados e a foto desta página. Está disponível na página de documentos históricos da CBFM (Confederação Brasileira de Futebol de Mesa).\nPlanilha Excel com a base completa: classificação de todas as edições, campeonatos, verificações de qualidade e dicionário das colunas.\nBase de dados estruturada e código de extração: as regras de leitura do PDF, as correções manuais e as verificações de qualidade.\nPadronização dos nomes dos botonistas e dos clubes (de-para).\n\n\nhtml`&lt;p class=\"fm-nota\"&gt;Dados atualizados em ${new Date(dados.gerado_em + \"T12:00:00\").toLocaleDateString(\"pt-BR\")}.&lt;/p&gt;`"
   },
   {
     "objectID": "futmesa.html",
