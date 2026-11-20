@@ -46,7 +46,7 @@ Para incluir uma nova edição do campeonato, use a skill `atualizar-futmesa` (`
 ## Objetivo
 
 Nova seção **Futmesa** no site (não é um post do blog), sobre o histórico do Campeonato Brasileiro
-Individual de Futebol de Mesa (12 Toques), 1989–2025. Público: os próprios botonistas.
+Individual de Futebol de Mesa (12 Toques), 1989–2026. Público: os próprios botonistas.
 
 1. **Landing page da análise histórica**: como o esporte se comportou ao longo dos anos
    (participantes por ano, categoria e estado; campeões; divisões; clubes).
@@ -61,11 +61,13 @@ Individual de Futebol de Mesa (12 Toques), 1989–2025. Público: os próprios b
 
 Vêm do repositório `futmesa-brasileirao` (pasta `saida/`); o site só consome, nunca corrige dados.
 
-- `classificacao.parquet`: 1 linha por botonista × ano × categoria × divisão (5.102 linhas).
+- `classificacao.parquet`: 1 linha por botonista × ano × categoria × divisão (5.348 linhas, 36 edições).
   Colunas principais: `ano`, `edicao`, `cidade_campeonato`, `uf_campeonato`, `categoria`, `divisao`,
-  `divisao_nivel` (1 = principal), `posicao`, `id_botonista`, `botonista_padronizado`, `botonista`
+  `divisao_nivel` (1 = principal), `posicao` (dentro da divisão), `posicao_geral` (na categoria, empilhando as
+  divisões), `id_botonista`, `botonista_padronizado`, `botonista`
   (como impresso), `clube_padronizado`, `uf_botonista`, `wo`, `jogos`, `vitorias`, `empates`,
-  `derrotas`, `gols_pro`, `gols_contra`, `saldo_gols`, `pontos`, `observacao`.
+  `derrotas`, `gols_pro`, `gols_contra`, `saldo_gols`, `pontos`, `observacao`, `arquivo_fonte`.
+  Estrangeiros têm a sigla do país + `*` em `uf_botonista` (`HU*`, `JP*`).
 - `botonistas.parquet`: 1 linha por pessoa (`id_botonista`, nome, UFs, período, nº de campeonatos).
 - `campeonatos.parquet`: 1 linha por edição (sede, local, datas, participantes informados).
 - De-para: `dados/depara_botonistas.csv` e `dados/depara_clubes.csv` do mesmo repositório.

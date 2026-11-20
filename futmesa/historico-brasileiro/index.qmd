@@ -1,7 +1,8 @@
 ---
 title: "A história do Campeonato Brasileiro em números"
-description: "Participantes, gols, campeões e estados nas 35 edições do Campeonato Brasileiro Individual de Futebol de Mesa (12 Toques), de 1989 a 2025."
+description: "Participantes, gols, campeões e estados nas 36 edições do Campeonato Brasileiro Individual de Futebol de Mesa (12 Toques), de 1989 a 2026."
 date: 2026-11-15
+date-modified: 2026-11-19
 categories: [Campeonato Brasileiro, 12 Toques, Histórico]
 image: thumbnail.png
 toc-title: "Nesta página"
@@ -133,8 +134,8 @@ notaEmpate = (r, unidade) => r.empatadosFora
 ```
 
 Em **1989**, 93 botonistas se reuniram em São Paulo para o primeiro Campeonato Brasileiro Individual
-de Futebol de Mesa na regra 12 Toques. Desde então foram **35 edições** (só não houve campeonato em 2020
-e 2021, por causa da pandemia). Esta página mostra como o campeonato mudou ao longo desses anos: quantos jogam,
+de Futebol de Mesa na regra 12 Toques. Desde então foram **36 edições** (só não houve campeonato em 2020
+e 2021, por causa da pandemia); a mais recente foi a de 2026, em Campinas (SP). Esta página mostra como o campeonato mudou ao longo desses anos: quantos jogam,
 quantos gols saem, quem aparece mais, quem ganhou e de onde vêm os botonistas.
 
 ![Mesas montadas no ginásio durante o Campeonato Brasileiro de 2011, em Poços de Caldas (MG). Foto: *História do Campeonato Brasileiro 12 Toques* (CBFM).](brasileiro-ginasio.jpg){fig-alt="Dezenas de mesas de futebol de mesa montadas na quadra de um ginásio, com botonistas jogando."}
@@ -153,7 +154,7 @@ viewof categoria = Inputs.radio(["Todas", "Adulto", "Master", "Sub-18", "Sub-15"
   const maxTitulos = d3.max(titulosPorBotonista, (d) => d.n);
   const maiores = titulosPorBotonista.filter((d) => d.n === maxTitulos).map((d) => d.nome);
   const anos = new Set(linhasCat.map((d) => d.ano));
-  const ufs = new Set(linhasCat.map((d) => d.uf).filter((d) => d));
+  const ufs = new Set(linhasCat.map((d) => d.uf).filter((d) => d && !d.endsWith("*")));
   const kpi = (valor, rotulo, detalhe = "") => html`<div class="fm-kpi">
     <div class="fm-kpi-valor">${valor}</div><div class="fm-kpi-rotulo">${rotulo}</div><div class="fm-kpi-detalhe">${detalhe}</div></div>`;
   return html`<div class="fm-kpis">
@@ -520,7 +521,9 @@ ${sedes.filter((d) => d.n === 1).map((d) => `${d.cidade}, em ${d.anos[0]}`).join
   o nome é impresso de formas diferentes ou ela muda de estado. A identificação é automática e pode ter erros, principalmente entre homônimos.
 - “Estado que defendia no ano” é a UF impressa na classificação daquela edição. “Estado de origem” é a UF da primeira participação
   do botonista no Brasileiro — o histórico não informa o estado de nascimento.
-- 70 linhas não têm UF no histórico (por exemplo em 1997 e em tabelas de base de 2002) e entram em “Outros”.
+- 69 linhas não têm UF no histórico (por exemplo em 1997 e em tabelas de base de 2002) e entram em “Outros”.
+- Atletas estrangeiros aparecem com a sigla do país seguida de \* (HU\*, Hungria; JP\*, Japão): entram em “Outros” e não contam
+  como estado representado.
 
 Encontrou algo errado? [Avise por aqui](https://github.com/guilhermeparreira/futmesa-brasileirao/issues/new?template=inconsistencia.yml){target="_blank"}
 ou deixe um comentário no fim da página — as correções são feitas na base de dados e aparecem aqui na atualização seguinte.
@@ -528,8 +531,10 @@ ou deixe um comentário no fim da página — as correções são feitas na base
 ## Referências
 
 - *História do Campeonato Brasileiro 12 Toques – 3ª edição*, documento em PDF com as classificações finais de 1989 a 2025, de onde
-  vêm todos os dados e a foto desta página. Está disponível na página de
+  vêm os dados desses anos e a foto desta página. Está disponível na página de
   [documentos históricos da CBFM](https://www.cbfm.com.br/documentos-historicos/){target="_blank"} (Confederação Brasileira de Futebol de Mesa).
+- Tabelas oficiais de classificação final do Campeonato Brasileiro de 2026 (uma por categoria: Adulto, Master e Sub-18),
+  de onde vêm os dados de 2026.
 - [Planilha Excel com a base completa](https://github.com/guilhermeparreira/futmesa-brasileirao/raw/main/saida/campeonato_brasileiro_12_toques.xlsx):
   classificação de todas as edições, campeonatos, verificações de qualidade e dicionário das colunas.
 - [Base de dados estruturada e código de extração](https://github.com/guilhermeparreira/futmesa-brasileirao){target="_blank"}:
