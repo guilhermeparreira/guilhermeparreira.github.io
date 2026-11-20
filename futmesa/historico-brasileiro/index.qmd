@@ -533,8 +533,9 @@ ou deixe um comentário no fim da página — as correções são feitas na base
 - *História do Campeonato Brasileiro 12 Toques – 3ª edição*, documento em PDF com as classificações finais de 1989 a 2025, de onde
   vêm os dados desses anos e a foto desta página. Está disponível na página de
   [documentos históricos da CBFM](https://www.cbfm.com.br/documentos-historicos/){target="_blank"} (Confederação Brasileira de Futebol de Mesa).
-- Tabelas oficiais de classificação final do Campeonato Brasileiro de 2026 (uma por categoria: Adulto, Master e Sub-18),
-  de onde vêm os dados de 2026.
+- Tabelas oficiais do Campeonato Brasileiro de 2026 (uma por categoria: Adulto, Master e Sub-18), de onde vêm os dados
+  de 2026 (classificação final). Estão na página de
+  [documentos oficiais da CBFM](https://www.cbfm.com.br/documentos-oficiais/){target="_blank"}, em *12 Toques → Tabela*.
 - [Planilha Excel com a base completa](https://github.com/guilhermeparreira/futmesa-brasileirao/raw/main/saida/campeonato_brasileiro_12_toques.xlsx):
   classificação de todas as edições, campeonatos, verificações de qualidade e dicionário das colunas.
 - [Base de dados estruturada e código de extração](https://github.com/guilhermeparreira/futmesa-brasileirao){target="_blank"}:
